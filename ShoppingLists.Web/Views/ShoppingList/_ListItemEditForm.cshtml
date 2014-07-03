@@ -1,0 +1,38 @@
+﻿@* Add/change list item popup form *@
+<div class="modal fade" id="ListItemEditForm" tabindex="-1" role="dialog" aria-labelledby="ListItemEditFormLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="ListItemEditFormLabel" data-bind="text: formTitle"></h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">Description</span>
+                        <input type="text" class="form-control" data-bind="value: description, valueUpdate: 'afterkeydown', css: { 'input-validation-error': descriptionErrorOn }" />@* valueUpdate: 'afterkeydown' fixes problem where observables weren't updating in IE. *@
+                    </div>
+                    <div class="input-group" data-bind="visible: descriptionErrorOn">
+                        <span class="field-validation-error" data-bind="validationMessage: description"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">Quantity</span>
+                        <input type="text" class="form-control" data-bind="value: quantity, valueUpdate: 'afterkeydown', css: { 'input-validation-error': quantityErrorOn }" />
+                    </div>
+                    <div class="input-group" data-bind="visible: quantityErrorOn">
+                        <span class="field-validation-error" data-bind="validationMessage: quantity"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bind="click: commit">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

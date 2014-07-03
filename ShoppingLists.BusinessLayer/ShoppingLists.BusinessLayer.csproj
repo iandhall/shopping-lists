@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ABB0372D-ED7D-42A1-8E94-AFC6430032D1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ShoppingLists.BusinessLayer</RootNamespace>
+    <AssemblyName>ShoppingLists.BusinessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LightInject, Version=3.0.1.7, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\LightInject.3.0.1.7\lib\net45\LightInject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessCompositionRoot.cs" />
+    <Compile Include="BusinessStartup.cs" />
+    <Compile Include="Timestamper.cs" />
+    <Compile Include="Exceptions\UnexpectedUserIdException.cs" />
+    <Compile Include="Exceptions\ScriptInjectionException.cs" />
+    <Compile Include="Exceptions\OutOfRangeException.cs" />
+    <Compile Include="Exceptions\ListItemAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\PermissionAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\ShareWithYourselfException.cs" />
+    <Compile Include="Exceptions\ShareWithListCreatorException.cs" />
+    <Compile Include="Exceptions\ShoppingListTitleDuplicateException.cs" />
+    <Compile Include="Exceptions\EmptyStringException.cs" />
+    <Compile Include="Exceptions\NoEntitiesFoundException.cs" />
+    <Compile Include="Exceptions\UserNotFoundException.cs" />
+    <Compile Include="Exceptions\PermissionNotFoundException.cs" />
+    <Compile Include="Exceptions\NotRelatedException.cs" />
+    <Compile Include="PermissionTypesService.cs" />
+    <Compile Include="ListItemService.cs" />
+    <Compile Include="ShoppingListPermissionHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="Exceptions\ServiceValidationException.cs" />
+    <Compile Include="UserService.cs" />
+    <Compile Include="ShoppingListService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShoppingLists.Core\ShoppingLists.Core.csproj">
+      <Project>{35a2a628-2a06-4eb3-9099-e42435b176e3}</Project>
+      <Name>ShoppingLists.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogForMe\LogForMe.csproj">
+      <Project>{56482f5b-7392-4894-9fcd-bfc32e6dfa30}</Project>
+      <Name>LogForMe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShoppingLists.DataAccessLayer\ShoppingLists.DataAccessLayer.csproj">
+      <Project>{67bea5b3-f1f3-48c6-817c-9ba85a869175}</Project>
+      <Name>ShoppingLists.DataAccessLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,73 @@
+﻿@model ShoppingLists.Web.Models.MyShoppingListsModel
+
+@{
+    ViewBag.Title = "My Lists";
+}
+
+<p></p>
+<div class="btn-group">
+    <button type="button" class="btn btn-primary" title="Create new shopping list." data-bind="click: createNewList">Create New List</button>
+</div>
+
+<p><h3>My Lists</h3></p>
+<i data-bind="visible: MyLists().length === 0">None at the moment.</i>
+<table class="table">
+    <tbody data-bind="foreach: MyLists">
+        <tr>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" data-bind="text: Title, click: function () { $parent.showList($data); }, attr: { title: getShowListTooltip }"></button>
+                </div>
+            </td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-primary" data-bind="click: function () { $parent.deleteList($data); }, attr: { title: getDeleteListTooltip }">Delete</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p><h3>Shared With Me</h3></p>
+<i data-bind="visible: ListsSharedWithMe().length === 0">None at the moment.</i>
+<table class="table">
+    <tbody data-bind="foreach: ListsSharedWithMe">
+        <tr>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" data-bind="text: getCaption, click: function () { $parent.showList($data); }, attr: { title: getShowListTooltip }"></button>
+                </div>
+            </td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-primary" data-bind="click: function () { $parent.ignoreList($data); }, attr: { title: getIgnoreListTooltip }">Ignore</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/ajaxhelper")
+    @Scripts.Render("~/bundles/shoppinglistindex")
+    <script type="text/javascript">
+        "use strict";
+
+        (function () {
+            $(function () {
+                @Html.RenderServiceExceptionsJs()
+
+                var urls = {
+                    create: "@Url.Action("Create")",
+                    show: "@Url.Action("Show")/",
+                    deleteAction: "@Url.Action("Delete")",
+                    ignore: "@Url.Action("Ignore")",
+                };
+
+                var myShoppingListsModel = new MyShoppingListsModel(@Html.Raw(Json.Encode(Model)), urls);
+            });
+        }());
+    </script>
+}

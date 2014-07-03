@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="845986f0-32fe-4910-9f2a-f113db9aeb78" ChangeDateTime="06/28/2014 16:43:30">
+    <Property Name="ElementName" Value="[dbo].[ListItems].[ShoppingListId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ListItems]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ShoppingList_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2ec4a89f-b951-4f7a-aab6-ab419f4c4c30" ChangeDateTime="06/28/2014 16:43:36">
+    <Property Name="ElementName" Value="[dbo].[ListItems].[StatusId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ListItems]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Status_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="44ae699f-f952-4f35-8363-f2c2c07cda0c" ChangeDateTime="06/28/2014 16:43:50">
+    <Property Name="ElementName" Value="[dbo].[ShoppingListPermissions].[ShoppingListId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingListPermissions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ShoppingList_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f9168e87-41a5-4b60-b2f9-fd384611f49f" ChangeDateTime="06/28/2014 16:43:55">
+    <Property Name="ElementName" Value="[dbo].[ShoppingListPermissions].[CreatedByUserId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingListPermissions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CreatedByUser_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="48990c59-fbf8-48f2-9cb6-cede7148a9e7" ChangeDateTime="06/28/2014 16:44:04">
+    <Property Name="ElementName" Value="[dbo].[ShoppingListPermissions].[ModifiedByUserId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingListPermissions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ModifiedByUser_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7a87a208-72c0-43e0-b299-98c09a67f1ed" ChangeDateTime="06/28/2014 16:44:13">
+    <Property Name="ElementName" Value="[dbo].[ShoppingListPermissions].[PermissionId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingListPermissions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PermissionType_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8ddbef05-f493-4f65-95c3-00bd0393ac20" ChangeDateTime="06/28/2014 16:54:40">
+    <Property Name="ElementName" Value="[dbo].[ShoppingLists].[CreatedByUserId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingLists]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Creator_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9a54f09c-21aa-4a39-a626-c3f96ba9241f" ChangeDateTime="06/28/2014 16:54:55">
+    <Property Name="ElementName" Value="[dbo].[ShoppingLists].[ModifiedByUserId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingLists]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Amender_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7c1dca89-bc30-4225-a36d-a9d270ca61a7" ChangeDateTime="06/28/2014 16:55:05">
+    <Property Name="ElementName" Value="[dbo].[ShoppingLists].[ModifiedDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingLists]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AmendedDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ce8137b7-0876-4382-ae4c-89b5c59ee961" ChangeDateTime="06/28/2014 16:55:23">
+    <Property Name="ElementName" Value="[dbo].[ShoppingListPermissions].[CreatedByUser_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingListPermissions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Creator_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8d5a5efd-272b-4f52-8466-945863fdad8a" ChangeDateTime="06/28/2014 16:55:29">
+    <Property Name="ElementName" Value="[dbo].[ShoppingListPermissions].[ModifiedByUser_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingListPermissions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Amender_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3c35023f-4b3f-4b07-a8ae-8c7a4f298fec" ChangeDateTime="06/28/2014 16:55:37">
+    <Property Name="ElementName" Value="[dbo].[ShoppingListPermissions].[ModifiedDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingListPermissions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AmendedDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e8680820-9178-43fe-b1eb-71cd16d4d71f" ChangeDateTime="06/28/2014 16:55:56">
+    <Property Name="ElementName" Value="[dbo].[ListItems].[CreatedByUserId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ListItems]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Creator_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="24901ad5-05b0-42eb-93d5-ba275feb63eb" ChangeDateTime="06/28/2014 16:56:07">
+    <Property Name="ElementName" Value="[dbo].[ListItems].[ModifiedByUserId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ListItems]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Amender_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e8b7171e-abd3-4b21-a6cd-43cd4e952b0c" ChangeDateTime="06/28/2014 16:56:13">
+    <Property Name="ElementName" Value="[dbo].[ListItems].[ModifiedDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ListItems]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AmendedDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cac898c9-d508-48ac-9812-8e6fe5b4a0e1" ChangeDateTime="06/28/2014 17:46:40">
+    <Property Name="ElementName" Value="[dbo].[ShoppingListPermissions].[UserId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingListPermissions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="User_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a5caf391-c5b7-477b-b94e-385e91c7a179" ChangeDateTime="06/29/2014 13:11:52">
+    <Property Name="ElementName" Value="[dbo].[ListItems].[ShoppingList_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ListItems]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ShoppingListId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="49bb887b-5cc7-46ca-8dd5-6fe936e4e99a" ChangeDateTime="06/29/2014 13:13:28">
+    <Property Name="ElementName" Value="[dbo].[ListItems].[Status_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ListItems]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="StatusId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="20f28d0e-4d95-4435-9f6a-cc104e518e0a" ChangeDateTime="06/29/2014 13:13:31">
+    <Property Name="ElementName" Value="[dbo].[ListItems].[Creator_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ListItems]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CreatorId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d7fec463-da4a-45cf-9ee9-054d7c8d64fb" ChangeDateTime="06/29/2014 13:13:34">
+    <Property Name="ElementName" Value="[dbo].[ListItems].[Amender_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ListItems]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AmenderId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e2fe399e-c934-4f14-8731-661ef9cbb461" ChangeDateTime="06/29/2014 13:13:50">
+    <Property Name="ElementName" Value="[dbo].[ShoppingListPermissions].[PermissionType_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingListPermissions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PermissionTypeId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="37405eb2-6d54-4ff1-8c5f-68493b6cfdfb" ChangeDateTime="06/29/2014 13:13:52">
+    <Property Name="ElementName" Value="[dbo].[ShoppingListPermissions].[User_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingListPermissions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e10b85d7-d59a-4b65-95de-0c5883eaa5f7" ChangeDateTime="06/29/2014 13:13:54">
+    <Property Name="ElementName" Value="[dbo].[ShoppingListPermissions].[ShoppingList_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingListPermissions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ShoppingListId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9354f2e9-0dcb-4281-9d41-5ebd823987c8" ChangeDateTime="06/29/2014 13:13:56">
+    <Property Name="ElementName" Value="[dbo].[ShoppingListPermissions].[Creator_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingListPermissions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CreatorId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6a3e767c-83d9-4138-bfd7-21cb076cda2f" ChangeDateTime="06/29/2014 13:13:59">
+    <Property Name="ElementName" Value="[dbo].[ShoppingListPermissions].[Amender_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingListPermissions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AmenderId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7627af10-8215-4dff-a826-886d5bcb8df5" ChangeDateTime="06/29/2014 13:14:03">
+    <Property Name="ElementName" Value="[dbo].[ShoppingLists].[Creator_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingLists]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CreatorId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="749de826-ae40-4219-ae0c-8f2e3cff2dfe" ChangeDateTime="06/29/2014 13:14:07">
+    <Property Name="ElementName" Value="[dbo].[ShoppingLists].[Amender_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShoppingLists]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AmenderId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="84bc6323-d962-4998-a213-c548885c12de" ChangeDateTime="06/29/2014 15:02:36">
+    <Property Name="ElementName" Value="[dbo].[Users].[UserName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Username" />
+  </Operation>
+</Operations>

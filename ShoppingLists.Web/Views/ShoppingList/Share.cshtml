@@ -1,0 +1,76 @@
+﻿@model ShoppingLists.Web.Models.ShoppingListSharingModel
+
+@{
+    ViewBag.Title = "Share " + Model.Title;
+}
+
+<div id="SharingModelRoot">
+    @* Knockout bindings applied to all within this. *@
+
+    @* Sharing users list *@
+    <p><h3 data-bind="text: getHeading"></h3></p>
+    <i data-bind="visible: Users().length === 0">Nobody at the moment.</i>
+    <table class="table">
+        <tbody data-bind="foreach: Users">
+            <tr>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-bind="text: UserName, click: function () { $parent.editUserPermissions($data); }, attr: { title: getShareWithUserTooltip }"></button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-primary" data-bind="click: function () { $parent.removeUser($data); }, attr: { title: getRemoveUserTooltip }">Remove</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    @* Add User button. *@
+    <p></p>
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary" title="Add user to share this shopping list." data-bind="click: shareWithUser">Add User</button>
+    </div>
+
+    <hr />
+
+    @* Back to Shopping List button. *@
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary" title="Back to Shopping List." data-bind="click: backToList">Back to Shopping List</button>
+    </div>
+
+    @* Back to 'My lists' button. *@
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary" title="Back to My Lists." data-bind="click: backToMyLists">Back to My Lists</button>
+    </div>
+</div>
+
+@Html.Partial("_UserPermissionsEditForm")
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/ajaxhelper")
+    @Scripts.Render("~/bundles/shoppinglistshare")
+    <script type="text/javascript">
+        "use strict";
+
+        (function () {
+            $(function () {
+                @Html.RenderServiceExceptionsJs()
+
+                var urls = {
+                    shareWithUser: "@Url.Action("ShareWithUser")",
+                    show: "@Url.Action("Show")/",
+                    index: "@Url.Action("Index")",
+                    removeSharingUser: "@Url.Action("RemoveSharingUser")",
+                    setPermissionsForUser: "@Url.Action("SetPermissionsForUser")",
+                    getPermissionsForUser: "@Url.Action("GetPermissionsForUser")"
+                };
+
+                var sharingModel = new SharingModel(@Html.Raw(Json.Encode(Model)), urls, serviceExceptions);
+            });
+        }());
+    </script>
+}

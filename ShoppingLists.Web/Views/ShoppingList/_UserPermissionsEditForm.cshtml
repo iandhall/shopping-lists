@@ -1,0 +1,25 @@
+﻿@* Edit user permissions popup form *@
+<div class="modal fade" id="UserPermissionsEditForm" tabindex="-1" role="dialog" aria-labelledby="UserPermissionsEditFormLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="UserPermissionsEditFormLabel" data-bind="text: formTitle"></h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group" data-bind="foreach: permissionModels">
+                    <div class="checkbox">
+                        <input type="checkbox" name="PermissionCheckboxes" data-bind="value: PermissionTypeId, checked: Selected" />
+                        <label data-bind="text: Description" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bind="click: commit">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
