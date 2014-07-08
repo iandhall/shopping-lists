@@ -107,6 +107,31 @@ namespace ShoppingLists.Tests.Services
             Assert.AreEqual(2, shoppingList.ListItems.Count());
         }
 
+        [TestMethod]
+        public void TestCreateShouldAssignNextUniqueTitle()
+        {
+            var mockShoppingListRepository = new Mock<IShoppingListRepository>(MockBehavior.Strict);
+            mockShoppingListRepository.Setup(slr => slr.FindByPartialTitleMatch("Shopping List #", userIds[0])).Returns(
+                new List<ShoppingList>()
+                {
+                    new ShoppingList { Id = 1231, Title = "Shopping List #Z", CreatorId = userIds[0], CreatedDate = DateTime.Now },
+                    new ShoppingList { Id = 1231, Title = "Shopping List #A", CreatorId = userIds[0], CreatedDate = DateTime.Now },
+                    new ShoppingList { Id = 1231, Title = "Shopping List #3", CreatorId = userIds[0], CreatedDate = DateTime.Now },
+                    new ShoppingList { Id = 1232, Title = "Shopping List #2", CreatorId = userIds[0], CreatedDate = DateTime.Now },
+                    new ShoppingList { Id = 1233, Title = "Shopping List #1", CreatorId = userIds[0], CreatedDate = DateTime.Now },
+                    new ShoppingList { Id = 1233, Title = "Shopping List #0", CreatorId = userIds[0], CreatedDate = DateTime.Now },
+                    new ShoppingList { Id = 1233, Title = "Shopping List #10", CreatorId = userIds[0], CreatedDate = DateTime.Now }
+                }
+            );
+            container.StartMocking<IShoppingListRepository>(() => mockShoppingListRepository.Object);
+            var mockShoppingListPermissionRepository = new Mock<IShoppingListPermissionRepository>();
+            container.StartMocking<IShoppingListPermissionRepository>(() => mockShoppingListPermissionRepository.Object);
+            service = container.GetInstance<ShoppingListService>();
+
+            var shoppingList = service.Create(userIds[0]);
+            Assert.AreEqual("Shopping List #11", shoppingList.Title);
+        }
+
         [TestMethod, ExpectedException(typeof(EntityNotFoundException))]
         public void TestGetEntityNotFound()
         {

@@ -12,6 +12,8 @@ begin
 
 	declare @username0 nvarchar(max) = (select Username from Users where Id = @userId0);
 	declare @username1 nvarchar(max) = (select Username from Users where Id = @userId1);
+	declare @username2 nvarchar(max) = (select Username from Users where Id = @userId2);
+	declare @username3 nvarchar(max) = (select Username from Users where Id = @userId3);
 end
 
 begin
@@ -56,9 +58,17 @@ begin
 end
 
 insert into ShoppingLists(Title, CreatorId, CreatedDate) values
+	('SlRepo - Many per user a', @userId1, SYSDATETIME()),
 	('SlRepo - Many per user 1', @userId1, SYSDATETIME()),
 	('SlRepo - Many per user 2', @userId2, SYSDATETIME()),
-	('SlRepo - Many per user 3', @userId1, SYSDATETIME());
+	('SlRepo - Many per users', @userId1, SYSDATETIME()),
+	('SlRepo - Many per user user', @userId1, SYSDATETIME()),
+	('SlRepo - Many per user 10', @userId1, SYSDATETIME());
+
+insert into ShoppingLists(Title, CreatorId, CreatedDate) values
+	('SlRepo - FindAllForUser3#1', @userId3, SYSDATETIME()),
+	('SlRepo - FindAllForUser3#2', @userId3, SYSDATETIME()),
+	('SlRepo - FindAllForUser3#3', @userId3, SYSDATETIME());
 
 select
 	@userId0 userId0,
@@ -67,6 +77,8 @@ select
 	@userId3 userId3,
 	@username0 username0,
 	@username1 username1,
+	@username2 username2,
+	@username3 username3,
 	@shoppingListGetId shoppingListGetId,
 	@shoppingListUpdateId shoppingListUpdateId,
 	@shoppingListDeleteId shoppingListDeleteId;

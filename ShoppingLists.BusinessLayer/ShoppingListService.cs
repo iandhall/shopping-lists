@@ -64,16 +64,13 @@ namespace ShoppingLists.BusinessLayer
         private string GetNewListTitle(string userId)
         {
             const string defaultTitle = "Shopping List #";
-            var shoppingList = repository.FindByPartialTitleMatch(defaultTitle, userId).FirstOrDefault();
-            if (shoppingList == null)
-            {
-                return defaultTitle + "1";
-            }
-            int lastNum;
-            if (!int.TryParse(shoppingList.Title.Split('#').Last(), out lastNum))
-            {
-                return defaultTitle + "1";
-            }
+            int dummy;
+            int lastNum = repository.FindByPartialTitleMatch(defaultTitle, userId)
+                .Select(sl => sl.Title.Split('#').Last())
+                .OrderByDescending(n => n, new NumericStringComparer())
+                .Where(n => int.TryParse(n, out dummy))
+                .Select(n => int.Parse(n))
+                .FirstOrDefault();
             return defaultTitle + ++lastNum;
         }
 

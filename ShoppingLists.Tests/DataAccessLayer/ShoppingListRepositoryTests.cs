@@ -73,11 +73,9 @@ namespace ShoppingLists.Tests.DataAccess
         [TestMethod]
         public void TestFindAllForUser()
         {
-            var shoppingLists = repository.FindAllForUser(td.userId1);
+            var shoppingLists = repository.FindAllForUser(td.userId3);
             Assert.AreEqual(3, shoppingLists.Count());
-            Assert.AreEqual(td.username1, shoppingLists.First().Creator.Username);
-            shoppingLists = repository.FindAllForUser(td.userId2);
-            Assert.AreEqual(2, shoppingLists.Count());
+            Assert.AreEqual(td.username3, shoppingLists.First().Creator.Username);
             uow.Complete();
         }
 
@@ -131,11 +129,15 @@ namespace ShoppingLists.Tests.DataAccess
         [TestMethod]
         public void TestFindByPartialTitleMatch()
         {
-            var shoppingLists = repository.FindByPartialTitleMatch("SlRepo - Many per user ", td.userId1);
-            Assert.AreEqual("SlRepo - Many per user 3", shoppingLists.First().Title);
-            Assert.AreEqual("SlRepo - Many per user 1", shoppingLists.Last().Title);
+            var shoppingLists = repository.FindByPartialTitleMatch("SlRepo - Many per user ", td.userId1).ToList();
+            int i = 0;
+            Assert.AreEqual("SlRepo - Many per user a", shoppingLists[i++].Title);
+            Assert.AreEqual("SlRepo - Many per user 1", shoppingLists[i++].Title);
+            Assert.AreEqual("SlRepo - Many per user user", shoppingLists[i++].Title);
+            Assert.AreEqual("SlRepo - Many per user 10", shoppingLists[i++].Title);
+            Assert.AreEqual(i, shoppingLists.Count);
         }
-        
+
         [TestMethod]
         public void TestGetByTitle()
         {
@@ -159,6 +161,8 @@ namespace ShoppingLists.Tests.DataAccess
         public string userId3 { get; set; }
         public string username0 { get; set; }
         public string username1 { get; set; }
+        public string username2 { get; set; }
+        public string username3 { get; set; }
         public long shoppingListGetId { get; set; }
         public long shoppingListUpdateId { get; set; }
         public long shoppingListDeleteId { get; set; }

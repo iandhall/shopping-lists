@@ -80,6 +80,7 @@
     <Compile Include="DataAccessLayer\ListItemRepositoryTests.cs" />
     <Compile Include="DataAccessLayer\ShoppingListPermissionRepositoryTests.cs" />
     <Compile Include="DataAccessLayer\UserRepositoryTests.cs" />
+    <Compile Include="DataAccessLayer\NumericStringComparerTests.cs" />
     <Compile Include="TestsStartup.cs" />
     <Compile Include="TestUtils.cs" />
     <Compile Include="DataAccessLayer\EfUnitOfWorkTests.cs" />
