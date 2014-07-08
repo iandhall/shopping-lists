@@ -17,97 +17,136 @@ namespace ShoppingLists.Tests.Services
     [TestClass]
     public class ShoppingListServiceTests
     {
-        private IUnitOfWork uow;
         private ShoppingListService service;
-        private static long getId;
-        private static long ignoreId;
-        private static long noPermissionsId;
-        private ShoppingList shoppingList;
         private static ServiceContainer container;
         private Scope scope;
+
+        public const int shoppingListGetId = 123999;
+        public const int shoppingListNotExistingId = 999999;
+
+        public static List<string> userIds = new List<string>() {
+            "cfbf134b-705e-4cde-947b-d1c5d6c32062", "e6db5c8b-9793-4a2e-8d11-eccf177af70e", "6dfd3e83-0000-421a-b104-216d4b208ef3", "9zfd3e83-0000-421a-b104-216d4b208ez9" 
+        };
 
         [ClassInitialize]
         public static void Init(TestContext testContext)
         {
-            getId = 123999;
-            new ShoppingList
-            {
-                Id = getId, Title = "Test list to get", CreatedByUserId = TestData.testUserIds[0], CreatedDate = DateTime.Now,
-                ListItems = new List<ListItem>()
-                {
-                    new ListItem { Description = "Test list item 1", ShoppingListId = getId, CreatedByUserId = TestData.testUserIds[0], CreatedDate = DateTime.Now },
-                    new ListItem { Description = "Test list item 2", ShoppingListId = getId, CreatedByUserId = TestData.testUserIds[0], CreatedDate = DateTime.Now },
-                    new ListItem { Description = "Test list item 3 to ingore", ShoppingListId = ignoreId, CreatedByUserId = TestData.testUserIds[0], CreatedDate = DateTime.Now }
-                }
-            };
-
-            // Orphaned EntityPermission (without ShoppingList).
-            TestData.Add(new EntityPermission() { PermissionId = Permissions.View, EntityName = "ShoppingList", EntityId = 999, UserId = TestData.testUserIds[0], CreatedByUserId = TestData.testUserIds[0], CreatedDate = DateTime.Now }, con);
-
-            ignoreId = TestData.Add(new ShoppingList { Title = "Test list to ignore", CreatedByUserId = TestData.testUserIds[0], CreatedDate = DateTime.Now }, con);
-            noPermissionsId = TestData.Add(new ShoppingList { Title = "Test without permissions", CreatedByUserId = TestData.testUserIds[0], CreatedDate = DateTime.Now }, con, false);
-
             // Init DI.
             container = TestUtils.GetDiContainer();
-
-            var mockUnitOfWork = new Mock<IUnitOfWork>();
-            //var mockShoppingListRepository = new Mock<IShoppingListRepository>();
-            IShoppingListRepository mockShoppingListRepository = Mock.Of<IShoppingListRepository>(slr => slr.Get = 
-
-
-            var mockListItemRepository = new Mock<IListItemRepository>();
-            var mockCrudRepositoryShoppingList = new Mock<ICrudRepository<ShoppingList>>();
-            var mockUserRepository = new Mock<IUserRepository>();
-            var mockShoppingListPermissionRepository = new Mock<IShoppingListPermissionRepository>();
-            var mockCrudRepositoryShoppingListPermission = new Mock<ICrudRepository<ShoppingListPermission>>();
-
-            container.StartMocking<IShoppingListRepository>(() => mockShoppingListRepository.Object);
         }
 
         [ClassCleanup]
-        public void Cleanup()
+        public static void Cleanup()
         {
-            container.EndMocking<IUnitOfWork>();
-            container.EndMocking<IShoppingListRepository>();
-            container.EndMocking<IListItemRepository>();
-            container.EndMocking<ICrudRepository<ShoppingList>>();
-            container.EndMocking<IUserRepository>();
-            container.EndMocking<IShoppingListPermissionRepository>();
-            container.EndMocking<ICrudRepository<ShoppingListPermission>>();
         }
 
         [TestInitialize]
         public void BeforeEachTest()
         {
+            container.StartMocking<IUnitOfWork>(() => Mock.Of<IUnitOfWork>());
+            container.StartMocking<IListItemRepository>(() => Mock.Of<IListItemRepository>());
+            container.StartMocking<ICrudRepository<ShoppingList>>(() => Mock.Of<ICrudRepository<ShoppingList>>());
+            container.StartMocking<IUserRepository>(() => Mock.Of<IUserRepository>());
+            container.StartMocking<ICrudRepository<ShoppingListPermission>>(() => Mock.Of<ICrudRepository<ShoppingListPermission>>());
+
             scope = container.BeginScope();
-            uow = container.GetInstance<EfUnitOfWork>();
-            service = container.GetInstance<ShoppingListService>();
         }
 
         [TestCleanup]
         public void AfterEachTest()
         {
+            container.EndMocking<IShoppingListRepository>();
+            container.EndMocking<IShoppingListPermissionRepository>();
+            container.EndMocking<IUnitOfWork>();
+            container.EndMocking<IListItemRepository>();
+            container.EndMocking<ICrudRepository<ShoppingList>>();
+            container.EndMocking<IUserRepository>();
+            container.EndMocking<ICrudRepository<ShoppingListPermission>>();
+
             scope.Dispose();
+        }
+
+        [TestMethod]
+        public void TestGetWithoutIncludes()
+        {
+            var mockShoppingListRepository = new Mock<IShoppingListRepository>(MockBehavior.Strict);
+            mockShoppingListRepository.Setup(slr => slr.Get(shoppingListGetId, false, false)).Returns(
+                new ShoppingList
+                {
+                    Id = shoppingListGetId, Title = "Test list to get", CreatorId = userIds[0], CreatedDate = DateTime.Now
+                }
+            );
+            container.StartMocking<IShoppingListRepository>(() => mockShoppingListRepository.Object);
+            CreateMockPermission(Permissions.View, shoppingListGetId, userIds[0]);
+            service = container.GetInstance<ShoppingListService>();
+
+            var shoppingList = service.Get(shoppingListGetId, userIds[0]);
+            Assert.IsNull(shoppingList.ListItems);
         }
 
         [TestMethod]
         public void TestGetIncludeListItems()
         {
-            shoppingList = service.Get(getId, TestData.testUserIds[0], includeListItems: true);
-            uow.Complete();
+            var mockShoppingListRepository = new Mock<IShoppingListRepository>(MockBehavior.Strict);
+            mockShoppingListRepository.Setup(slr => slr.Get(shoppingListGetId, true, false)).Returns(
+                new ShoppingList
+                {
+                    Id = shoppingListGetId, Title = "Test list to get", CreatorId = userIds[0], CreatedDate = DateTime.Now,
+                    ListItems = new List<ListItem>()
+                    {
+                        new ListItem { Description = "Test list item 1", ShoppingListId = shoppingListGetId, CreatorId = userIds[0], CreatedDate = DateTime.Now },
+                        new ListItem { Description = "Test list item 2", ShoppingListId = shoppingListGetId, CreatorId = userIds[0], CreatedDate = DateTime.Now }
+                    }
+                }
+            );
+            container.StartMocking<IShoppingListRepository>(() => mockShoppingListRepository.Object);
+            CreateMockPermission(Permissions.View, shoppingListGetId, userIds[0]);
+            service = container.GetInstance<ShoppingListService>();
+
+            var shoppingList = service.Get(shoppingListGetId, userIds[0], includeListItems: true);
             Assert.AreEqual(2, shoppingList.ListItems.Count());
         }
 
         [TestMethod, ExpectedException(typeof(EntityNotFoundException))]
         public void TestGetEntityNotFound()
         {
-            shoppingList = service.Get(999, TestData.testUserIds[0]); // Should throw EntityNotFoundException.
+            var mockShoppingListRepository = new Mock<IShoppingListRepository>(MockBehavior.Strict);
+            mockShoppingListRepository.Setup(slr => slr.Get(shoppingListNotExistingId, false, false)).Returns<ShoppingList>(null);
+            container.StartMocking<IShoppingListRepository>(() => mockShoppingListRepository.Object);
+            CreateMockPermission(Permissions.View, shoppingListNotExistingId, userIds[0]);
+            service = container.GetInstance<ShoppingListService>();
+
+            var shoppingList = service.Get(shoppingListNotExistingId, userIds[0]); // Should throw EntityNotFoundException.
         }
 
         [TestMethod, ExpectedException(typeof(PermissionNotFoundException))]
         public void TestGetNoPermission()
         {
-            shoppingList = service.Get(noPermissionsId, TestData.testUserIds[0]);
+            var mockShoppingListRepository = new Mock<IShoppingListRepository>(MockBehavior.Strict);
+            mockShoppingListRepository.Setup(slr => slr.Get(shoppingListGetId, false, false)).Returns(
+                new ShoppingList
+                {
+                    Id = shoppingListGetId, Title = "Test list to get", CreatorId = userIds[0], CreatedDate = DateTime.Now
+                }
+            );
+            container.StartMocking<IShoppingListRepository>(() => mockShoppingListRepository.Object);
+            var mockShoppingListPermissionRepository = new Mock<IShoppingListPermissionRepository>();
+            container.StartMocking<IShoppingListPermissionRepository>(() => mockShoppingListPermissionRepository.Object);
+            service = container.GetInstance<ShoppingListService>();
+
+            var shoppingList = service.Get(shoppingListGetId, userIds[0]);
+        }
+
+        private void CreateMockPermission(Permissions permissionTypeId, long shoppingListId, string userId)
+        {
+            var mockShoppingListPermissionRepository = new Mock<IShoppingListPermissionRepository>(MockBehavior.Strict);
+            mockShoppingListPermissionRepository.Setup(slpr => slpr.Get(Permissions.View, userId, shoppingListId)).Returns(
+                new ShoppingListPermission
+                {
+                    Id = 123, PermissionTypeId = permissionTypeId, UserId = userId, ShoppingListId = shoppingListId, CreatorId = userIds[0], CreatedDate = DateTime.Now
+                }
+            );
+            container.StartMocking<IShoppingListPermissionRepository>(() => mockShoppingListPermissionRepository.Object);
         }
     }
 }

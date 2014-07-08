@@ -85,7 +85,7 @@
     <Compile Include="DataAccessLayer\EfUnitOfWorkTests.cs" />
     <Compile Include="DataAccessLayer\ShoppingListRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="BusinessLayer\ShoppingListServiceTests.cs" />
+    <Compile Include="BusinessLayer\ShoppingListServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LogForMe\LogForMe.csproj">
