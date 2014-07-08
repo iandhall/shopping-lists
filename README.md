@@ -61,6 +61,8 @@ LightInject
 
 Visual Studio Testing Tools
 
+Moq
+
 Dapper.NET (Used in unit tests)
 
 Architectural Features
