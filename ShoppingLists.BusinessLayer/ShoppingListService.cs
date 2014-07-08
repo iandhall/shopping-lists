@@ -47,15 +47,7 @@ namespace ShoppingLists.BusinessLayer
 
         public ShoppingList Create(string userId)
         {
-            var shoppingList = new ShoppingList()
-            {
-                Title = GetNewListTitle(userId)/* todo: ,
-                ShoppingListPermissions = new List<ShoppingListPermission>
-                {
-                    new ShoppingListPermission { PermissionTypeId = Permissions.View, UserId = userId },
-                    new ShoppingListPermission { PermissionTypeId = Permissions.Edit, UserId = userId }
-                }*/
-            };
+            var shoppingList = new ShoppingList() { Title = GetNewListTitle(userId) };
             timestamper.Create(shoppingList, userId);
             permissionHelper.Create(userId, Permissions.View, shoppingList.Id);
             permissionHelper.Create(userId, Permissions.Edit, shoppingList.Id);

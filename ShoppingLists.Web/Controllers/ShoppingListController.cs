@@ -63,7 +63,7 @@ namespace ShoppingLists.Web.Controllers
 
         public ActionResult Share(long id)
         {
-            var shoppingList = shoppingListService.Get(id, userId);//, includeUsers: true);
+            var shoppingList = shoppingListService.Get(id, userId);
             var users = userService.GetAllForShoppingList(id);
             var shoppingListSharingModel = new ShoppingListSharingModel(shoppingList, users, userId);
             return View(shoppingListSharingModel);
