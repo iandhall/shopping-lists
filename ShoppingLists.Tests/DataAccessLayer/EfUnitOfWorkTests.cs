@@ -43,7 +43,7 @@ namespace ShoppingLists.Tests.DataAccess
                 }
                 return;
             }
-            Assert.Fail("Expected SimulateFailureWhileInsertingData to throw SimulatedFailureException.");
+            Assert.Fail("Expected SimulateFailureWhileUpdatingData to throw SimulatedFailureException.");
         }
 
         private void SimulateFailureWhileUpdatingData()
