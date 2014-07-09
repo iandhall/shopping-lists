@@ -47,7 +47,7 @@ namespace ShoppingLists.DataAccessLayer
             ).OrderBy(sl => sl.Title).ToList();
         }
 
-        // Returns matches in any order.
+        // Returns matches in no specific order.
         public IEnumerable<ShoppingList> FindByPartialTitleMatch(string partialTitle, string userId) {
             return dbContext.ShoppingLists.Where(sl => sl.CreatorId == userId && SqlFunctions.PatIndex(partialTitle + "%", sl.Title) != 0).ToList();
         }
