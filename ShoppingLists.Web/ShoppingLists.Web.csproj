@@ -179,7 +179,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\LightInjectSignalRDependencyResolver.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.ModelBinders.cs" />
     <Compile Include="App_Start\Startup.Signalr.cs" />
