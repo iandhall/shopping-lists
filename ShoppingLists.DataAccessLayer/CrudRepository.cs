@@ -17,13 +17,12 @@ namespace ShoppingLists.DataAccessLayer
         public virtual TEntity Get(long id)
         {
             return dbContext.Set<TEntity>().Find(id);
-            dbContext.SaveChanges();
         }
 
         public virtual void Create(TEntity entity)
         {
             dbContext.Set<TEntity>().Add(entity);
-            dbContext.SaveChanges(); // SaveChanges here so that entity.Id gets populated with the correct Id.
+            dbContext.SaveChanges(); // SaveChanges here so that entity.Id gets populated with the new Id.
         }
 
         public virtual void Update(TEntity entity)
