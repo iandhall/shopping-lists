@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LogForMe;
 
-namespace ShoppingLists.DataAccessLayer
+namespace ShoppingLists.BusinessLayer
 {
     public class NumericStringComparer : IComparer<string>
     {

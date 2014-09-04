@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShoppingLists.DataAccessLayer;
+using ShoppingLists.BusinessLayer;
 
-namespace ShoppingLists.Tests.DataAccess
+namespace ShoppingLists.Tests.BusinessLayer
 {
     [TestClass]
     public class NumericStringComparerTests
