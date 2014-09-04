@@ -52,7 +52,7 @@ namespace ShoppingLists.DataAccessLayer
             return dbContext.ShoppingLists.Where(sl => sl.CreatorId == userId && SqlFunctions.PatIndex(partialTitle + "%", sl.Title) != 0).ToList();
         }
 
-        public ShoppingList GetByTitle(string title, string userId) {
+        public ShoppingList FindByTitle(string title, string userId) {
             return dbContext.ShoppingLists.FirstOrDefault(sl => sl.CreatorId == userId && sl.Title == title);
         }
     }

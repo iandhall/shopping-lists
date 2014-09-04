@@ -29,7 +29,7 @@ namespace ShoppingLists.DataAccessLayer
             );
         }
 
-        public IEnumerable<ShoppingListPermission> GetAllForUserAndShoppingList(string userId, long shoppingListId)
+        public IEnumerable<ShoppingListPermission> FindAllForUserAndShoppingList(string userId, long shoppingListId)
         {
             return dbContext.ShoppingListPermissions.Where(slp => slp.UserId == userId && slp.ShoppingListId == shoppingListId).ToList();
         }

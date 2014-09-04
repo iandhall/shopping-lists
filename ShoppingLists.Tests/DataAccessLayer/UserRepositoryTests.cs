@@ -119,7 +119,7 @@ namespace ShoppingLists.Tests.DataAccess
         [TestMethod]
         public void TestGetByName()
         {
-            user = repository.GetByName("TestUserRepoUser1");
+            user = repository.FindByName("TestUserRepoUser1");
             uow.Complete();
             Assert.AreEqual(td.userId1, user.Id);
         }
@@ -127,7 +127,7 @@ namespace ShoppingLists.Tests.DataAccess
         [TestMethod]
         public void TestGetByNameShouldReturnNullIfCaseDifferent()
         {
-            user = repository.GetByName("tESTUseRrePOUSeR1");
+            user = repository.FindByName("tESTUseRrePOUSeR1");
             uow.Complete();
             Assert.IsNull(user);
         }
@@ -135,7 +135,7 @@ namespace ShoppingLists.Tests.DataAccess
         [TestMethod]
         public void TestGetAllForShoppingList()
         {
-            var users = repository.GetAllForShoppingList(td.shoppingListGetId);
+            var users = repository.FindAllForShoppingList(td.shoppingListGetId);
             uow.Complete();
             Assert.AreEqual(3, users.Count());
         }

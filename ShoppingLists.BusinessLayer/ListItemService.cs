@@ -37,7 +37,7 @@ namespace ShoppingLists.BusinessLayer
             {
                 throw new OutOfRangeException("quantity", quantity.GetType());
             }
-            if (repository.GetByDescription(description, shoppingListId) != null)
+            if (repository.FindByDescription(description, shoppingListId) != null)
             {
                 throw new ListItemAlreadyExistsException(description, shoppingListId); // Don't allow if a ListItem with the same description already exists.
             }
@@ -108,7 +108,7 @@ namespace ShoppingLists.BusinessLayer
             {
                 throw new NotRelatedException(typeof(ShoppingList), shoppingListId, typeof(ListItem), listItemId); // Don't allow if the ListItem does not belong to the ShoppingList.
             }
-            var existingListItem = repository.GetByDescription(description, shoppingListId);
+            var existingListItem = repository.FindByDescription(description, shoppingListId);
             if (existingListItem != null && existingListItem.Id != listItemId)
             {
                 throw new ListItemAlreadyExistsException(description, shoppingListId); // Don't allow if a ListItem with the same description already exists.

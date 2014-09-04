@@ -141,14 +141,14 @@ namespace ShoppingLists.Tests.DataAccess
         [TestMethod]
         public void TestGetByTitle()
         {
-            var shoppingList = repository.GetByTitle("SlRepo - Many per user 1", td.userId1);
+            var shoppingList = repository.FindByTitle("SlRepo - Many per user 1", td.userId1);
             Assert.AreEqual("SlRepo - Many per user 1", shoppingList.Title);
         }
 
         [TestMethod]
         public void TestGetByTitleShouldNotMatchAnotherUsersShoppingLists()
         {
-            var shoppingList = repository.GetByTitle("SlRepo - Many per user 2", td.userId1);
+            var shoppingList = repository.FindByTitle("SlRepo - Many per user 2", td.userId1);
             Assert.IsNull(shoppingList);
         }
     }

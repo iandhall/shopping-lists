@@ -13,6 +13,6 @@ namespace ShoppingLists.Core.RepositoryInterfaces
 
         IEnumerable<ShoppingList> FindByPartialTitleMatch(string partialTitle, string userId);
 
-        ShoppingList GetByTitle(string title, string userId);
+        ShoppingList FindByTitle(string title, string userId);
     }
 }

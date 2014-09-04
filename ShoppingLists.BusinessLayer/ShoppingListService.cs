@@ -81,7 +81,7 @@ namespace ShoppingLists.BusinessLayer
             {
                 throw new EmptyStringException("title");
             }
-            if (repository.GetByTitle(title, userId) != null)
+            if (repository.FindByTitle(title, userId) != null)
             {
                 throw new ShoppingListTitleDuplicateException(title, userId);
             }

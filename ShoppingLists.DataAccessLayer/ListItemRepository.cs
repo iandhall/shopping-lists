@@ -18,7 +18,7 @@ namespace ShoppingLists.DataAccessLayer
             this.dbContext = dbContext;
         }
 
-        public ListItem GetByDescription(string description, long shoppingListId)
+        public ListItem FindByDescription(string description, long shoppingListId)
         {
             return dbContext.ListItems.Where(li => li.Description == description && li.ShoppingListId == shoppingListId).FirstOrDefault();
         }

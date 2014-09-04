@@ -10,6 +10,6 @@ namespace ShoppingLists.Core.RepositoryInterfaces
 
         ShoppingListPermission Get(Permissions permission, string userId, long shoppingListId);
 
-        IEnumerable<ShoppingListPermission> GetAllForUserAndShoppingList(string userId, long shoppingListId);
+        IEnumerable<ShoppingListPermission> FindAllForUserAndShoppingList(string userId, long shoppingListId);
     }
 }

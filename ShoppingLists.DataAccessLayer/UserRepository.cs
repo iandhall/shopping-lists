@@ -50,12 +50,12 @@ namespace ShoppingLists.DataAccessLayer
         }
 
         // Should compare Username column with case sensitivity. Set collation to Latin1_General_CS_AS on the column in the database.
-        public User GetByName(string username)
+        public User FindByName(string username)
         {
             return dbContext.Users.FirstOrDefault(u => u.Username == username);
         }
 
-        public IEnumerable<User> GetAllForShoppingList(long shoppingListId)
+        public IEnumerable<User> FindAllForShoppingList(long shoppingListId)
         {
             return dbContext.Users.Where(u =>
                 u.ShoppingListPermissions.Any(p =>

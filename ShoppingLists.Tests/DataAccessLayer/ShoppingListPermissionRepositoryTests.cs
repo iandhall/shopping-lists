@@ -85,7 +85,7 @@ namespace ShoppingLists.Tests.DataAccess
         [TestMethod]
         public void TestGetAllForUserAndShoppingList()
         {
-            var slps = repository.GetAllForUserAndShoppingList(td.userId0, td.shoppingListGetId);
+            var slps = repository.FindAllForUserAndShoppingList(td.userId0, td.shoppingListGetId);
 
             Assert.AreEqual(3, slps.Count());
         }

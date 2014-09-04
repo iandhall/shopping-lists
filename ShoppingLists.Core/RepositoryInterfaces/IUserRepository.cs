@@ -13,9 +13,9 @@ namespace ShoppingLists.Core.RepositoryInterfaces
 
         User Get(string id, bool includePermissions = false, long? shoppingListId = null);
 
-        IEnumerable<User> GetAllForShoppingList(long shoppingListId);
+        IEnumerable<User> FindAllForShoppingList(long shoppingListId);
 
-        User GetByName(string userName);
+        User FindByName(string userName);
 
         void Update(User entity);
     }

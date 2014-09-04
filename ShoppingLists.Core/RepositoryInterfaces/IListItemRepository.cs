@@ -5,7 +5,7 @@ namespace ShoppingLists.Core.RepositoryInterfaces
 {
     public interface IListItemRepository : ICrudRepository<ListItem>
     {
-        ListItem GetByDescription(string description, long shoppingListId);
+        ListItem FindByDescription(string description, long shoppingListId);
 
         void UnpickAllListItems(long shoppingListId);
     }

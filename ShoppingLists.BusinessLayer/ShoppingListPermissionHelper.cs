@@ -61,7 +61,7 @@ namespace ShoppingLists.BusinessLayer
 
         internal IEnumerable<ShoppingListPermission> GetAllForUserAndEntity(string userId, long entityId)
         {
-            return repository.GetAllForUserAndShoppingList(userId, entityId);
+            return repository.FindAllForUserAndShoppingList(userId, entityId);
         }
 
         internal void SetAllForUser(string userId, long shoppingListId, IEnumerable<long> permissionIds)

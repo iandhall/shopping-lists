@@ -48,12 +48,12 @@ namespace ShoppingLists.BusinessLayer
 
         public User GetByName(string userName)
         {
-            return repository.GetByName(userName);
+            return repository.FindByName(userName);
         }
 
         public IEnumerable<User> GetAllForShoppingList(long shoppingListId)
         {
-            var users = repository.GetAllForShoppingList(shoppingListId);
+            var users = repository.FindAllForShoppingList(shoppingListId);
             return users;
         }
 

@@ -101,7 +101,7 @@ namespace ShoppingLists.Tests.DataAccess
         [TestMethod]
         public void TestGetByDescription()
         {
-            var listItem = repository.GetByDescription("LiRepo - To be matched by description.", td.shoppingListGetId);
+            var listItem = repository.FindByDescription("LiRepo - To be matched by description.", td.shoppingListGetId);
             Assert.AreEqual(td.listItemGetByDescId, listItem.Id);
         }
 
