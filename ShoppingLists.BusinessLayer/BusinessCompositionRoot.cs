@@ -24,7 +24,7 @@ namespace ShoppingLists.BusinessLayer
             serviceRegistry.Register<ShoppingListService>(new PerScopeLifetime());
             serviceRegistry.Register<ListItemService>(new PerScopeLifetime());
             serviceRegistry.Register<UserService>(new PerScopeLifetime());
-            serviceRegistry.Register<PermissionTypesService>(new PerScopeLifetime());
+            serviceRegistry.Register<PermissionTypeService>(new PerScopeLifetime());
 
             serviceRegistry.RegisterAssembly(Assembly.GetAssembly(typeof(DataAccessCompositionRoot))); // LightInject needs to be told to scan ShoppingLists.DataAccessLayer for a comp. root.
         }

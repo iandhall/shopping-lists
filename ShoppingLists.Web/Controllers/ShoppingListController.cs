@@ -24,11 +24,11 @@ namespace ShoppingLists.Web.Controllers
         private IUnitOfWork uow;
         private ShoppingListService shoppingListService;
         private UserService userService;
-        private PermissionTypesService permissionService;
+        private PermissionTypeService permissionService;
 
         public IUnitOfWork Uow { get { return uow; } }
 
-        public ShoppingListController(ShoppingListService shoppingListService, IUnitOfWork uow, UserService userService, PermissionTypesService permissionService)
+        public ShoppingListController(ShoppingListService shoppingListService, IUnitOfWork uow, UserService userService, PermissionTypeService permissionService)
         {
             this.uow = uow;
             this.shoppingListService = shoppingListService;

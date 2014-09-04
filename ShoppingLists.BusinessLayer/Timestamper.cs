@@ -5,7 +5,6 @@ using System.Text;
 using ShoppingLists.Core.Entities;
 using ShoppingLists.Core;
 using ShoppingLists.Core.RepositoryInterfaces;
-using ShoppingLists.DataAccessLayer;
 using ShoppingLists.BusinessLayer.Exceptions;
 
 namespace ShoppingLists.BusinessLayer

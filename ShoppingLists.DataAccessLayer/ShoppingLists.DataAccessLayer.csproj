@@ -55,7 +55,6 @@
   <ItemGroup>
     <Compile Include="DataAccessCompositionRoot.cs" />
     <Compile Include="DataAccessStartup.cs" />
-    <Compile Include="NumericStringComparer.cs" />
     <Compile Include="PermissionTypeRepository.cs" />
     <Compile Include="ShoppingListPermissionRepository.cs" />
     <Compile Include="ShoppingListsDbContext.cs" />

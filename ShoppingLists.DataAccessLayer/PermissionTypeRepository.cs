@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ShoppingLists.Core.Entities;
+using ShoppingLists.Core.RepositoryInterfaces;
 
 namespace ShoppingLists.DataAccessLayer
 {

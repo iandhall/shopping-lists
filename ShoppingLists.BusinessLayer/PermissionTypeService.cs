@@ -3,19 +3,19 @@ using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ShoppingLists.DataAccessLayer;
 using ShoppingLists.Core.Entities;
 using ShoppingLists.Core;
+using ShoppingLists.Core.RepositoryInterfaces;
 using ShoppingLists.BusinessLayer.Exceptions;
 
 namespace ShoppingLists.BusinessLayer
 {
-    public class PermissionTypesService
+    public class PermissionTypeService
     {
         private IUnitOfWork uow;
         private IPermissionTypeRepository repository;
 
-        public PermissionTypesService(IUnitOfWork uow, IPermissionTypeRepository repository)
+        public PermissionTypeService(IUnitOfWork uow, IPermissionTypeRepository repository)
         {
             this.uow = uow;
             this.repository = repository;

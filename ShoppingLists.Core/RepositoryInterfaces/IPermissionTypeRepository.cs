@@ -2,7 +2,7 @@
 using ShoppingLists.Core.Entities;
 using System.Collections.Generic;
 
-namespace ShoppingLists.DataAccessLayer
+namespace ShoppingLists.Core.RepositoryInterfaces
 {
     public interface IPermissionTypeRepository
     {

@@ -3,7 +3,6 @@ using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ShoppingLists.DataAccessLayer;
 using ShoppingLists.Core.Entities;
 using ShoppingLists.Core;
 using ShoppingLists.Core.RepositoryInterfaces;

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="BusinessCompositionRoot.cs" />
     <Compile Include="BusinessStartup.cs" />
+    <Compile Include="NumericStringComparer.cs" />
     <Compile Include="Timestamper.cs" />
     <Compile Include="Exceptions\UnexpectedUserIdException.cs" />
     <Compile Include="Exceptions\ScriptInjectionException.cs" />
@@ -60,7 +61,7 @@
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Exceptions\PermissionNotFoundException.cs" />
     <Compile Include="Exceptions\NotRelatedException.cs" />
-    <Compile Include="PermissionTypesService.cs" />
+    <Compile Include="PermissionTypeService.cs" />
     <Compile Include="ListItemService.cs" />
     <Compile Include="ShoppingListPermissionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,13 +71,13 @@
     <Compile Include="ShoppingListService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShoppingLists.Core\ShoppingLists.Core.csproj">
-      <Project>{35a2a628-2a06-4eb3-9099-e42435b176e3}</Project>
-      <Name>ShoppingLists.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LogForMe\LogForMe.csproj">
       <Project>{56482f5b-7392-4894-9fcd-bfc32e6dfa30}</Project>
       <Name>LogForMe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShoppingLists.Core\ShoppingLists.Core.csproj">
+      <Project>{35a2a628-2a06-4eb3-9099-e42435b176e3}</Project>
+      <Name>ShoppingLists.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShoppingLists.DataAccessLayer\ShoppingLists.DataAccessLayer.csproj">
       <Project>{67bea5b3-f1f3-48c6-817c-9ba85a869175}</Project>
