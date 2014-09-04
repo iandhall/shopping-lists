@@ -23,7 +23,14 @@ namespace ShoppingLists.DataAccessLayer
             //}
             //Logger.Debug("instanceId={0}", instanceId);
             if (Transaction.Current != null) throw new ApplicationException("A transaction already exists.");
-            transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew, TransactionScopeAsyncFlowOption.Enabled);
+            transactionScope = new TransactionScope(
+                TransactionScopeOption.RequiresNew,
+                new TransactionOptions {
+                    IsolationLevel = IsolationLevel.ReadCommitted,
+                    Timeout = TransactionManager.DefaultTimeout
+                },
+                TransactionScopeAsyncFlowOption.Enabled
+            );
             this.dbContext = dbContext;
         }
 
