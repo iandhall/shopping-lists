@@ -9,7 +9,7 @@ using ShoppingLists.Core.Entities;
 using Dapper;
 using System.Transactions;
 
-namespace ShoppingLists.Tests.DataAccess
+namespace ShoppingLists.Tests.DataAccessLayer
 {
     [TestClass]
     public class UnitOfWorkTests

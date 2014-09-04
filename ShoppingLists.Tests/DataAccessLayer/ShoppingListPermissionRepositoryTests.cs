@@ -10,7 +10,7 @@ using ShoppingLists.Core.RepositoryInterfaces;
 using ShoppingLists.Core;
 using LightInject;
 
-namespace ShoppingLists.Tests.DataAccess
+namespace ShoppingLists.Tests.DataAccessLayer
 {
     [TestClass]
     public class ShoppingListPermissionRepositoryTests

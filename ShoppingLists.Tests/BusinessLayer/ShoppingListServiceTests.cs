@@ -12,7 +12,7 @@ using Moq;
 using LightInject;
 using LightInject.Mocking;
 
-namespace ShoppingLists.Tests.Services
+namespace ShoppingLists.Tests.BusinessLayer
 {
     [TestClass]
     public class ShoppingListServiceTests

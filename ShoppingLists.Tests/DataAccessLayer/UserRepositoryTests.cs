@@ -11,7 +11,7 @@ using LightInject;
 using Dapper;
 using System.IO;
 
-namespace ShoppingLists.Tests.DataAccess
+namespace ShoppingLists.Tests.DataAccessLayer
 {
     [TestClass]
     public class UserRepositoryTests

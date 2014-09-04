@@ -11,7 +11,7 @@ using ShoppingLists.Core;
 using LightInject;
 using LogForMe;
 
-namespace ShoppingLists.Tests.DataAccess
+namespace ShoppingLists.Tests.DataAccessLayer
 {
     [TestClass]
     public class ListItemRepositoryTests
