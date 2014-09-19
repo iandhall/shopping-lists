@@ -11,7 +11,7 @@ Designed for use on mobile devices.
 
 Features
 --------
-Real-time updates when a user picks, unpicks, adds adds or removes items.
+Real-time updates when a user picks, unpicks, adds or removes items.
 
 Permissions management: User can state which actions other users can perform on the shared shopping list.
 
