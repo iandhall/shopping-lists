@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Web;
 using Microsoft.AspNet.SignalR.Hubs;
-using ShoppingLists.Web.Hubs;
-using ShoppingLists.Web.Models;
+using NLog;
 using ShoppingLists.BusinessLayer.Exceptions;
-using LogForMe;
+using ShoppingLists.Web.Models;
 
 namespace ShoppingLists.Web.HubPipelineModules
 {
@@ -15,12 +12,14 @@ namespace ShoppingLists.Web.HubPipelineModules
     // To do: Find a better way of doing all of this.
     public class ScriptDetectionPipelineModule : HubPipelineModule
     {
+        private static readonly Logger _log = LogManager.GetCurrentClassLogger();
+
         // In order to prevent malicious script from getting into the database, this method compares the incoming arguments (i.e. model object, string etc.) with the encoded version of its self. If the encoded value is different then we assume that the data contains script markup and an exception gets thrown.
         //
         // Note: Only works if the Hub method argument object has a ToString() representation of all it's fields. It won't work for object graphs as it will only call the ToString() of the root object. It won't work for collection types as their ToString()s just report the type name.
         protected override bool OnBeforeIncoming(IHubIncomingInvokerContext context)
         {
-            Logger.Debug("");
+            _log.Debug("");
             foreach (var arg in context.Args)
             {
                 if (EncodingHelper.Encode(arg.ToString()) != arg.ToString())
@@ -37,7 +36,7 @@ namespace ShoppingLists.Web.HubPipelineModules
         // Warning: not all type are supported (see below).
         protected override bool OnBeforeOutgoing(IHubOutgoingInvokerContext context)
         {
-            Logger.Debug("");
+            _log.Debug("");
             var args = context.Invocation.Args;
             for (int argI = 0; argI < args.Length; argI++)
             {

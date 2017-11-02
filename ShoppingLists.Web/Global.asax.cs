@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using System.Web;
-using LogForMe;
+using NLog;
 
 namespace ShoppingLists.Web
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        private static readonly Logger _log = LogManager.GetCurrentClassLogger();
+
         protected void Application_Start()
         {
             // See Owin Startup class.
@@ -18,11 +17,11 @@ namespace ShoppingLists.Web
         {
             Exception ex = Server.GetLastError();
             if (ex is ThreadAbortException) return;
-            Logger.Error(ex);
+            _log.Error(ex);
         }
 
         //protected void Application_BeginRequest(object sender, EventArgs args) {
-        //    Logger.Debug(Request.Url.ToString());
+        //    _log.Debug(Request.Url.ToString());
         //}
     }
 }

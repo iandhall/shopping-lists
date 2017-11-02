@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ShoppingLists.Web</RootNamespace>
     <AssemblyName>ShoppingLists.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -23,6 +23,7 @@
     <TargetFrameworkProfile />
     <JSLintSkip>\Scripts\bootstrap.js</JSLintSkip>
     <NuGetPackageImportStamp>06bdae37</NuGetPackageImportStamp>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -113,6 +114,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -121,9 +125,9 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -233,6 +237,9 @@
     <Content Include="JSLintNet.json" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Content Include="NLog.config" />
+    <Content Include="NLog.Debug.config" />
+    <Content Include="NLog.Release.config" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -314,10 +321,6 @@
     <ProjectReference Include="..\ShoppingLists.Core\ShoppingLists.Core.csproj">
       <Project>{35a2a628-2a06-4eb3-9099-e42435b176e3}</Project>
       <Name>ShoppingLists.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LogForMe\LogForMe.csproj">
-      <Project>{56482f5b-7392-4894-9fcd-bfc32e6dfa30}</Project>
-      <Name>LogForMe</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShoppingLists.BusinessLayer\ShoppingLists.BusinessLayer.csproj">
       <Project>{abb0372d-ed7d-42a1-8e94-afc6430032d1}</Project>

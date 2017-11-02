@@ -7,7 +7,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Pluralization;
 using ShoppingLists.Core.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
-using LogForMe;
+using NLog;
 using System.Diagnostics;
 
 namespace ShoppingLists.DataAccessLayer

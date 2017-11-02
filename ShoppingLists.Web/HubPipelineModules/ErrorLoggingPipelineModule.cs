@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Microsoft.AspNet.SignalR.Hubs;
-using LogForMe;
+﻿using Microsoft.AspNet.SignalR.Hubs;
+using NLog;
 
 namespace ShoppingLists.Web.HubPipelineModules
 {
     public class ErrorLoggingPipelineModule : HubPipelineModule
     {
+        private static readonly Logger _log = LogManager.GetCurrentClassLogger();
+
         protected override void OnIncomingError(ExceptionContext exceptionContext, IHubIncomingInvokerContext invokerContext)
         {
-            Logger.Debug("ErrorLoggingPipelineModule.OnIncomingError");
-            Logger.Error(exceptionContext.Error);
+            _log.Debug("ErrorLoggingPipelineModule.OnIncomingError");
+            _log.Error(exceptionContext.Error);
             base.OnIncomingError(exceptionContext, invokerContext);
         }
     }

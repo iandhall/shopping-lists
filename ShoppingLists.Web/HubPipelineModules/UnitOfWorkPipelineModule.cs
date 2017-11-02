@@ -7,7 +7,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 using ShoppingLists.BusinessLayer;
 using ShoppingLists.Core;
 using ShoppingLists.Web.Hubs;
-using LogForMe;
+using NLog;
 using System.Runtime.InteropServices;
 using ShoppingLists.BusinessLayer.Exceptions;
 

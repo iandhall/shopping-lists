@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Transactions;
 using System.Configuration;
-using LogForMe;
+using NLog;
 using ShoppingLists.Core;
 
 namespace ShoppingLists.DataAccessLayer
@@ -21,7 +21,7 @@ namespace ShoppingLists.DataAccessLayer
             //lock (locker) {
             //    instanceId = ++instanceCount;
             //}
-            //Logger.Debug("instanceId={0}", instanceId);
+            //_log.Debug("instanceId={0}", instanceId);
             if (Transaction.Current != null) throw new ApplicationException("A transaction already exists.");
             transactionScope = new TransactionScope(
                 TransactionScopeOption.RequiresNew,
@@ -37,7 +37,7 @@ namespace ShoppingLists.DataAccessLayer
         public void Complete()
         {
             //lock (locker) {
-            //  Logger.Debug("instanceId={0}", instanceId);
+            //  _log.Debug("instanceId={0}", instanceId);
             //}
             if (dbContext.ChangeTracker.HasChanges())
             {
@@ -49,7 +49,7 @@ namespace ShoppingLists.DataAccessLayer
         public void Dispose()
         {
             //lock (locker) {
-            //  Logger.Debug("instanceId={0}", instanceId);
+            //  _log.Debug("instanceId={0}", instanceId);
             //}
             if (dbContext != null)
             {

@@ -1,26 +1,20 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using ShoppingLists.Core.Entities;
+using NLog;
 using ShoppingLists.BusinessLayer;
 using ShoppingLists.BusinessLayer.Exceptions;
-using ShoppingLists.Web.Models;
-using ShoppingLists.Web.Filters;
-using LogForMe;
-using System.Net;
 using ShoppingLists.Core;
-using System.IO;
+using ShoppingLists.Web.Filters;
+using ShoppingLists.Web.Models;
 
 namespace ShoppingLists.Web.Controllers
 {
     [Authorize, UnitOfWork]
     public class ShoppingListController : Controller, IHasUnitOfWork
     {
+        private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private IUnitOfWork uow;
         private ShoppingListService shoppingListService;
         private UserService userService;
@@ -72,7 +66,7 @@ namespace ShoppingLists.Web.Controllers
         [HttpPost]
         public JsonResult Delete(long id)
         {
-            Logger.Debug("shoppingListId={0}", id);
+            _log.Debug("shoppingListId={0}", id);
             shoppingListService.Delete(id, userId);
             return Json("");
         }
@@ -80,7 +74,7 @@ namespace ShoppingLists.Web.Controllers
         [HttpPost]
         public JsonResult Ignore(long id)
         {
-            Logger.Debug("shoppingListId={0}", id);
+            _log.Debug("shoppingListId={0}", id);
             shoppingListService.Ignore(id, userId);
             return Json("");
         }

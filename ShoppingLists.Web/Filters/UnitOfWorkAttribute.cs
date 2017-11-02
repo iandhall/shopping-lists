@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using LogForMe;
+using NLog;
 using ShoppingLists.Core;
 using ShoppingLists.BusinessLayer.Exceptions;
 using System.Net;

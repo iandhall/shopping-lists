@@ -1,24 +1,19 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Microsoft.AspNet.SignalR;
-using ShoppingLists.Core.Entities;
 using ShoppingLists.BusinessLayer;
 using ShoppingLists.Core;
 using System.Threading.Tasks;
 using ShoppingLists.Web.Models;
-using LogForMe;
+using NLog;
 using LightInject;
 using Microsoft.AspNet.Identity;
 using ShoppingLists.BusinessLayer.Exceptions;
-using System.ComponentModel.DataAnnotations;
 
 namespace ShoppingLists.Web.Hubs
 {
     public class ShoppingListHub : Hub, IHasUnitOfWork, IHasScope
     {
+        private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private IUnitOfWork uow;
         private ShoppingListService shoppingListService;
         private ListItemService listItemService;
@@ -45,7 +40,7 @@ namespace ShoppingLists.Web.Hubs
                 }
                 catch (Exception ex)
                 { // Not logged by ErrorLoggingPipelineModule.
-                    Logger.Error(ex);
+                    _log.Error(ex);
                     throw;
                 }
             }
@@ -55,12 +50,12 @@ namespace ShoppingLists.Web.Hubs
         {
             try
             {
-                Logger.Debug("ConnectionId={0}", Context.ConnectionId);
+                _log.Debug("ConnectionId={0}", Context.ConnectionId);
                 return base.OnConnected();
             }
             catch (Exception ex)
             { // Not logged by ErrorLoggingPipelineModule.
-                Logger.Error(ex);
+                _log.Error(ex);
                 throw;
             }
         }
@@ -69,12 +64,12 @@ namespace ShoppingLists.Web.Hubs
         {
             try
             {
-                Logger.Debug("ConnectionId={0}", Context.ConnectionId);
+                _log.Debug("ConnectionId={0}", Context.ConnectionId);
                 return base.OnReconnected();
             }
             catch (Exception ex)
             { // Not logged by ErrorLoggingPipelineModule.
-                Logger.Error(ex);
+                _log.Error(ex);
                 throw;
             }
         }
@@ -83,7 +78,7 @@ namespace ShoppingLists.Web.Hubs
         {
             try
             {
-                Logger.Debug("ConnectionId={0}", Context.ConnectionId);
+                _log.Debug("ConnectionId={0}", Context.ConnectionId);
                 var connection = ConnectionHolder.Get(Context.ConnectionId);
                 if (connection == null)
                 {
@@ -100,7 +95,7 @@ namespace ShoppingLists.Web.Hubs
             }
             catch (Exception ex)
             { // Not logged by ErrorLoggingPipelineModule.
-                Logger.Error(ex);
+                _log.Error(ex);
                 throw;
             }
         }
@@ -110,7 +105,7 @@ namespace ShoppingLists.Web.Hubs
         [UnitOfWork]
         public void StartViewingList(long shoppingListId)
         {
-            Logger.Debug("shoppingListId={0}, ConnectionId={1}", shoppingListId, Context.ConnectionId);
+            _log.Debug("shoppingListId={0}, ConnectionId={1}", shoppingListId, Context.ConnectionId);
             string shoppingListIdString = shoppingListId.ToString();
             var user = userService.Get(userId);
             if (user == null)
@@ -127,7 +122,7 @@ namespace ShoppingLists.Web.Hubs
         [UnitOfWork]
         public void Update(ShoppingListOverviewModel shoppingListModel)
         {
-            Logger.Debug("userId={0}, {1}", userId, shoppingListModel);
+            _log.Debug("userId={0}, {1}", userId, shoppingListModel);
             var shoppingList = shoppingListService.Update(shoppingListModel.Id, shoppingListModel.Title, userId);
             var updatedShoppingListModel = new ShoppingListOverviewModel(shoppingList);
             Clients.Group(shoppingListModel.Id.ToString()).shoppingListUpdated(updatedShoppingListModel);
@@ -136,7 +131,7 @@ namespace ShoppingLists.Web.Hubs
         [UnitOfWork]
         public void DeleteListItem(ListItemModel listItemModel)
         {
-            Logger.Debug("userId={0}, {1}", userId, listItemModel);
+            _log.Debug("userId={0}, {1}", userId, listItemModel);
             listItemService.Delete(listItemModel.Id, listItemModel.ShoppingListId, userId);
             Clients.Group(listItemModel.ShoppingListId.ToString()).listItemDeleted(listItemModel.Id);
         }
@@ -144,7 +139,7 @@ namespace ShoppingLists.Web.Hubs
         [UnitOfWork]
         public void UnpickAllListItems(long shoppingListId)
         {
-            Logger.Debug("userId={0}, shoppingListId={1}", userId, shoppingListId);
+            _log.Debug("userId={0}, shoppingListId={1}", userId, shoppingListId);
             shoppingListService.UnpickAllListItems(shoppingListId, userId);
             Clients.Group(shoppingListId.ToString()).allListItemsUnpicked();
         }
@@ -152,7 +147,7 @@ namespace ShoppingLists.Web.Hubs
         [UnitOfWork]
         public void UpdateListItem(ListItemModel listItemModel)
         {
-            Logger.Debug("userId={0}, {1}", userId, listItemModel);
+            _log.Debug("userId={0}, {1}", userId, listItemModel);
             var updatedListItemModel = new ListItemModel(
                 listItemService.Update(listItemModel.Description, listItemModel.Quantity, listItemModel.Id, listItemModel.ShoppingListId, userId)
             );
@@ -162,7 +157,7 @@ namespace ShoppingLists.Web.Hubs
         [UnitOfWork]
         public void CreateListItem(ListItemModel listItemModel)
         {
-            Logger.Debug("userId={0}, {1}", userId, listItemModel);
+            _log.Debug("userId={0}, {1}", userId, listItemModel);
             var newListItemModel = new ListItemModel(
                 listItemService.Create(listItemModel.Description, listItemModel.Quantity, listItemModel.ShoppingListId, userId)
             );
@@ -172,7 +167,7 @@ namespace ShoppingLists.Web.Hubs
         [UnitOfWork]
         public void PickListItem(ListItemModel listItemModel)
         {
-            Logger.Debug("userId={0}, {1}", userId, listItemModel);
+            _log.Debug("userId={0}, {1}", userId, listItemModel);
             var updatedListItemModel = new ListItemModel(
                 listItemService.Pick(listItemModel.Id, listItemModel.ShoppingListId, userId)
             );
@@ -182,7 +177,7 @@ namespace ShoppingLists.Web.Hubs
         [UnitOfWork]
         public void UnpickListItem(ListItemModel listItemModel)
         {
-            Logger.Debug("userId={0}, {1}", userId, listItemModel);
+            _log.Debug("userId={0}, {1}", userId, listItemModel);
             var updatedListItemModel = new ListItemModel(
                 listItemService.Unpick(listItemModel.Id, listItemModel.ShoppingListId, userId)
             );
@@ -191,7 +186,7 @@ namespace ShoppingLists.Web.Hubs
 
         public void RemoveViewAccess(string userId)
         {
-            Logger.Debug("userId={0}", userId);
+            _log.Debug("userId={0}", userId);
             Clients.User(userId).viewAccessRemoved();
         }
     }

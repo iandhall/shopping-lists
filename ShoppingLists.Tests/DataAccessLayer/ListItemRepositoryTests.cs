@@ -1,15 +1,11 @@
 ﻿using System;
-using Dapper;
 using System.Linq;
-using System.Collections.Generic;
-using System.Data;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShoppingLists.Core.Entities;
-using ShoppingLists.Tests;
-using ShoppingLists.Core.RepositoryInterfaces;
-using ShoppingLists.Core;
+using Dapper;
 using LightInject;
-using LogForMe;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ShoppingLists.Core;
+using ShoppingLists.Core.Entities;
+using ShoppingLists.Core.RepositoryInterfaces;
 
 namespace ShoppingLists.Tests.DataAccessLayer
 {
