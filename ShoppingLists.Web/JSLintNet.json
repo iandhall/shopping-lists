@@ -1,39 +1,19 @@
-﻿{
-  "ignore": [
-    "\\Scripts\\_references.js",
-    "\\Scripts\\bootbox.js",
-    "\\Scripts\\bootstrap.js",
-    "\\Scripts\\jquery-2.1.1.intellisense.js",
-    "\\Scripts\\jquery-2.1.1.js",
-    "\\Scripts\\jquery-2.1.1.min.js",
-    "\\Scripts\\jquery-2.1.1.min.map",
-    "\\Scripts\\jquery.signalR-2.0.3.js",
-    "\\Scripts\\jquery.validate-vsdoc.js",
-    "\\Scripts\\jquery.validate.js",
-    "\\Scripts\\jquery.validate.unobtrusive.js",
-    "\\Scripts\\knockout-3.1.0.debug.js",
-    "\\Scripts\\knockout-3.1.0.js",
-    "\\Scripts\\knockout.mapping-latest.js",
-    "\\Scripts\\knockout.validation.js",
-    "\\Scripts\\modernizr-2.6.2.js",
-    "\\Scripts\\modernizr-2.7.2.js",
-    "\\Scripts\\moment-with-langs.js",
-    "\\Scripts\\moment.js",
-    "\\Scripts\\respond.js",
-    "\\Scripts\\respond.matchmedia.addListener.js"
-  ],
-  "options": {
-    "predef": {
-      "$": false,
-      "jQuery": false,
-      "bootbox": false,
-      "ko": false,
-      "window": false
-    },
-    "nomen": true,
-    "node": true,
-    "indent": 4
-  },
-  "runOnSave": true,
-  "runOnBuild": true
-}
+﻿//{
+//    "ignore": [
+//        "\\Scripts\\"
+//    ],
+//    "options": {
+//        "predef": {
+//            "$": false,
+//            "jQuery": false,
+//            "bootbox": false,
+//            "ko": false,
+//            "window": false
+//        },
+//        "nomen": true,
+//        "node": true,
+//        "indent": 4
+//    },
+//    "runOnSave": true,
+//    "runOnBuild": true
+//}

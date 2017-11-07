@@ -22,7 +22,8 @@
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <TargetFrameworkProfile />
     <JSLintSkip>\Scripts\bootstrap.js</JSLintSkip>
-    <NuGetPackageImportStamp>06bdae37</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -223,6 +224,16 @@
     <Compile Include="Models\ShoppingListModel.cs" />
     <Compile Include="Models\UserSharingModel.cs" />
     <Compile Include="UserStore.cs" />
+    <Content Include="App\Index\MyShoppingListsModel.js" />
+    <Content Include="App\Index\ShoppingListOverviewModel.js" />
+    <Content Include="App\Share\PermissionModel.js" />
+    <Content Include="App\Share\SharingModel.js" />
+    <Content Include="App\Share\UserModel.js" />
+    <Content Include="App\Share\UserPermissionsEditModel.js" />
+    <Content Include="App\Show\ListItemEditModel.js" />
+    <Content Include="App\Show\ListItemModel.js" />
+    <Content Include="App\Show\ShoppingListHub.js" />
+    <Content Include="App\Show\ShoppingListModel.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -240,16 +251,15 @@
     <Content Include="NLog.config" />
     <Content Include="NLog.Debug.config" />
     <Content Include="NLog.Release.config" />
-    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.1.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.js" />
-    <Content Include="Scripts\knockout-3.1.0.debug.js" />
-    <Content Include="Scripts\ShoppingList\Index\MyShoppingListsModel.js" />
-    <Content Include="Scripts\ShoppingList\Index\ShoppingListOverviewModel.js" />
-    <Content Include="Scripts\ShoppingList\Share\SharingModel.js" />
-    <Content Include="Scripts\ShoppingList\Share\UserModel.js" />
-    <Content Include="Scripts\ShoppingList\Show\ShoppingListHub.js" />
-    <Content Include="Scripts\ShoppingList\Show\ShoppingListModel.js" />
+    <None Include="Scripts\jquery-2.2.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-2.2.4.js" />
+    <Content Include="Scripts\jquery-2.2.4.min.js" />
+    <Content Include="Scripts\jquery-2.2.4.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\knockout-3.4.2.debug.js" />
+    <Content Include="Scripts\knockout-3.4.2.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
@@ -261,23 +271,15 @@
     <Content Include="Scripts\bootstrap.js" />
     <None Include="Properties\PublishProfiles\iisexp.pubxml" />
     <Content Include="Scripts\jquery.signalR-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\knockout-3.1.0.js" />
     <Content Include="Scripts\knockout.mapping-latest.js" />
     <Content Include="Scripts\knockout.validation.js" />
-    <Content Include="Scripts\ShoppingList\Show\ListItemEditModel.js" />
-    <Content Include="Scripts\ShoppingList\Show\ListItemModel.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.7.2.js" />
     <Content Include="Scripts\moment-with-langs.js" />
     <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\ShoppingList\Share\PermissionModel.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
-    <Content Include="Scripts\ShoppingList\Share\UserPermissionsEditModel.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\ShoppingList\Share.cshtml" />
     <Content Include="Views\ShoppingList\_ListItemEditForm.cshtml" />
@@ -355,13 +357,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\JSLintNet.MSBuild.1.6.2\build\JSLintNet.MSBuild.targets" Condition="Exists('..\packages\JSLintNet.MSBuild.1.6.2\build\JSLintNet.MSBuild.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\JSLintNet.MSBuild.1.6.2\build\JSLintNet.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JSLintNet.MSBuild.1.6.2\build\JSLintNet.MSBuild.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

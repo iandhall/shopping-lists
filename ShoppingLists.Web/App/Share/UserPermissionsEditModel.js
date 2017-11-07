@@ -14,7 +14,7 @@ function UserPermissionsEditModel(sharingModel, urls, reportServiceErrorFunction
             return new PermissionModel(options.data);
         }
     };
-
+    
     this.show = function (userModel, shouldDefaultPermissions) {
         committing = false;
         if (shouldDefaultPermissions === undefined) {

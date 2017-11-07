@@ -46,24 +46,20 @@ namespace ShoppingLists.Web
                       "~/Scripts/ajax-helper.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/shoppinglistshow").Include(
-                      "~/Scripts/ShoppingList/Show/ShoppingListModel.js",
-                      "~/Scripts/ShoppingList/Show/ListItemModel.js",
-                      "~/Scripts/ShoppingList/Show/ListItemEditModel.js",
-                      "~/Scripts/ShoppingList/Show/ShoppingListHub.js"));
+                      "~/App/Show/ShoppingListModel.js",
+                      "~/App/Show/ListItemModel.js",
+                      "~/App/Show/ListItemEditModel.js",
+                      "~/App/Show/ShoppingListHub.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/shoppinglistindex").Include(
-                      "~/Scripts/ShoppingList/Index/MyShoppingListsModel.js",
-                      "~/Scripts/ShoppingList/Index/ShoppingListOverviewModel.js"));
+                      "~/App/Index/MyShoppingListsModel.js",
+                      "~/App/Index/ShoppingListOverviewModel.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/shoppinglistshare").Include(
-                      "~/Scripts/ShoppingList/Share/SharingModel.js",
-                      "~/Scripts/ShoppingList/Share/UserModel.js",
-                      "~/Scripts/ShoppingList/Share/UserPermissionsEditModel.js",
-                      "~/Scripts/ShoppingList/Share/PermissionModel.js"));
-
-#if !DEBUG
-            BundleTable.EnableOptimizations = true;
-#endif
+                      "~/App/Share/SharingModel.js",
+                      "~/App/Share/UserModel.js",
+                      "~/App/Share/UserPermissionsEditModel.js",
+                      "~/App/Share/PermissionModel.js"));
         }
     }
 
