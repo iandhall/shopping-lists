@@ -1,7 +1,4 @@
-﻿using ShoppingLists.Web.Hubs;
-using Microsoft.AspNet.SignalR.Hubs;
-using Microsoft.AspNet.SignalR.Infrastructure;
-using LightInject;
+﻿using LightInject;
 using Microsoft.AspNet.SignalR;
 using ShoppingLists.Web.HubPipelineModules;
 using Owin;

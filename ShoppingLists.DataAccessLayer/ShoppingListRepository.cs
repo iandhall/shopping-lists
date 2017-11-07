@@ -1,13 +1,9 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using ShoppingLists.Core;
 using ShoppingLists.Core.Entities;
 using ShoppingLists.Core.RepositoryInterfaces;
-using System.Runtime.CompilerServices;
-using System.Data.Entity.Infrastructure;
 using System.Data.Entity;
 using System.Data.Entity.SqlServer;
 

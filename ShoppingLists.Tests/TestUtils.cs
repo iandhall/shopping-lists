@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
-using ShoppingLists.Core.Entities;
 using System.IO;
 using Dapper;
 using LightInject;

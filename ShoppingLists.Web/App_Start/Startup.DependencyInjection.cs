@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
 using ShoppingLists.Web.Models;
-using ShoppingLists.Web.Filters;
 using LightInject;
 
 namespace ShoppingLists.Web

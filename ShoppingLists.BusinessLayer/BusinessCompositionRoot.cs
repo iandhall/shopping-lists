@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LightInject;
+﻿using LightInject;
 using ShoppingLists.DataAccessLayer;
-using ShoppingLists.Core;
-using ShoppingLists.Core.RepositoryInterfaces;
 using ShoppingLists.BusinessLayer;
 using System.Reflection;
 

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using ShoppingLists.Core;
 using ShoppingLists.Core.Entities;
-using System.Runtime.CompilerServices;
 using ShoppingLists.Core.RepositoryInterfaces;
 
 namespace ShoppingLists.DataAccessLayer

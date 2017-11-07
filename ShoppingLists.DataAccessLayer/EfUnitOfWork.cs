@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Transactions;
-using System.Configuration;
-using NLog;
 using ShoppingLists.Core;
 
 namespace ShoppingLists.DataAccessLayer

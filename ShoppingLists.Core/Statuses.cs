@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShoppingLists.Core
+﻿namespace ShoppingLists.Core
 {
     // Should reflect the Id column of the Permissions table:
     public enum Statuses : short

@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Text;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using ShoppingLists.Core;
-using ShoppingLists.Core.Entities;
 using System.Web.Mvc;
 
 namespace ShoppingLists.Web.Helpers

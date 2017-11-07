@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using LightInject;
+﻿using LightInject;
 using Microsoft.AspNet.SignalR.Hubs;
-using ShoppingLists.BusinessLayer;
-using ShoppingLists.Core;
 using ShoppingLists.Web.Hubs;
-using NLog;
-using System.Runtime.InteropServices;
-using ShoppingLists.BusinessLayer.Exceptions;
 
 namespace ShoppingLists.Web.HubPipelineModules
 {
