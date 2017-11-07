@@ -1,12 +1,23 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using NLog;
 
 namespace ShoppingLists.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private static readonly Logger _log = LogManager.GetCurrentClassLogger();
+
         public ActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "ShoppingList");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult About()
