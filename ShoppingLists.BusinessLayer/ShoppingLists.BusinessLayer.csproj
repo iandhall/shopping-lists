@@ -50,7 +50,6 @@
     <Compile Include="BusinessCompositionRoot.cs" />
     <Compile Include="BusinessStartup.cs" />
     <Compile Include="NumericStringComparer.cs" />
-    <Compile Include="Timestamper.cs" />
     <Compile Include="Exceptions\UnexpectedUserIdException.cs" />
     <Compile Include="Exceptions\ScriptInjectionException.cs" />
     <Compile Include="Exceptions\OutOfRangeException.cs" />

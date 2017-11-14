@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\ListItem.cs" />
+    <Compile Include="Exceptions\NullOrWhiteSpaceException.cs" />
     <Compile Include="Permissions.cs" />
     <Compile Include="Entities\PermissionType.cs" />
     <Compile Include="Entities\ShoppingList.cs" />

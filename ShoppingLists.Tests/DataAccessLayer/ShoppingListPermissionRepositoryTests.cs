@@ -69,8 +69,8 @@ namespace ShoppingLists.Tests.DataAccessLayer
         [TestMethod]
         public void TestCreate()
         {
-            var shoppingListPermission = new ShoppingListPermission { PermissionTypeId = Permissions.View, UserId = td.userId3, ShoppingListId = td.shoppingListGetId, CreatorId = td.userId3, CreatedDate = DateTime.Now };
-            repository.Create(shoppingListPermission);
+            var shoppingListPermission = new ShoppingListPermission { PermissionTypeId = Permissions.View, UserId = td.userId3, ShoppingListId = td.shoppingListGetId };
+            repository.Create(shoppingListPermission, td.userId3);
             uow.Complete();
             uow.Dispose();
             long newId = shoppingListPermission.Id;

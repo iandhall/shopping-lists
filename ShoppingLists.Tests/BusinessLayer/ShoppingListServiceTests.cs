@@ -123,6 +123,7 @@ namespace ShoppingLists.Tests.BusinessLayer
                     new ShoppingList { Id = 1233, Title = "Shopping List #10", CreatorId = userIds[0], CreatedDate = DateTime.Now }
                 }
             );
+            mockShoppingListRepository.Setup(slr => slr.Create(It.IsAny<ShoppingList>(), It.IsAny<string>()));
             container.StartMocking<IShoppingListRepository>(() => mockShoppingListRepository.Object);
             var mockShoppingListPermissionRepository = new Mock<IShoppingListPermissionRepository>();
             container.StartMocking<IShoppingListPermissionRepository>(() => mockShoppingListPermissionRepository.Object);

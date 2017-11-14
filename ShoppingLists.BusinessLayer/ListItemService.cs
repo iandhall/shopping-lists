@@ -10,14 +10,12 @@ namespace ShoppingLists.BusinessLayer
         private IUnitOfWork uow;
         private IListItemRepository repository;
         private ShoppingListPermissionHelper permissionsHelper;
-        private Timestamper<ListItem> timestamper;
 
-        public ListItemService(IUnitOfWork uow, IListItemRepository repository, ShoppingListPermissionHelper permissionsHelper, Timestamper<ListItem> timestamper)
+        public ListItemService(IUnitOfWork uow, IListItemRepository repository, ShoppingListPermissionHelper permissionsHelper)
         {
             this.uow = uow;
             this.repository = repository;
             this.permissionsHelper = permissionsHelper;
-            this.timestamper = timestamper;
         }
 
         public ListItem Create(string description, int quantity, long shoppingListId, string userId)
@@ -42,7 +40,7 @@ namespace ShoppingLists.BusinessLayer
                 Quantity = quantity,
                 StatusId = Statuses.NotPicked
             };
-            timestamper.Create(listItem, userId);
+            repository.Create(listItem, userId);
             return listItem;
         }
 
@@ -61,7 +59,7 @@ namespace ShoppingLists.BusinessLayer
             if (listItem.StatusId != Statuses.Picked)
             { // Don't bother with the update if the Status is already "Picked".
                 listItem.StatusId = Statuses.Picked;
-                timestamper.Update(listItem, userId);
+                repository.Update(listItem, userId);
             }
             return listItem;
         }
@@ -77,7 +75,7 @@ namespace ShoppingLists.BusinessLayer
             if (listItem.StatusId != Statuses.NotPicked)
             { // Don't bother with the update if the Status is already "Not picked".
                 listItem.StatusId = Statuses.NotPicked;
-                timestamper.Update(listItem, userId);
+                repository.Update(listItem, userId);
             }
             return listItem;
         }
@@ -109,7 +107,7 @@ namespace ShoppingLists.BusinessLayer
             }
             listItem.Description = description;
             listItem.Quantity = quantity;
-            timestamper.Update(listItem, userId);
+            repository.Update(listItem, userId);
             return listItem;
         }
 

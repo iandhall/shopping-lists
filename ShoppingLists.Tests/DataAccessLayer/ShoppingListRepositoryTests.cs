@@ -98,16 +98,25 @@ namespace ShoppingLists.Tests.DataAccessLayer
         public void TestCreate()
         {
             const string insertTitle = "Test list to insert";
-            var shoppingList = new ShoppingList { Title = insertTitle, CreatorId = td.userId0, CreatedDate = DateTime.Now };
-            repository.Create(shoppingList);
+            var shoppingList = new ShoppingList { Title = insertTitle };
+            repository.Create(shoppingList, td.userId0);
             uow.Complete();
             uow.Dispose();
 
             Assert.IsTrue(shoppingList.Id != 0);
+
+            // Check that CreatorId is set correctly
+            Assert.AreEqual(td.userId0, shoppingList.CreatorId);
+
+            // Check that a CreatedDate has been set
+            Assert.AreNotEqual(default(DateTime), shoppingList.CreatedDate);
+
+            // Check that there is only one list with this title
             using (var con = TestUtils.GetConnection())
             {
                 Assert.AreEqual(1, con.Query<int>("select count(1) from ShoppingLists where Title = @title", new { title = insertTitle }).First());
             }
+
         }
 
         [TestMethod]
@@ -116,9 +125,13 @@ namespace ShoppingLists.Tests.DataAccessLayer
             const string updateTitle = "SlRepo - Test list to update - Updated!";
             var shoppingList = repository.Get(td.shoppingListUpdateId);
             shoppingList.Title = updateTitle;
-            repository.Update(shoppingList);
+            var userId = Guid.NewGuid().ToString();
+            repository.Update(shoppingList, userId);
             uow.Complete();
             uow.Dispose();
+
+            Assert.AreEqual(userId, shoppingList.AmenderId);
+            Assert.AreNotEqual(default(DateTime), shoppingList.AmendedDate);
 
             using (var con = TestUtils.GetConnection())
             {

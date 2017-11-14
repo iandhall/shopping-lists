@@ -12,16 +12,14 @@ namespace ShoppingLists.BusinessLayer
         private IUnitOfWork uow;
         private IShoppingListRepository repository;
         private ShoppingListPermissionHelper permissionHelper;
-        private Timestamper<ShoppingList> timestamper;
         private IListItemRepository listItemRepository;
         private UserService userService;
 
-        public ShoppingListService(IUnitOfWork uow, IShoppingListRepository repository, ShoppingListPermissionHelper permissionHelper, Timestamper<ShoppingList> timestamper, IListItemRepository listItemRepository, UserService userService)
+        public ShoppingListService(IUnitOfWork uow, IShoppingListRepository repository, ShoppingListPermissionHelper permissionHelper, IListItemRepository listItemRepository, UserService userService)
         {
             this.uow = uow;
             this.repository = repository;
             this.permissionHelper = permissionHelper;
-            this.timestamper = timestamper;
             this.listItemRepository = listItemRepository;
             this.userService = userService;
         }
@@ -45,7 +43,7 @@ namespace ShoppingLists.BusinessLayer
         public ShoppingList Create(string userId)
         {
             var shoppingList = new ShoppingList() { Title = GetNewListTitle(userId) };
-            timestamper.Create(shoppingList, userId);
+            repository.Create(shoppingList, userId);
             permissionHelper.Create(userId, Permissions.View, shoppingList.Id);
             permissionHelper.Create(userId, Permissions.Edit, shoppingList.Id);
             permissionHelper.Create(userId, Permissions.Share, shoppingList.Id);
@@ -88,7 +86,7 @@ namespace ShoppingLists.BusinessLayer
                 throw new EntityNotFoundException(typeof(ShoppingList), shoppingListId);
             }
             shoppingList.Title = title;
-            timestamper.Update(shoppingList, userId);
+            repository.Update(shoppingList, userId);
             return shoppingList;
         }
 

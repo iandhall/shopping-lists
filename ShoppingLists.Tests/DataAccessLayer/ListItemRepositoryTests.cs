@@ -67,8 +67,8 @@ namespace ShoppingLists.Tests.DataAccessLayer
         public void TestCreate()
         {
             const string insertDescription = "LiRepo - Test ListItem to insert";
-            var listItem = new ListItem { Description = insertDescription, Quantity = 1, StatusId = Statuses.NotPicked, ShoppingListId = td.shoppingListGetId, CreatorId = td.userId0, CreatedDate = DateTime.Now };
-            repository.Create(listItem);
+            var listItem = new ListItem { Description = insertDescription, Quantity = 1, StatusId = Statuses.NotPicked, ShoppingListId = td.shoppingListGetId };
+            repository.Create(listItem, td.userId0);
             uow.Complete();
             uow.Dispose();
 
@@ -84,7 +84,7 @@ namespace ShoppingLists.Tests.DataAccessLayer
             const string updateDescription = "LiRepo - Test ListItem to update - Updated!";
             var listItem = repository.Get(td.listItemUpdateId);
             listItem.Description = updateDescription;
-            repository.Update(listItem);
+            repository.Update(listItem, Guid.NewGuid().ToString());
             uow.Complete();
             uow.Dispose();
 

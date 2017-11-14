@@ -10,13 +10,11 @@ namespace ShoppingLists.BusinessLayer
     {
         private IUnitOfWork uow;
         private IShoppingListPermissionRepository repository;
-        private Timestamper<ShoppingListPermission> timestamper;
 
-        public ShoppingListPermissionHelper(IUnitOfWork uow, IShoppingListPermissionRepository repository, Timestamper<ShoppingListPermission> timestamper)
+        public ShoppingListPermissionHelper(IUnitOfWork uow, IShoppingListPermissionRepository repository)
         {
             this.uow = uow;
             this.repository = repository;
-            this.timestamper = timestamper;
         }
 
         internal void Check(string userId, Permissions permission, long shoppingListId)
@@ -38,7 +36,7 @@ namespace ShoppingLists.BusinessLayer
                 UserId = userId,
                 ShoppingListId = shoppingListId
             };
-            timestamper.Create(entityPermission, userId);
+            repository.Create(entityPermission, userId);
         }
 
         internal void CheckAlreadyExists(string userId, Permissions permission, long shoppingListId)

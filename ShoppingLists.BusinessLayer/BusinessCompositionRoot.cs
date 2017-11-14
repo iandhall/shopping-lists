@@ -13,7 +13,6 @@ namespace ShoppingLists.BusinessLayer
         public void Compose(IServiceRegistry serviceRegistry)
         {
             serviceRegistry.Register<ShoppingListPermissionHelper>(new PerScopeLifetime());
-            serviceRegistry.Register(typeof(Timestamper<>), new PerScopeLifetime());
             serviceRegistry.Register<ShoppingListService>(new PerScopeLifetime());
             serviceRegistry.Register<ListItemService>(new PerScopeLifetime());
             serviceRegistry.Register<UserService>(new PerScopeLifetime());
