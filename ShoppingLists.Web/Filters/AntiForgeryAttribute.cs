@@ -10,29 +10,33 @@ namespace ShoppingLists.Web.Filters
         // Adds ValidateAntiForgeryTokenAttribute to POST requests.
         public void OnAuthorization(AuthorizationContext authorizationContext)
         {
-            //if (!authorizationContext.RequestContext.HttpContext.Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase)) return;
-            //new ValidateAntiForgeryTokenAttribute().OnAuthorization(authorizationContext);
-
-
             var request = authorizationContext.RequestContext.HttpContext.Request;
 
-            //  Only validate POSTs
+            //  Only validate token on POST requests
             if (request.HttpMethod == WebRequestMethods.Http.Post)
             {
-                //  Ajax POSTs and normal form posts have to be treated differently when it comes
-                //  to validating the AntiForgeryToken
                 if (request.IsAjaxRequest())
                 {
-                    var antiForgeryCookie = request.Cookies[AntiForgeryConfig.CookieName];
+                    // For ajax posts, get the value from the header
+                    var cookieValue = "";
+                    var headerValue = "";
 
-                    var cookieValue = antiForgeryCookie != null
-                        ? antiForgeryCookie.Value
-                        : null;
+                    try
+                    {
+                        cookieValue = request.Cookies[AntiForgeryConfig.CookieName] != null
+                            ? request.Cookies[AntiForgeryConfig.CookieName].Value
+                            : null;
 
-                    AntiForgery.Validate(cookieValue, request.Headers["__RequestVerificationToken"]);
+                        headerValue = request.Headers["__RequestVerificationToken"];
+                    }
+                    finally
+                    {
+                        AntiForgery.Validate(cookieValue, headerValue);
+                    }
                 }
                 else
                 {
+                    // For form posts, get the value from the form data
                     new ValidateAntiForgeryTokenAttribute().OnAuthorization(authorizationContext);
                 }
             }
