@@ -9,7 +9,7 @@ namespace ShoppingLists.BusinessLayer.Exceptions
     public class EmptyStringException : ServiceValidationException
     {
         public EmptyStringException(string parameterName) : base(
-            "Parameter {0} can't be empty or null.",
+            "Parameter {0} can't be empty, null or contain only whitespace.",
             parameterName
         ) { }
     }
