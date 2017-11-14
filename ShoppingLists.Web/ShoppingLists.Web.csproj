@@ -271,7 +271,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="robots.txt" />
-    <Content Include="Scripts\ajax-helper.js" />
+    <Content Include="App\ajax-helper.js" />
     <Content Include="Scripts\bootbox.js" />
     <None Include="Properties\PublishProfiles\iisexp.pubxml" />
     <Content Include="Scripts\jquery.signalR-2.0.3.js" />

@@ -43,7 +43,7 @@ namespace ShoppingLists.Web
                       "~/Scripts/moment.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ajaxhelper").Include(
-                      "~/Scripts/ajax-helper.js"));
+                      "~/App/ajax-helper.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/shoppinglistshow").Include(
                       "~/App/Show/ShoppingListModel.js",
