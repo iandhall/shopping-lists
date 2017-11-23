@@ -1,27 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using ShoppingLists.Core.Entities;
 using ShoppingLists.Core;
-using ShoppingLists.Core.RepositoryInterfaces;
+using ShoppingLists.Core.Entities;
+using ShoppingLists.DataAccessLayer;
 
 namespace ShoppingLists.BusinessLayer
 {
     public class UserService
     {
-        private IUnitOfWork uow;
-        private IUserRepository repository;
-        private ShoppingListPermissionHelper permissionHelper;
+        private IUnitOfWork _unitOfWork;
+        private UserRepository _userRepository;
+        private ShoppingListPermissionHelper _permissionHelper;
 
-        public UserService(IUnitOfWork uow, IUserRepository repository, ShoppingListPermissionHelper permissionHelper)
+        public UserService(IUnitOfWork unitOfWork, UserRepository userRepository, ShoppingListPermissionHelper permissionHelper)
         {
-            this.uow = uow;
-            this.repository = repository;
-            this.permissionHelper = permissionHelper;
+            _unitOfWork = unitOfWork;
+            _userRepository = userRepository;
+            _permissionHelper = permissionHelper;
         }
 
         public User Get(string id, bool includePermissions = false, long? shoppingListId = null)
         {
-            var user = repository.Get(id, includePermissions, shoppingListId);
+            var user = _userRepository.Get(id, includePermissions, shoppingListId);
             return user;
         }
 
@@ -29,33 +29,37 @@ namespace ShoppingLists.BusinessLayer
         {
             entity.Id = Guid.NewGuid().ToString();
             entity.Discriminator = "ApplicationUser";
-            repository.Create(entity);
+            _userRepository.Create(entity);
+            _unitOfWork.SaveChanges();
         }
 
         public void Update(User entity)
         {
-            repository.Update(entity);
+            _userRepository.Update(entity);
+            _unitOfWork.SaveChanges();
         }
 
         public void Delete(string id)
         {
-            repository.Delete(id);
+            _userRepository.Delete(id);
+            _unitOfWork.SaveChanges();
         }
 
         public User GetByName(string userName)
         {
-            return repository.FindByName(userName);
+            return _userRepository.FindByName(userName);
         }
 
         public IEnumerable<User> GetAllForShoppingList(long shoppingListId)
         {
-            var users = repository.FindAllForShoppingList(shoppingListId);
+            var users = _userRepository.FindAllForShoppingList(shoppingListId);
             return users;
         }
 
         public void SetPermissions(string userId, long shoppingListId, IEnumerable<long> permissionIds)
         {
-            permissionHelper.SetAllForUser(userId, shoppingListId, permissionIds);
+            _permissionHelper.SetAllForUser(userId, shoppingListId, permissionIds);
+            _unitOfWork.SaveChanges();
         }
     }
 }

@@ -3,28 +3,29 @@ using System.Data.Entity;
 using System.Linq;
 using ShoppingLists.Core;
 using ShoppingLists.Core.Entities;
-using ShoppingLists.Core.RepositoryInterfaces;
 
 namespace ShoppingLists.DataAccessLayer
 {
-    public class ListItemRepository : CrudRepository<ListItem>, IListItemRepository
+    public class ListItemRepository : CrudRepository<ListItem>
     {
-        public ListItemRepository(ShoppingListsDbContext dbContext)
+        private ShoppingListsDbContext _dbContext;
+
+        public ListItemRepository(ShoppingListsDbContext dbContext) : base(dbContext)
         {
-            this.dbContext = dbContext;
+            _dbContext = dbContext;
         }
 
         public ListItem FindByDescription(string description, long shoppingListId)
         {
-            return dbContext.ListItems.Where(li => li.Description == description && li.ShoppingListId == shoppingListId).FirstOrDefault();
+            return _dbContext.ListItems.Where(li => li.Description == description && li.ShoppingListId == shoppingListId).FirstOrDefault();
         }
 
         public void UnpickAllListItems(long shoppingListId)
         {
-            var shoppingList = dbContext.ShoppingLists.Find(shoppingListId);
-            dbContext.Entry(shoppingList).Collection(sl => sl.ListItems).Load();
+            var shoppingList = _dbContext.ShoppingLists.Find(shoppingListId);
+            _dbContext.Entry(shoppingList).Collection(sl => sl.ListItems).Load();
             shoppingList.ListItems.ToList().ForEach(li => li.StatusId = Statuses.NotPicked);
-            dbContext.Entry(shoppingList).State = EntityState.Modified;
+            _dbContext.Entry(shoppingList).State = EntityState.Modified;
         }
     }
 }

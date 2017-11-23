@@ -1,38 +1,39 @@
 ﻿using System.Data;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using ShoppingLists.Core;
 using ShoppingLists.Core.Entities;
-using ShoppingLists.Core.RepositoryInterfaces;
-using System.Data.Entity;
 using System.Data.Entity.SqlServer;
 
 namespace ShoppingLists.DataAccessLayer
 {
-    public class ShoppingListRepository : CrudRepository<ShoppingList>, IShoppingListRepository
+    public class ShoppingListRepository : CrudRepository<ShoppingList>
     {
-        public ShoppingListRepository(ShoppingListsDbContext dbContext)
+        private ShoppingListsDbContext _dbContext;
+
+        public ShoppingListRepository(ShoppingListsDbContext dbContext) : base(dbContext)
         {
-            this.dbContext = dbContext;
+            _dbContext = dbContext;
         }
 
         public ShoppingList Get(long id, bool includeListItems = false, bool includeCreator = false)
         {
-            ShoppingList shoppingList = dbContext.ShoppingLists.Find(id);
+            ShoppingList shoppingList = _dbContext.ShoppingLists.Find(id);
             if (includeListItems)
             {
-                dbContext.Entry(shoppingList).Collection(sl => sl.ListItems).Load();
+                _dbContext.Entry(shoppingList).Collection(sl => sl.ListItems).Load();
             }
             if (includeCreator)
             {
-                dbContext.Entry(shoppingList).Reference(sl => sl.Creator).Load();
+                _dbContext.Entry(shoppingList).Reference(sl => sl.Creator).Load();
             }
             return shoppingList;
         }
 
         public IEnumerable<ShoppingList> FindAllForUser(string userId)
         {
-            return dbContext.ShoppingLists.Include(sl => sl.Creator).Where(sl =>
+            return _dbContext.ShoppingLists.Include(sl => sl.Creator).Where(sl =>
                 sl.CreatorId == userId
                 || (
                     sl.ShoppingListPermissions.Any(p =>
@@ -45,11 +46,11 @@ namespace ShoppingLists.DataAccessLayer
 
         // Returns matches in no specific order.
         public IEnumerable<ShoppingList> FindByPartialTitleMatch(string partialTitle, string userId) {
-            return dbContext.ShoppingLists.Where(sl => sl.CreatorId == userId && SqlFunctions.PatIndex(partialTitle + "%", sl.Title) != 0).ToList();
+            return _dbContext.ShoppingLists.Where(sl => sl.CreatorId == userId && SqlFunctions.PatIndex(partialTitle + "%", sl.Title) != 0).ToList();
         }
 
         public ShoppingList FindByTitle(string title, string userId) {
-            return dbContext.ShoppingLists.FirstOrDefault(sl => sl.CreatorId == userId && sl.Title == title);
+            return _dbContext.ShoppingLists.FirstOrDefault(sl => sl.CreatorId == userId && sl.Title == title);
         }
     }
 }

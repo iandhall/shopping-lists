@@ -1,6 +1,4 @@
 ﻿using LightInject;
-using ShoppingLists.Core.Entities;
-using ShoppingLists.Core.RepositoryInterfaces;
 using ShoppingLists.Core;
 using ShoppingLists.DataAccessLayer;
 
@@ -15,14 +13,11 @@ namespace ShoppingLists.DataAccessLayer
         {
             serviceRegistry.Register<ShoppingListsDbContext>(new PerScopeLifetime());
             serviceRegistry.Register<IUnitOfWork, EfUnitOfWork>(new PerScopeLifetime());
-            serviceRegistry.Register<IShoppingListRepository, ShoppingListRepository>(new PerScopeLifetime());
-            serviceRegistry.Register<ICrudRepository<ShoppingList>>(f => f.GetInstance<IShoppingListRepository>());
-            serviceRegistry.Register<IListItemRepository, ListItemRepository>(new PerScopeLifetime());
-            serviceRegistry.Register<ICrudRepository<ListItem>>(f => f.GetInstance<IListItemRepository>());
-            serviceRegistry.Register<IShoppingListPermissionRepository, ShoppingListPermissionRepository>(new PerScopeLifetime());
-            serviceRegistry.Register<ICrudRepository<ShoppingListPermission>>(f => f.GetInstance<IShoppingListPermissionRepository>());
-            serviceRegistry.Register<IUserRepository, UserRepository>(new PerScopeLifetime());
-            serviceRegistry.Register<IPermissionTypeRepository, PermissionTypeRepository>(new PerScopeLifetime());
+            serviceRegistry.Register<ShoppingListRepository>(new PerScopeLifetime());
+            serviceRegistry.Register<ListItemRepository>(new PerScopeLifetime());
+            serviceRegistry.Register<ShoppingListPermissionRepository>(new PerScopeLifetime());
+            serviceRegistry.Register<UserRepository>(new PerScopeLifetime());
+            serviceRegistry.Register<PermissionTypeRepository>(new PerScopeLifetime());
         }
     }
 }

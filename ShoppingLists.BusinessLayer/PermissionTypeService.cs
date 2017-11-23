@@ -1,26 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ShoppingLists.Core.Entities;
-using ShoppingLists.Core;
-using ShoppingLists.Core.RepositoryInterfaces;
 using ShoppingLists.BusinessLayer.Exceptions;
+using ShoppingLists.DataAccessLayer;
 
 namespace ShoppingLists.BusinessLayer
 {
     public class PermissionTypeService
     {
-        private IUnitOfWork uow;
-        private IPermissionTypeRepository repository;
+        private PermissionTypeRepository _permissionTypeRepository;
 
-        public PermissionTypeService(IUnitOfWork uow, IPermissionTypeRepository repository)
+        public PermissionTypeService(PermissionTypeRepository repository)
         {
-            this.uow = uow;
-            this.repository = repository;
+            this._permissionTypeRepository = repository;
         }
 
         public IEnumerable<PermissionType> GetAll()
         {
-            var permissions = repository.GetAll();
+            var permissions = _permissionTypeRepository.GetAll();
             if (permissions.Count() == 0)
             {
                 throw new NoEntitiesFoundException(typeof(PermissionType));

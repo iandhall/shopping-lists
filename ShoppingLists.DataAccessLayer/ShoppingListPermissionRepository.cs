@@ -3,32 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using ShoppingLists.Core;
 using ShoppingLists.Core.Entities;
-using ShoppingLists.Core.RepositoryInterfaces;
 
 namespace ShoppingLists.DataAccessLayer
 {
-    public class ShoppingListPermissionRepository : CrudRepository<ShoppingListPermission>, IShoppingListPermissionRepository
+    public class ShoppingListPermissionRepository : CrudRepository<ShoppingListPermission>
     {
-        public ShoppingListPermissionRepository(ShoppingListsDbContext dbContext)
+        private ShoppingListsDbContext _dbContext;
+
+        public ShoppingListPermissionRepository(ShoppingListsDbContext dbContext) : base(dbContext)
         {
-            this.dbContext = dbContext;
+            _dbContext = dbContext;
         }
 
         public ShoppingListPermission Get(Permissions permission, string userId, long shoppingListId)
         {
-            return dbContext.ShoppingListPermissions.FirstOrDefault(slp => slp.PermissionTypeId == permission && slp.UserId == userId && slp.ShoppingListId == shoppingListId);
+            return _dbContext.ShoppingListPermissions.FirstOrDefault(slp => slp.PermissionTypeId == permission && slp.UserId == userId && slp.ShoppingListId == shoppingListId);
         }
 
         public void DeleteAllForUserAndShoppingList(long shoppingListId, string userId)
         {
-            dbContext.ShoppingListPermissions.Where(slp => slp.ShoppingListId == shoppingListId && slp.UserId == userId).ToList().ForEach(slp =>
-                dbContext.ShoppingListPermissions.Remove(slp)
+            _dbContext.ShoppingListPermissions.Where(slp => slp.ShoppingListId == shoppingListId && slp.UserId == userId).ToList().ForEach(slp =>
+                _dbContext.ShoppingListPermissions.Remove(slp)
             );
         }
 
         public IEnumerable<ShoppingListPermission> FindAllForUserAndShoppingList(string userId, long shoppingListId)
         {
-            return dbContext.ShoppingListPermissions.Where(slp => slp.UserId == userId && slp.ShoppingListId == shoppingListId).ToList();
+            return _dbContext.ShoppingListPermissions.Where(slp => slp.UserId == userId && slp.ShoppingListId == shoppingListId).ToList();
         }
     }
 }

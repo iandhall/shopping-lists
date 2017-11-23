@@ -1,26 +1,34 @@
-﻿using LightInject;
+﻿using System;
+using LightInject;
 using Microsoft.AspNet.SignalR;
-using ShoppingLists.Web.HubPipelineModules;
 using Owin;
+using ShoppingLists.Web.HubPipelineModules;
+using ShoppingLists.Web.Hubs;
 
 namespace ShoppingLists.Web
 {
     public partial class Startup
     {
-        public void ConfigureSignalr(IAppBuilder app)
+        public void ConfigureSignalr(IAppBuilder app, ServiceContainer container)
         {
-            //container.Register<ShoppingListHub>();
-            //var resolver = new LightInjectSignalrDependencyResolver(container);
+            container.Register<ShoppingListHub>(new PerScopeLifetime());
+            GlobalHost.DependencyResolver.Register(typeof(ShoppingListHub), () =>
+            {
+                ShoppingListHub hub = null;
+                try
+                {
+                    hub = container.Create<ShoppingListHub>();
+                }
+                catch (NullReferenceException ex)
+                {
+                    // Intentional: Ignore this exception
+                }
+                return hub;
+            });
 
-            //var config = new HubConfiguration() {
-            //    Resolver = resolver
-            //};
-
-            var container = new ServiceContainer(); // SignalR needs it's own DI container as it doesn't use the per request scope that MVC uses.
             GlobalHost.HubPipeline.AddModule(new ErrorLoggingPipelineModule());
             GlobalHost.HubPipeline.AddModule(new ScriptDetectionPipelineModule());
-            GlobalHost.HubPipeline.AddModule(new UnitOfWorkPipelineModule(container));
-            //app.MapSignalR(new HubConfiguration { EnableDetailedErrors = true });
+
             app.MapSignalR();
             GlobalHost.HubPipeline.RequireAuthentication();
         }

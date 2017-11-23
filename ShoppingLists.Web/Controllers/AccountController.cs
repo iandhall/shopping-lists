@@ -10,15 +10,10 @@ using ShoppingLists.Core;
 namespace ShoppingLists.Web.Controllers
 {
     [Authorize]
-    public class AccountController : Controller, IHasUnitOfWork
+    public class AccountController : Controller
     {
-        private IUnitOfWork uow;
-
-        public IUnitOfWork Uow { get { return uow; } }
-
-        public AccountController(UserManager<AspNetUser> userManager, IUnitOfWork uow)
+        public AccountController(UserManager<AspNetUser> userManager)
         {
-            this.uow = uow;
             UserManager = userManager;
         }
 
@@ -31,7 +26,7 @@ namespace ShoppingLists.Web.Controllers
             return View();
         }
 
-        [HttpPost, AllowAnonymous, UnitOfWork]
+        [HttpPost, AllowAnonymous]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
@@ -58,7 +53,7 @@ namespace ShoppingLists.Web.Controllers
             return View();
         }
 
-        [HttpPost, AllowAnonymous, UnitOfWork]
+        [HttpPost, AllowAnonymous]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -80,7 +75,7 @@ namespace ShoppingLists.Web.Controllers
             return View(model);
         }
 
-        [HttpPost, UnitOfWork]
+        [HttpPost]
         public async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
         {
             ManageMessageId? message = null;
@@ -109,7 +104,7 @@ namespace ShoppingLists.Web.Controllers
             return View();
         }
 
-        [HttpPost, UnitOfWork]
+        [HttpPost]
         public async Task<ActionResult> Manage(ManageUserViewModel model)
         {
             bool hasPassword = HasPassword();
@@ -164,7 +159,7 @@ namespace ShoppingLists.Web.Controllers
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
-        [AllowAnonymous, UnitOfWork]
+        [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
@@ -196,7 +191,6 @@ namespace ShoppingLists.Web.Controllers
             return new ChallengeResult(provider, Url.Action("LinkLoginCallback", "Account"), User.Identity.GetUserId());
         }
 
-        [UnitOfWork]
         public async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
@@ -212,7 +206,7 @@ namespace ShoppingLists.Web.Controllers
             return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
         }
 
-        [HttpPost, AllowAnonymous, UnitOfWork]
+        [HttpPost, AllowAnonymous]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
@@ -246,7 +240,7 @@ namespace ShoppingLists.Web.Controllers
             return View(model);
         }
 
-        [HttpPost, UnitOfWork]
+        [HttpPost]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
@@ -259,7 +253,7 @@ namespace ShoppingLists.Web.Controllers
             return View();
         }
 
-        [ChildActionOnly, UnitOfWork]
+        [ChildActionOnly]
         public ActionResult RemoveAccountList()
         {
             var linkedAccounts = UserManager.GetLogins(User.Identity.GetUserId());

@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ShoppingLists.Core.Entities;
-using ShoppingLists.Core.RepositoryInterfaces;
 
 namespace ShoppingLists.DataAccessLayer
 {
-    public class PermissionTypeRepository : IPermissionTypeRepository
+    public class PermissionTypeRepository
     {
         private ShoppingListsDbContext dbContext;
 

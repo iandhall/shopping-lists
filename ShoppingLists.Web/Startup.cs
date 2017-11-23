@@ -19,10 +19,6 @@ namespace ShoppingLists.Web
 
         public void Configuration(IAppBuilder app)
         {
-            //if (Path.GetDirectoryName(Logger.FileName).Length == 0)
-            //{
-            //    Logger.FileName = string.Format("{0}..{1}Logs{1}{2}", HttpContext.Current.Server.MapPath("~"), Path.DirectorySeparatorChar, Logger.FileName);
-            //}
             _log.Info("DataDirectory={0}", AppDomain.CurrentDomain.GetData("DataDirectory"));
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -32,7 +28,7 @@ namespace ShoppingLists.Web
             ConfigureAuth(app);
             var container = ConfigureDependencyInjection();
             BusinessStartup.Initialise();
-            ConfigureSignalr(app);
+            ConfigureSignalr(app, container);
         }
     }
 }

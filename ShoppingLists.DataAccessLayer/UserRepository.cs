@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using ShoppingLists.Core;
 using ShoppingLists.Core.Entities;
-using ShoppingLists.Core.RepositoryInterfaces;
 using System.Data.Entity;
 
 namespace ShoppingLists.DataAccessLayer
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository
     {
         private ShoppingListsDbContext dbContext;
 

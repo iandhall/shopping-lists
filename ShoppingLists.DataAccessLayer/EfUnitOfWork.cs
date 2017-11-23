@@ -1,61 +1,19 @@
-﻿using System;
-using System.Transactions;
-using ShoppingLists.Core;
+﻿using ShoppingLists.Core;
 
 namespace ShoppingLists.DataAccessLayer
 {
     public class EfUnitOfWork : IUnitOfWork
     {
-        private TransactionScope transactionScope;
-        private ShoppingListsDbContext dbContext;
-        //private static long instanceCount;
-        //private long instanceId;
-        //private static object locker = new object();
+        private ShoppingListsDbContext _dbContext;
 
         public EfUnitOfWork(ShoppingListsDbContext dbContext)
         {
-            //lock (locker) {
-            //    instanceId = ++instanceCount;
-            //}
-            //_log.Debug("instanceId={0}", instanceId);
-            if (Transaction.Current != null) throw new ApplicationException("A transaction already exists.");
-            transactionScope = new TransactionScope(
-                TransactionScopeOption.RequiresNew,
-                new TransactionOptions {
-                    IsolationLevel = IsolationLevel.ReadCommitted,
-                    Timeout = TransactionManager.DefaultTimeout
-                },
-                TransactionScopeAsyncFlowOption.Enabled
-            );
-            this.dbContext = dbContext;
+            _dbContext = dbContext;
         }
 
-        public void Complete()
+        public void SaveChanges()
         {
-            //lock (locker) {
-            //  _log.Debug("instanceId={0}", instanceId);
-            //}
-            if (dbContext.ChangeTracker.HasChanges())
-            {
-                dbContext.SaveChanges();
-            }
-            transactionScope.Complete();
-        }
-
-        public void Dispose()
-        {
-            //lock (locker) {
-            //  _log.Debug("instanceId={0}", instanceId);
-            //}
-            if (dbContext != null)
-            {
-                dbContext.Dispose();
-            }
-            if (transactionScope != null)
-            {
-                transactionScope.Dispose();
-            }
-            transactionScope = null;
+            _dbContext.SaveChanges();
         }
     }
 }

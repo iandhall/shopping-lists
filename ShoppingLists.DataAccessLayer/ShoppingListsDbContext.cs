@@ -3,12 +3,17 @@ using System.Data.Entity.Infrastructure.Pluralization;
 using ShoppingLists.Core.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
+using ShoppingLists.Core;
+using System.Linq;
+using System.Collections.Generic;
+using System;
 
 namespace ShoppingLists.DataAccessLayer
 {
     public class ShoppingListsDbContext : DbContext
     {
-        private IPluralizationService pluralizationService;
+        private IPluralizationService _pluralizationService;
+        private IUserContext _userContext;
 
         public DbSet<ShoppingList> ShoppingLists { get; set; }
         public DbSet<ListItem> ListItems { get; set; }
@@ -16,11 +21,12 @@ namespace ShoppingLists.DataAccessLayer
         public DbSet<ShoppingListPermission> ShoppingListPermissions { get; set; }
         public DbSet<PermissionType> PermissionTypes { get; set; }
 
-        public ShoppingListsDbContext()
+        public ShoppingListsDbContext(IUserContext userContext)
         {
+            _userContext = userContext;
             this.Database.Log = (s) => Trace.Write(s);
             this.Configuration.LazyLoadingEnabled = false;
-            this.pluralizationService = new EnglishPluralizationService();
+            this._pluralizationService = new EnglishPluralizationService();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -54,8 +60,32 @@ namespace ShoppingLists.DataAccessLayer
             modelBuilder.Entity<TEntity>().Map(m =>
             {
                 m.MapInheritedProperties();
-                m.ToTable(pluralizationService.Pluralize(typeof(TEntity).Name));
+                m.ToTable(_pluralizationService.Pluralize(typeof(TEntity).Name));
             });
+        }
+
+        public override int SaveChanges()
+        {
+            // Set timestamps and userIds
+            ChangeTracker.Entries()
+                .Where(e => e.Entity is TimestampedEntity)
+                .ToList().ForEach(e =>
+                {
+                    if (e.State == EntityState.Modified)
+                    {
+                        var entity = (TimestampedEntity)e.Entity;
+                        entity.AmenderId = _userContext.UserId;
+                        entity.AmendedDate = DateTime.Now;
+                    }
+                    else if (e.State == EntityState.Added)
+                    {
+                        var entity = (TimestampedEntity)e.Entity;
+                        entity.CreatorId = _userContext.UserId;
+                        entity.CreatedDate = DateTime.Now;
+                    }
+                });
+
+            return base.SaveChanges();
         }
     }
 }

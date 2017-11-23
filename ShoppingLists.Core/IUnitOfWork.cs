@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace ShoppingLists.Core
+﻿namespace ShoppingLists.Core
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork
     {
-        void Complete();
+        void SaveChanges();
     }
 }

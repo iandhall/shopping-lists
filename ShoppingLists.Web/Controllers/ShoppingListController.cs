@@ -6,60 +6,52 @@ using NLog;
 using ShoppingLists.BusinessLayer;
 using ShoppingLists.BusinessLayer.Exceptions;
 using ShoppingLists.Core;
-using ShoppingLists.Web.Filters;
 using ShoppingLists.Web.Models;
 
 namespace ShoppingLists.Web.Controllers
 {
-    [Authorize, UnitOfWork]
-    public class ShoppingListController : Controller, IHasUnitOfWork
+    [Authorize]
+    public class ShoppingListController : Controller
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
-        private IUnitOfWork uow;
-        private ShoppingListService shoppingListService;
-        private UserService userService;
-        private PermissionTypeService permissionService;
+        private IUserContext _userContext;
+        private ShoppingListService _shoppingListService;
+        private UserService _userService;
+        private PermissionTypeService _permissionService;
 
-        public IUnitOfWork Uow { get { return uow; } }
-
-        public ShoppingListController(ShoppingListService shoppingListService, IUnitOfWork uow, UserService userService, PermissionTypeService permissionService)
+        public ShoppingListController(IUserContext userContext, ShoppingListService shoppingListService, UserService userService, PermissionTypeService permissionService)
         {
-            this.uow = uow;
-            this.shoppingListService = shoppingListService;
-            this.userService = userService;
-            this.permissionService = permissionService;
-        }
-
-        private string userId
-        {
-            get { return User.Identity.GetUserId(); }
+            _userContext = userContext;
+            _shoppingListService = shoppingListService;
+            _userService = userService;
+            _permissionService = permissionService;
         }
 
         public ActionResult Index()
         {
-            var shoppingLists = shoppingListService.FindAllForUser(userId);
-            return View(new MyShoppingListsModel(shoppingLists, userId));
+            var shoppingLists = _shoppingListService.FindAllForCurrentUser();
+            return View(new MyShoppingListsModel(shoppingLists, _userContext.UserId));
         }
 
         public ActionResult Show(long id)
         {
-            var shoppingList = shoppingListService.Get(id, userId, includeListItems: true);
-            var currentUser = userService.Get(userId, includePermissions: true, shoppingListId: id);
+            var shoppingList = _shoppingListService.Get(id, includeListItems: true);
+            var currentUser = _userService.Get(_userContext.UserId, includePermissions: true, shoppingListId: id);
             return View(new ShoppingListModel(shoppingList, currentUser));
         }
 
         public ActionResult Create()
         {
-            var shoppingList = shoppingListService.Create(userId);
+            var shoppingList = _shoppingListService.Create();
             if (shoppingList == null) return RedirectToAction("Index");
             return RedirectToAction("Show", new { id = shoppingList.Id });
         }
 
         public ActionResult Share(long id)
         {
-            var shoppingList = shoppingListService.Get(id, userId);
-            var users = userService.GetAllForShoppingList(id);
-            var shoppingListSharingModel = new ShoppingListSharingModel(shoppingList, users, userId);
+            var shoppingList = _shoppingListService.Get(id);
+            var users = _userService.GetAllForShoppingList(id);
+            var shoppingListSharingModel = new ShoppingListSharingModel(shoppingList, users, _userContext.UserId);
             return View(shoppingListSharingModel);
         }
 
@@ -67,7 +59,7 @@ namespace ShoppingLists.Web.Controllers
         public JsonResult Delete(long id)
         {
             _log.Debug("shoppingListId={0}", id);
-            shoppingListService.Delete(id, userId);
+            _shoppingListService.Delete(id);
             return Json("");
         }
 
@@ -75,16 +67,16 @@ namespace ShoppingLists.Web.Controllers
         public JsonResult Ignore(long id)
         {
             _log.Debug("shoppingListId={0}", id);
-            shoppingListService.Ignore(id, userId);
+            _shoppingListService.Ignore(id);
             return Json("");
         }
 
         [HttpPost]
         public JsonResult ShareWithUser(long shoppingListId, string username)
         {
-            var userToShareWith = userService.GetByName(username);
+            var userToShareWith = _userService.GetByName(username);
             if (userToShareWith == null) throw new UserNotFoundException(username);
-            shoppingListService.ShareWithUser(shoppingListId, userToShareWith.Id, userId);
+            _shoppingListService.ShareWithUser(shoppingListId, userToShareWith.Id);
             var userModel = new UserSharingModel(userToShareWith);
             return Json(userModel);
         }
@@ -92,14 +84,14 @@ namespace ShoppingLists.Web.Controllers
         [HttpPost]
         public JsonResult RemoveSharingUser(long shoppingListId, UserSharingModel userSharingModel)
         {
-            shoppingListService.RemoveSharingUser(shoppingListId, userSharingModel.Id, userId);
+            _shoppingListService.RemoveSharingUser(shoppingListId, userSharingModel.Id);
             return Json("");
         }
 
         [HttpPost]
         public JsonResult GetDefaultPermissions()
         {
-            var availablePermissions = permissionService.GetAll();
+            var availablePermissions = _permissionService.GetAll();
             IEnumerable<PermissionModel> permissionModels = availablePermissions.Where(p => p.Id != Permissions.View).Select(p => new PermissionModel(p));
             return Json(permissionModels);
         }
@@ -107,7 +99,7 @@ namespace ShoppingLists.Web.Controllers
         [HttpPost]
         public JsonResult GetPermissionsForUser(long shoppingListId, string permissionsUserId, bool shouldGetDefaultPermissions)
         {
-            var availablePermissions = permissionService.GetAll().Where(p => p.Id != Permissions.View);
+            var availablePermissions = _permissionService.GetAll().Where(p => p.Id != Permissions.View);
             IEnumerable<PermissionModel> permissionModels;
             if (shouldGetDefaultPermissions)
             {
@@ -115,7 +107,7 @@ namespace ShoppingLists.Web.Controllers
             }
             else
             {
-                var entityPermissions = shoppingListService.GetPermissionsForUser(shoppingListId, permissionsUserId, userId);
+                var entityPermissions = _shoppingListService.GetPermissionsForUser(shoppingListId, permissionsUserId);
                 permissionModels = availablePermissions.Select(p => new PermissionModel(p, entityPermissions));
             }
             return Json(permissionModels);
@@ -126,7 +118,7 @@ namespace ShoppingLists.Web.Controllers
         {
             if (selectedPermissionIds == null) selectedPermissionIds = new List<long>();
             selectedPermissionIds.Add((long)Permissions.View);
-            userService.SetPermissions(permissionsUserId, shoppingListId, selectedPermissionIds);
+            _userService.SetPermissions(permissionsUserId, shoppingListId, selectedPermissionIds);
             return Json("");
         }
     }
