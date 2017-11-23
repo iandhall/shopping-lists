@@ -1,12 +1,12 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.Infrastructure.Pluralization;
-using ShoppingLists.Core.Entities;
+﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Data.Entity.SqlServer;
+using System.Data.Entity.Infrastructure.Pluralization;
 using System.Diagnostics;
-using ShoppingLists.Core;
 using System.Linq;
-using System.Collections.Generic;
-using System;
+using ShoppingLists.Core;
+using ShoppingLists.Core.Entities;
 
 namespace ShoppingLists.DataAccessLayer
 {
@@ -27,6 +27,7 @@ namespace ShoppingLists.DataAccessLayer
             this.Database.Log = (s) => Trace.Write(s);
             this.Configuration.LazyLoadingEnabled = false;
             this._pluralizationService = new EnglishPluralizationService();
+            var dependency = typeof(SqlFunctions); // Intentional: Create a reference to System.Data.Entity.SqlServer so that the DLL gets published to bin.
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ShoppingLists.Core;
 using ShoppingLists.Core.Entities;
-using System.Data.Entity.SqlServer;
 
 namespace ShoppingLists.DataAccessLayer
 {
@@ -42,11 +41,6 @@ namespace ShoppingLists.DataAccessLayer
                     )
                 )
             ).OrderBy(sl => sl.Title).ToList();
-        }
-
-        // Returns matches in no specific order.
-        public IEnumerable<ShoppingList> FindByPartialTitleMatch(string partialTitle, string userId) {
-            return _dbContext.ShoppingLists.Where(sl => sl.CreatorId == userId && SqlFunctions.PatIndex(partialTitle + "%", sl.Title) != 0).ToList();
         }
 
         public ShoppingList FindByTitle(string title, string userId) {

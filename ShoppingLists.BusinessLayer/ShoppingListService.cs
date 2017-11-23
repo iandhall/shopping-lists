@@ -64,7 +64,8 @@ namespace ShoppingLists.BusinessLayer
         {
             const string defaultTitle = "Shopping List #";
             int dummy;
-            int lastNum = _shoppingListRepository.FindByPartialTitleMatch(defaultTitle, _userContext.UserId)
+            int lastNum = _shoppingListRepository.FindAllForUser(_userContext.UserId)
+                .Where(sl => sl.Title.StartsWith(defaultTitle))
                 .Select(sl => sl.Title.Split('#').Last())
                 .OrderByDescending(n => n, new NumericStringComparer())
                 .Where(n => int.TryParse(n, out dummy))
