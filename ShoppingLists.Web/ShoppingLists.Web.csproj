@@ -57,6 +57,9 @@
     <Reference Include="LightInject.Web, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LightInject.Web.2.0.0\lib\net46\LightInject.Web.dll</HintPath>
     </Reference>
+    <Reference Include="LightInject.WebApi, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.WebApi.2.0.0\lib\net46\LightInject.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -107,6 +110,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -116,6 +122,12 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
@@ -161,6 +173,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiExceptionLogger.cs" />
+    <Compile Include="ApiValidateAntiForgeryHeaderAttribute.cs" />
+    <Compile Include="Api\ShoppingListsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -168,6 +183,7 @@
     <Compile Include="App_Start\Startup.Signalr.cs" />
     <Compile Include="App_Start\Startup.DependencyInjection.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="EncodingHelper.cs" />
     <Compile Include="Helpers\RenderBootstrapGuideHelper.cs" />
     <Compile Include="HubPipelineModules\ScriptDetectionPipelineModule.cs" />
@@ -175,7 +191,7 @@
     <Compile Include="Hubs\ConnectionHolder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ShoppingListController.cs" />
+    <Compile Include="Controllers\ShoppingListsController.cs" />
     <Compile Include="Filters\AntiForgeryAttribute.cs" />
     <Compile Include="Filters\LogAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -190,16 +206,18 @@
     <Compile Include="Models\AspNetUser.cs" />
     <Compile Include="Models\IEncodable.cs" />
     <Compile Include="Models\ListItemModel.cs" />
-    <Compile Include="Models\MyShoppingListsModel.cs" />
+    <Compile Include="Models\ShoppingListsIndexModel.cs" />
     <Compile Include="Models\PermissionPostModel.cs" />
     <Compile Include="Models\PermissionModel.cs" />
     <Compile Include="Models\ShoppingListSharingModel.cs" />
     <Compile Include="Models\ShoppingListOverviewModel.cs" />
     <Compile Include="Models\ShoppingListModel.cs" />
     <Compile Include="Models\UserSharingModel.cs" />
+    <Compile Include="MvcValidateAntiForgeryHeaderAttribute.cs" />
     <Compile Include="UserContext.cs" />
     <Compile Include="UserStore.cs" />
-    <Content Include="App\Index\MyShoppingListsModel.js" />
+    <Compile Include="ValidateApiModelAttribute.cs" />
+    <Content Include="App\Index\ShoppingListsIndexModel.js" />
     <Content Include="App\Index\ShoppingListOverviewModel.js" />
     <Content Include="App\Share\PermissionModel.js" />
     <Content Include="App\Share\SharingModel.js" />
@@ -209,6 +227,7 @@
     <Content Include="App\Show\ListItemModel.js" />
     <Content Include="App\Show\ShoppingListHub.js" />
     <Content Include="App\Show\ShoppingListModel.js" />
+    <Content Include="App\utils.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -255,7 +274,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="robots.txt" />
-    <Content Include="App\ajax-helper.js" />
+    <Content Include="App\ajax.js" />
     <None Include="Properties\PublishProfiles\iisexp.pubxml" />
     <Content Include="Scripts\knockout.mapping-latest.js" />
     <Content Include="Scripts\knockout.validation.js" />
@@ -268,9 +287,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\ShoppingList\Share.cshtml" />
-    <Content Include="Views\ShoppingList\_ListItemEditForm.cshtml" />
-    <Content Include="Views\ShoppingList\_UserPermissionsEditForm.cshtml" />
+    <Content Include="Views\ShoppingLists\Share.cshtml" />
+    <Content Include="Views\ShoppingLists\_ListItemEditForm.cshtml" />
+    <Content Include="Views\ShoppingLists\_UserPermissionsEditForm.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -297,8 +316,8 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\ShoppingList\Index.cshtml" />
-    <Content Include="Views\ShoppingList\Show.cshtml" />
+    <Content Include="Views\ShoppingLists\Index.cshtml" />
+    <Content Include="Views\ShoppingLists\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

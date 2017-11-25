@@ -1,4 +1,4 @@
-﻿@model ShoppingLists.Web.Models.MyShoppingListsModel
+﻿@model ShoppingLists.Web.Models.ShoppingListsIndexModel
 
 @{
     ViewBag.Title = "My Lists";
@@ -50,8 +50,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/knockout")
-    @Scripts.Render("~/bundles/ajaxhelper")
-    @Scripts.Render("~/bundles/shoppinglistindex")
+    @Scripts.Render("~/bundles/app")
     <script type="text/javascript">
         "use strict";
 
@@ -59,14 +58,7 @@
             $(function () {
                 @Html.RenderServiceExceptionsJs()
 
-                var urls = {
-                    create: "@Url.Action("Create")",
-                    show: "@Url.Action("Show")/",
-                    deleteAction: "@Url.Action("Delete")",
-                    ignore: "@Url.Action("Ignore")",
-                };
-
-                var myShoppingListsModel = new MyShoppingListsModel(@Html.Raw(Json.Encode(Model)), urls);
+                var shoppingListsIndexModel = new ShoppingListsIndexModel(@Html.Raw(Json.Encode(Model)));
             });
         }());
     </script>

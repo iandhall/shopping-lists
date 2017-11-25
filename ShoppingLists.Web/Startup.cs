@@ -8,6 +8,7 @@ using System.Web.Optimization;
 using System.Web;
 using System.IO;
 using ShoppingLists.BusinessLayer;
+using System.Web.Http;
 
 [assembly: OwinStartupAttribute(typeof(ShoppingLists.Web.Startup))]
 
@@ -20,7 +21,7 @@ namespace ShoppingLists.Web
         public void Configuration(IAppBuilder app)
         {
             _log.Info("DataDirectory={0}", AppDomain.CurrentDomain.GetData("DataDirectory"));
-            AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configure(WebApiConfig.Register);            AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

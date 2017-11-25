@@ -1,4 +1,5 @@
-﻿using LightInject;
+﻿using System.Web.Http;
+using LightInject;
 using Microsoft.AspNet.Identity;
 using ShoppingLists.Core;
 using ShoppingLists.Web.Models;
@@ -12,8 +13,11 @@ namespace ShoppingLists.Web
         {
             var container = new ServiceContainer();
             container.ScopeManagerProvider = new PerLogicalCallContextScopeManagerProvider(); // Enable scopes across the logical CallContext. This allows Lightinject to work for async calls.
-            container.EnableMvc();
+
             container.EnablePerWebRequestScope();
+            container.RegisterApiControllers();
+            container.EnableWebApi(GlobalConfiguration.Configuration);
+            container.EnableMvc();
 
             // Web:
             container.RegisterControllers();

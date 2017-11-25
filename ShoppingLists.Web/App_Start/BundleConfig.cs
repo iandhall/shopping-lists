@@ -43,23 +43,10 @@ namespace ShoppingLists.Web
                       "~/Scripts/moment.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ajaxhelper").Include(
-                      "~/App/ajax-helper.js"));
+                      "~/App/ajax.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/shoppinglistshow").Include(
-                      "~/App/Show/ShoppingListModel.js",
-                      "~/App/Show/ListItemModel.js",
-                      "~/App/Show/ListItemEditModel.js",
-                      "~/App/Show/ShoppingListHub.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/shoppinglistindex").Include(
-                      "~/App/Index/MyShoppingListsModel.js",
-                      "~/App/Index/ShoppingListOverviewModel.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/shoppinglistshare").Include(
-                      "~/App/Share/SharingModel.js",
-                      "~/App/Share/UserModel.js",
-                      "~/App/Share/UserPermissionsEditModel.js",
-                      "~/App/Share/PermissionModel.js"));
+            bundles.Add(new ScriptBundle("~/bundles/app")
+                .IncludeDirectory("~/App/", "*.js", true));
         }
     }
 
