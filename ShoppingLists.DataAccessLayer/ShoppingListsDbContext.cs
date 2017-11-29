@@ -5,8 +5,8 @@ using System.Data.Entity.SqlServer;
 using System.Data.Entity.Infrastructure.Pluralization;
 using System.Diagnostics;
 using System.Linq;
-using ShoppingLists.Core;
-using ShoppingLists.Core.Entities;
+using ShoppingLists.Shared;
+using ShoppingLists.Shared.Entities;
 
 namespace ShoppingLists.DataAccessLayer
 {
@@ -18,15 +18,15 @@ namespace ShoppingLists.DataAccessLayer
         public DbSet<ShoppingList> ShoppingLists { get; set; }
         public DbSet<ListItem> ListItems { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<ShoppingListPermission> ShoppingListPermissions { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
         public DbSet<PermissionType> PermissionTypes { get; set; }
 
         public ShoppingListsDbContext(IUserContext userContext)
         {
             _userContext = userContext;
-            this.Database.Log = (s) => Trace.Write(s);
-            this.Configuration.LazyLoadingEnabled = false;
-            this._pluralizationService = new EnglishPluralizationService();
+            Database.Log = (s) => Trace.Write(s);
+            Configuration.LazyLoadingEnabled = false;
+            _pluralizationService = new EnglishPluralizationService();
             var dependency = typeof(SqlFunctions); // Intentional: Create a reference to System.Data.Entity.SqlServer so that the DLL gets published to bin.
         }
 
@@ -39,10 +39,11 @@ namespace ShoppingLists.DataAccessLayer
 
             // ListItem
             ConfigureDerivedEntity<ListItem>(modelBuilder);
-            
-            // ShoppingListPermission
-            ConfigureDerivedEntity<ShoppingListPermission>(modelBuilder);
-            modelBuilder.Entity<ShoppingListPermission>().HasRequired(slp => slp.PermissionType).WithMany().HasForeignKey(slp => slp.PermissionTypeId);
+
+            // Permission
+            ConfigureDerivedEntity<Permission>(modelBuilder);
+            modelBuilder.Entity<Permission>().ToTable("ShoppingListPermissions");
+            modelBuilder.Entity<Permission>().HasRequired(slp => slp.PermissionType).WithMany().HasForeignKey(slp => slp.PermissionTypeId);
 
             // User
             modelBuilder.Entity<User>().HasKey(u => u.Id);

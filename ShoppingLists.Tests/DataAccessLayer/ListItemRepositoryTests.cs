@@ -2,115 +2,79 @@
 using System.Linq;
 using Dapper;
 using LightInject;
+using LightInject.Mocking;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShoppingLists.Core;
-using ShoppingLists.Core.Entities;
-using ShoppingLists.Core.RepositoryInterfaces;
+using Moq;
+using ShoppingLists.Shared;
+using ShoppingLists.Shared.Entities;
+using ShoppingLists.Shared.RepositoryInterfaces;
 
 namespace ShoppingLists.Tests.DataAccessLayer
 {
     [TestClass]
     public class ListItemRepositoryTests
     {
-        private IUnitOfWork uow;
-        private IListItemRepository repository;
-        private static ServiceContainer container;
-        private Scope scope;
-        private static ListItemRepositoryTestData td;
+        private IUnitOfWork _uow;
+        private IListItemRepository _repository;
+        private static ServiceContainer _container;
+        private Scope _scope;
+        private static ListItemRepositoryTestData _td;
 
         [ClassInitialize]
         public static void Init(TestContext testContext)
         {
             // Create test data.
-            td = TestUtils.InitialiseTestData<ListItemRepositoryTestData>(@"DataAccessLayer\sql\InitListItemRepositoryTestData.sql");
+            _td = TestUtils.InitialiseTestData<ListItemRepositoryTestData>(@"DataAccessLayer\sql\InitListItemRepositoryTestData.sql");
 
             // Init DI.
-            container = TestUtils.GetDiContainer();
+            _container = TestUtils.GetDiContainer();
         }
 
         [TestInitialize]
         public void BeforeEachTest()
         {
-            scope = container.BeginScope();
-            uow = container.GetInstance<IUnitOfWork>();
-            repository = container.GetInstance<IListItemRepository>();
+            _scope = _container.BeginScope();
+            _uow = _container.GetInstance<IUnitOfWork>();
+
+            //_container.Register<UserIdProvider>(f => new UserIdProvider(_td.userId0));
+            var userContextMock = new Mock<IUserContext>();
+            userContextMock.SetupGet(s => s.UserId).Returns((Guid?)Guid.NewGuid());
+            _container.StartMocking<IUserContext>(() => userContextMock.Object);
+
+            _repository = _container.GetInstance<IListItemRepository>();
         }
 
         [TestCleanup]
         public void AfterEachTest()
         {
-            scope.Dispose(); // Disposes the Di container, scope and IDisposable implementors like the UnitOfWork.
+            _scope.Dispose(); // Disposes the Di container, scope and IDisposable implementors like the UnitOfWork.
         }
 
         [TestMethod]
         public void TestGet()
         {
-            var listItem = repository.Get(td.listItemGetId);
-            uow.Complete();
-            Assert.AreEqual(td.listItemGetId, listItem.Id);
-        }
-
-        [TestMethod]
-        public void TestDelete()
-        {
-            repository.Delete(td.listItemDeleteId);
-            uow.Complete();
-            uow.Dispose();
-            
-            using (var con = TestUtils.GetConnection())
-            {
-                Assert.AreEqual(0, con.Query<int>("select count(1) from ListItems where Id = @id", new { id = td.listItemDeleteId }).First());
-            }
-        }
-
-        [TestMethod]
-        public void TestCreate()
-        {
-            const string insertDescription = "LiRepo - Test ListItem to insert";
-            var listItem = new ListItem { Description = insertDescription, Quantity = 1, StatusId = Statuses.NotPicked, ShoppingListId = td.shoppingListGetId };
-            repository.Create(listItem, td.userId0);
-            uow.Complete();
-            uow.Dispose();
-
-            using (var con = TestUtils.GetConnection())
-            {
-                Assert.AreEqual(1, con.Query<int>("select count(1) from ListItems where Description = @desc", new { desc = insertDescription }).First());
-            }
-        }
-
-        [TestMethod]
-        public void TestUpdate()
-        {
-            const string updateDescription = "LiRepo - Test ListItem to update - Updated!";
-            var listItem = repository.Get(td.listItemUpdateId);
-            listItem.Description = updateDescription;
-            repository.Update(listItem, Guid.NewGuid().ToString());
-            uow.Complete();
-            uow.Dispose();
-
-            using (var con = TestUtils.GetConnection())
-            {
-                Assert.AreEqual(1, con.Query<int>("select count(1) from ListItems where Description = @desc", new { desc = updateDescription }).First());
-            }
+            var listItem = _repository.Get(_td.listItemGetId);
+            _uow.Complete();
+            Assert.AreEqual(_td.listItemGetId, listItem.Id);
         }
         
         [TestMethod]
         public void TestGetByDescription()
         {
-            var listItem = repository.FindByDescription("LiRepo - To be matched by description.", td.shoppingListGetId);
-            Assert.AreEqual(td.listItemGetByDescId, listItem.Id);
+            var listItem = _repository.FindByDescription("LiRepo - To be matched by description.", _td.shoppingListGetId);
+            Assert.AreEqual(_td.listItemGetByDescId, listItem.Id);
         }
 
         [TestMethod]
         public void TestUnpickAllListItems()
         {
-            repository.UnpickAllListItems(td.shoppingListUnpickAllId);
-            uow.Complete();
-            uow.Dispose();
+            _repository.UnpickAllListItems(_td.shoppingListUnpickAllId);
+            _uow.Complete();
+            _uow.Dispose();
             
             using (var con = TestUtils.GetConnection())
             {
-                Assert.AreEqual(0, con.Query<int>("select count(1) from ListItems where ShoppingListId = @id and StatusId = @statusId", new { id = td.shoppingListUnpickAllId, statusId = Statuses.Picked }).First());
+                Assert.AreEqual(0, con.Query<int>("select count(1) from ListItems where ShoppingListId = @id and StatusId = @statusId", new { id = _td.shoppingListUnpickAllId, statusId = Statuses.Picked }).First());
             }
         }
     }

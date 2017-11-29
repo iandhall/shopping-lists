@@ -12,7 +12,7 @@ namespace ShoppingLists.Web.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "ShoppingList");
+                return RedirectToAction("Index", "ShoppingLists");
             }
             else
             {

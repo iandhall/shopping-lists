@@ -3,9 +3,9 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShoppingLists.BusinessLayer;
-using ShoppingLists.Core.Entities;
-using ShoppingLists.Core;
-using ShoppingLists.Core.RepositoryInterfaces;
+using ShoppingLists.Shared.Entities;
+using ShoppingLists.Shared;
+using ShoppingLists.Shared.RepositoryInterfaces;
 using ShoppingLists.Tests;
 using ShoppingLists.BusinessLayer.Exceptions;
 using Moq;
@@ -47,7 +47,7 @@ namespace ShoppingLists.Tests.BusinessLayer
             container.StartMocking<IListItemRepository>(() => Mock.Of<IListItemRepository>());
             container.StartMocking<ICrudRepository<ShoppingList>>(() => Mock.Of<ICrudRepository<ShoppingList>>());
             container.StartMocking<IUserRepository>(() => Mock.Of<IUserRepository>());
-            container.StartMocking<ICrudRepository<ShoppingListPermission>>(() => Mock.Of<ICrudRepository<ShoppingListPermission>>());
+            container.StartMocking<ICrudRepository<Permission>>(() => Mock.Of<ICrudRepository<Permission>>());
 
             scope = container.BeginScope();
         }
@@ -61,7 +61,7 @@ namespace ShoppingLists.Tests.BusinessLayer
             container.EndMocking<IListItemRepository>();
             container.EndMocking<ICrudRepository<ShoppingList>>();
             container.EndMocking<IUserRepository>();
-            container.EndMocking<ICrudRepository<ShoppingListPermission>>();
+            container.EndMocking<ICrudRepository<Permission>>();
 
             scope.Dispose();
         }
@@ -123,7 +123,7 @@ namespace ShoppingLists.Tests.BusinessLayer
                     new ShoppingList { Id = 1233, Title = "Shopping List #10", CreatorId = userIds[0], CreatedDate = DateTime.Now }
                 }
             );
-            mockShoppingListRepository.Setup(slr => slr.Create(It.IsAny<ShoppingList>(), It.IsAny<string>()));
+            mockShoppingListRepository.Setup(slr => slr.Create(It.IsAny<ShoppingList>()));
             container.StartMocking<IShoppingListRepository>(() => mockShoppingListRepository.Object);
             var mockShoppingListPermissionRepository = new Mock<IShoppingListPermissionRepository>();
             container.StartMocking<IShoppingListPermissionRepository>(() => mockShoppingListPermissionRepository.Object);
@@ -167,7 +167,7 @@ namespace ShoppingLists.Tests.BusinessLayer
         {
             var mockShoppingListPermissionRepository = new Mock<IShoppingListPermissionRepository>(MockBehavior.Strict);
             mockShoppingListPermissionRepository.Setup(slpr => slpr.Get(Permissions.View, userId, shoppingListId)).Returns(
-                new ShoppingListPermission
+                new Permission
                 {
                     Id = 123, PermissionTypeId = permissionTypeId, UserId = userId, ShoppingListId = shoppingListId, CreatorId = userIds[0], CreatedDate = DateTime.Now
                 }

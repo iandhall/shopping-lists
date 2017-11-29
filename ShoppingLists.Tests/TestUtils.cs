@@ -8,7 +8,7 @@ using Dapper;
 using LightInject;
 using System.Reflection;
 using ShoppingLists.DataAccessLayer;
-using ShoppingLists.Core;
+using ShoppingLists.Shared;
 
 namespace ShoppingLists.Tests
 {

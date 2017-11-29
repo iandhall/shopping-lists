@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using LightInject;
 using Microsoft.AspNet.Identity;
-using ShoppingLists.Core;
+using ShoppingLists.Shared;
 using ShoppingLists.Web.Models;
 
 namespace ShoppingLists.Web

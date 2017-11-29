@@ -5,7 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using ShoppingLists.Web.Models;
 using ShoppingLists.Web.Filters;
-using ShoppingLists.Core;
+using ShoppingLists.Shared;
 
 namespace ShoppingLists.Web.Controllers
 {

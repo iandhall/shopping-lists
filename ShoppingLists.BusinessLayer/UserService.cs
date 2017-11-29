@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using ShoppingLists.Core;
-using ShoppingLists.Core.Entities;
+using ShoppingLists.Shared;
+using ShoppingLists.Shared.Entities;
 using ShoppingLists.DataAccessLayer;
 
 namespace ShoppingLists.BusinessLayer
@@ -10,9 +10,9 @@ namespace ShoppingLists.BusinessLayer
     {
         private IUnitOfWork _unitOfWork;
         private UserRepository _userRepository;
-        private ShoppingListPermissionHelper _permissionHelper;
+        private PermissionService _permissionHelper;
 
-        public UserService(IUnitOfWork unitOfWork, UserRepository userRepository, ShoppingListPermissionHelper permissionHelper)
+        public UserService(IUnitOfWork unitOfWork, UserRepository userRepository, PermissionService permissionHelper)
         {
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;

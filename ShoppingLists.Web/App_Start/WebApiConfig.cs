@@ -11,10 +11,7 @@ namespace ShoppingLists.Web
         public static void Register(HttpConfiguration config)
         {
             config.Services.Add(typeof(IExceptionLogger), new ApiExceptionLogger());
-            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
-            var serializerSettings = config.Formatters.JsonFormatter.SerializerSettings;
-            serializerSettings.Formatting = Formatting.Indented;
-            serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            //config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
             config.MapHttpAttributeRoutes();
         }
     }

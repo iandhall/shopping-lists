@@ -1,8 +1,8 @@
 ﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using ShoppingLists.Core;
-using ShoppingLists.Core.Entities;
+using ShoppingLists.Shared;
+using ShoppingLists.Shared.Entities;
 
 namespace ShoppingLists.DataAccessLayer
 {

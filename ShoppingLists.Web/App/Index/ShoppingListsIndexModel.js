@@ -14,12 +14,12 @@ function ShoppingListsIndexModel(jsShoppingListsIndexModel) {
     this.createNewList = function () {
         ajax.post("/api/shopping-lists/", null, this)
             .done(function (shoppingList) {
-                window.location.href = "/shopping-lists/" + shoppingList.id;
+                window.location.href = "/ShoppingLists/Show/" + shoppingList.Id;
             }).fail(utils.onAjaxFailure);
     };
 
     this.showList = function (listModel) {
-        window.location.href = "/shopping-lists/" + listModel.Id();
+        window.location.href = "/ShoppingLists/Show/" + listModel.Id();
     };
 
     this.deleteList = function (listModel) {

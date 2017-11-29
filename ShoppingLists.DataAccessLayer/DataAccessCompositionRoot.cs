@@ -1,5 +1,5 @@
 ﻿using LightInject;
-using ShoppingLists.Core;
+using ShoppingLists.Shared;
 using ShoppingLists.DataAccessLayer;
 
 [assembly: CompositionRootType(typeof(DataAccessCompositionRoot))]
@@ -15,7 +15,7 @@ namespace ShoppingLists.DataAccessLayer
             serviceRegistry.Register<IUnitOfWork, EfUnitOfWork>(new PerScopeLifetime());
             serviceRegistry.Register<ShoppingListRepository>(new PerScopeLifetime());
             serviceRegistry.Register<ListItemRepository>(new PerScopeLifetime());
-            serviceRegistry.Register<ShoppingListPermissionRepository>(new PerScopeLifetime());
+            serviceRegistry.Register<PermissionRepository>(new PerScopeLifetime());
             serviceRegistry.Register<UserRepository>(new PerScopeLifetime());
             serviceRegistry.Register<PermissionTypeRepository>(new PerScopeLifetime());
         }

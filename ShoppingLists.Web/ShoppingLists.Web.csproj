@@ -198,7 +198,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\RenderPermissionsHelper.cs" />
-    <Compile Include="Helpers\RenderServiceExceptionsHelper.cs" />
     <Compile Include="HubPipelineModules\ErrorLoggingPipelineModule.cs" />
     <Compile Include="Hubs\ShoppingListHub.cs" />
     <Compile Include="ModelBinders\DateTimeModelBinder.cs" />
@@ -212,8 +211,10 @@
     <Compile Include="Models\ShoppingListSharingModel.cs" />
     <Compile Include="Models\ShoppingListOverviewModel.cs" />
     <Compile Include="Models\ShoppingListModel.cs" />
+    <Compile Include="Models\SetPermissionsModel.cs" />
     <Compile Include="Models\UserSharingModel.cs" />
     <Compile Include="MvcValidateAntiForgeryHeaderAttribute.cs" />
+    <Compile Include="ServiceExceptionExtentions.cs" />
     <Compile Include="UserContext.cs" />
     <Compile Include="UserStore.cs" />
     <Compile Include="ValidateApiModelAttribute.cs" />
@@ -326,9 +327,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShoppingLists.Core\ShoppingLists.Core.csproj">
+    <ProjectReference Include="..\ShoppingLists.Shared\ShoppingLists.Shared.csproj">
       <Project>{35a2a628-2a06-4eb3-9099-e42435b176e3}</Project>
-      <Name>ShoppingLists.Core</Name>
+      <Name>ShoppingLists.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShoppingLists.BusinessLayer\ShoppingLists.BusinessLayer.csproj">
       <Project>{abb0372d-ed7d-42a1-8e94-afc6430032d1}</Project>

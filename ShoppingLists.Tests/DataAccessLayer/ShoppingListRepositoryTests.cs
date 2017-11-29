@@ -4,10 +4,10 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShoppingLists.Core.Entities;
+using ShoppingLists.Shared.Entities;
 using ShoppingLists.Tests;
-using ShoppingLists.Core.RepositoryInterfaces;
-using ShoppingLists.Core;
+using ShoppingLists.Shared.RepositoryInterfaces;
+using ShoppingLists.Shared;
 using LightInject;
 
 namespace ShoppingLists.Tests.DataAccessLayer
@@ -77,66 +77,6 @@ namespace ShoppingLists.Tests.DataAccessLayer
             Assert.AreEqual(3, shoppingLists.Count());
             Assert.AreEqual(td.username3, shoppingLists.First().Creator.Username);
             uow.Complete();
-        }
-
-        [TestMethod]
-        public void TestDelete()
-        {
-            repository.Delete(td.shoppingListDeleteId);
-            uow.Complete();
-            uow.Dispose();
-            
-            using (var con = TestUtils.GetConnection())
-            {
-                Assert.AreEqual(0, con.Query<int>("select count(1) from ShoppingLists where Id = @id", new { id = td.shoppingListDeleteId }).First());
-                Assert.AreEqual(0, con.Query<int>("select count(1) from ListItems where ShoppingListId = @id", new { id = td.shoppingListDeleteId }).First());
-                Assert.AreEqual(0, con.Query<int>("select count(1) from ShoppingListPermissions where ShoppingListId = @id", new { id = td.shoppingListDeleteId }).First());
-            }
-        }
-
-        [TestMethod]
-        public void TestCreate()
-        {
-            const string insertTitle = "Test list to insert";
-            var shoppingList = new ShoppingList { Title = insertTitle };
-            repository.Create(shoppingList, td.userId0);
-            uow.Complete();
-            uow.Dispose();
-
-            Assert.IsTrue(shoppingList.Id != 0);
-
-            // Check that CreatorId is set correctly
-            Assert.AreEqual(td.userId0, shoppingList.CreatorId);
-
-            // Check that a CreatedDate has been set
-            Assert.AreNotEqual(default(DateTime), shoppingList.CreatedDate);
-
-            // Check that there is only one list with this title
-            using (var con = TestUtils.GetConnection())
-            {
-                Assert.AreEqual(1, con.Query<int>("select count(1) from ShoppingLists where Title = @title", new { title = insertTitle }).First());
-            }
-
-        }
-
-        [TestMethod]
-        public void TestUpdate()
-        {
-            const string updateTitle = "SlRepo - Test list to update - Updated!";
-            var shoppingList = repository.Get(td.shoppingListUpdateId);
-            shoppingList.Title = updateTitle;
-            var userId = Guid.NewGuid().ToString();
-            repository.Update(shoppingList, userId);
-            uow.Complete();
-            uow.Dispose();
-
-            Assert.AreEqual(userId, shoppingList.AmenderId);
-            Assert.AreNotEqual(default(DateTime), shoppingList.AmendedDate);
-
-            using (var con = TestUtils.GetConnection())
-            {
-                Assert.AreEqual(1, con.Query<int>("select count(1) from ShoppingLists where Title = @title", new { title = updateTitle }).First());
-            }
         }
         
         [TestMethod]

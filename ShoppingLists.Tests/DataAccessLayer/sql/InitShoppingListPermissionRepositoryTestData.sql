@@ -25,12 +25,7 @@ begin
 	insert into ShoppingListPermissions(PermissionTypeId, UserId, ShoppingListId, CreatorId, CreatedDate) values
 		({{Permissions.Share}}, @userId0, @shoppingListGetId, @userId0, SYSDATETIME());
 
-	declare @slpShareId bigint = SCOPE_IDENTITY(); 
-
-	insert into ShoppingListPermissions(PermissionTypeId, UserId, ShoppingListId, CreatorId, CreatedDate) values
-		({{Permissions.PickOrUnpickListItems}}, @userId0, @shoppingListGetId, @userId0, SYSDATETIME());
-
-	declare @slpDeleteId bigint = SCOPE_IDENTITY(); 
+	declare @slpShareId bigint = SCOPE_IDENTITY();  
 end
 
 select
@@ -39,5 +34,4 @@ select
 	@userId2 userId2,
 	@userId3 userId3,
 	@shoppingListGetId shoppingListGetId,
-	@slpShareId slpShareId,
-	@slpDeleteId slpDeleteId;
+	@slpShareId slpShareId

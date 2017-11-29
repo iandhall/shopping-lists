@@ -48,7 +48,9 @@ function ListItemEditModel(hub, shoppingListId) {
             this.quantity(1);
             this.originalListItem = null;
         }
-        $("#ListItemEditForm").modal({ backdrop: "static" });
+        $("#ListItemEditForm").modal({ backdrop: "static" }).on('shown.bs.modal', function () {
+            $("#ListItemEditForm-description").focus();
+        });
     };
 
     validatedSelf = ko.validatedObservable(this);

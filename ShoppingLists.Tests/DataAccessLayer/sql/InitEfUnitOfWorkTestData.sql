@@ -1,4 +1,6 @@
-﻿declare @userId0 nvarchar(128) = '6D46F8C3-463B-4490-B482-C4EFAA640798';
+﻿-- TODO: Remove these SQL files and create test data in each test function.
+
+declare @userId0 nvarchar(128) = '6D46F8C3-463B-4490-B482-C4EFAA640798';
 
 insert into Users(Id, Username, Discriminator) values
 	(@userId0, 'TestUowUser0', 'ApplicationUser');

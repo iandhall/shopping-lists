@@ -59,7 +59,7 @@
     <Compile Include="DataAccessStartup.cs" />
     <Compile Include="EfUnitOfWork.cs" />
     <Compile Include="PermissionTypeRepository.cs" />
-    <Compile Include="ShoppingListPermissionRepository.cs" />
+    <Compile Include="PermissionRepository.cs" />
     <Compile Include="ShoppingListsDbContext.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,9 +71,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShoppingLists.Core\ShoppingLists.Core.csproj">
+    <ProjectReference Include="..\ShoppingLists.Shared\ShoppingLists.Shared.csproj">
       <Project>{35a2a628-2a06-4eb3-9099-e42435b176e3}</Project>
-      <Name>ShoppingLists.Core</Name>
+      <Name>ShoppingLists.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

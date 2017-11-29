@@ -56,8 +56,6 @@
 
         (function () {
             $(function () {
-                @Html.RenderServiceExceptionsJs()
-
                 var shoppingListsIndexModel = new ShoppingListsIndexModel(@Html.Raw(Json.Encode(Model)));
             });
         }());

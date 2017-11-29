@@ -1,13 +1,11 @@
 ﻿using System.Web.Mvc;
 using NLog;
 using ShoppingLists.BusinessLayer;
-using ShoppingLists.Core;
+using ShoppingLists.Shared;
 using ShoppingLists.Web.Models;
 
 namespace ShoppingLists.Web.Controllers
 {
-    [RoutePrefix("shopping-lists")]
-    [Authorize]
     public class ShoppingListsController : Controller
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
@@ -22,14 +20,12 @@ namespace ShoppingLists.Web.Controllers
             _userService = userService;
         }
 
-        [Route]
         public ActionResult Index()
         {
             var shoppingLists = _shoppingListService.FindAllForCurrentUser();
             return View(new ShoppingListsIndexModel(shoppingLists, _userContext.UserId));
         }
 
-        [Route("{id:long}")]
         public ActionResult Show(long id)
         {
             var shoppingList = _shoppingListService.Get(id, includeListItems: true);
@@ -37,7 +33,6 @@ namespace ShoppingLists.Web.Controllers
             return View(new ShoppingListModel(shoppingList, currentUser));
         }
 
-        [Route("{id:long}/share")]
         public ActionResult Share(long id)
         {
             var shoppingList = _shoppingListService.Get(id);

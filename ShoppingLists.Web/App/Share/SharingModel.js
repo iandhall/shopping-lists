@@ -1,9 +1,9 @@
 ﻿/*global post, UserModel, UserPermissionsEditModel */
 "use strict";
 
-function SharingModel(jsSharingModel, urls, serviceExceptions) {
+function SharingModel(jsSharingModel) {
 
-    var userModelMapping, reportServiceError, userPermissionsEditModel;
+    var userModelMapping, userPermissionsEditModel;
 
     userModelMapping = {
         create: function (options) {
@@ -12,36 +12,6 @@ function SharingModel(jsSharingModel, urls, serviceExceptions) {
     };
 
     ko.mapping.fromJS(jsSharingModel, { Users: userModelMapping }, this);
-
-    // Closure to display the user error message with extraErrorInfo:
-    reportServiceError = function (extraErrorInfo) {
-        return function (error) {
-            console.log("Service error: " + error.responseJSON);
-            if (extraErrorInfo === undefined) {
-                extraErrorInfo = "<unknown>";
-            }
-            switch (error.responseJSON) {
-            case serviceExceptions.UserNotFoundException:
-                bootbox.alert("Couldn't find the user " + extraErrorInfo + " on the system.");
-                break;
-            case serviceExceptions.PermissionAlreadyExistsException:
-                bootbox.alert("List is already shared with " + extraErrorInfo + ".");
-                break;
-            case serviceExceptions.PermissionNotFoundException:
-                bootbox.alert("You don't have permission to share this list.");
-                break;
-            case serviceExceptions.ShareWithListCreatorException:
-                bootbox.alert(extraErrorInfo + " is the list creator and already has access.");
-                break;
-            case serviceExceptions.ShareWithYourselfException:
-                bootbox.alert(extraErrorInfo + " is you and you can't share with yourself.");
-                break;
-            default:
-                bootbox.alert("A server error occured.");
-                break;
-            }
-        };
-    };
 
     this.shareWithUser = function () {
         bootbox.prompt({
@@ -52,22 +22,23 @@ function SharingModel(jsSharingModel, urls, serviceExceptions) {
                         bootbox.alert("The username can't be blank.");
                         return;
                     }
-                    post(urls.shareWithUser, { shoppingListId: this.Id(), username: promptResult }, this, function (newUser) {
-                        var userModel = new UserModel(newUser);
-                        this.Users.push(userModel);
-                        userPermissionsEditModel.show(userModel, true);
-                    }, reportServiceError(promptResult));
+                    ajax.put("/api/shopping-lists/" + this.Id() + "/share/" + promptResult, null, this)
+                        .done(function (newUser) {
+                            var userModel = new UserModel(newUser);
+                            this.Users.push(userModel);
+                            userPermissionsEditModel.show(userModel, true);
+                        }).fail(utils.onAjaxFailure);
                 }
             }.bind(this)
         });
     };
 
     this.backToList = function () {
-        window.location.href = urls.show + this.Id();
+        window.location.href = "/ShoppingLists/Show" + this.Id();
     };
 
     this.backToMyLists = function () {
-        window.location.href = urls.index;
+        window.location.href = "/ShoppingLists/Index";
     };
 
     this.userEditModel = ko.mapping.fromJS({
@@ -77,9 +48,10 @@ function SharingModel(jsSharingModel, urls, serviceExceptions) {
     });
 
     this.removeUser = function (userModel) {
-        post(urls.removeSharingUser, { shoppingListId: this.Id(), userSharingModel: ko.mapping.toJS(userModel) }, this, function () {
-            this.Users.splice(this.Users.indexOf(userModel), 1);
-        }, reportServiceError());
+        ajax.put("/api/shopping-lists/" + this.Id() + "/unshare/" + userModel.Id(), null, this)
+            .done(function() {
+                this.Users.splice(this.Users.indexOf(userModel), 1);
+            }).fail(utils.onAjaxFailure);
     };
 
     this.editUserPermissions = function (userModel) {
@@ -94,5 +66,5 @@ function SharingModel(jsSharingModel, urls, serviceExceptions) {
     ko.applyBindings(this, $("#SharingModelRoot").get(0));
 
     // Create the UserPermissionsEditModel (applies KO bindings to the modal popup form):
-    userPermissionsEditModel = new UserPermissionsEditModel(this, urls, reportServiceError());
+    userPermissionsEditModel = new UserPermissionsEditModel(this);
 }

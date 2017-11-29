@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ShoppingLists.Core.Entities;
+using ShoppingLists.Shared.Entities;
 using Microsoft.AspNet.Identity;
 
 namespace ShoppingLists.Web.Models

@@ -2,8 +2,8 @@
 using System.Data;
 using System.Collections.Generic;
 using System.Linq;
-using ShoppingLists.Core;
-using ShoppingLists.Core.Entities;
+using ShoppingLists.Shared;
+using ShoppingLists.Shared.Entities;
 using System.Data.Entity;
 
 namespace ShoppingLists.DataAccessLayer

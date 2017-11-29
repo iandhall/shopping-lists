@@ -1,7 +1,7 @@
 ﻿/*global ListItemModel */
 "use strict";
 
-function getShoppingListHub(urls, serviceExceptions) {
+function getShoppingListHub() {
 
     var shoppingListHub = $.connection.shoppingListHub, shoppingListModel;
 
@@ -26,23 +26,7 @@ function getShoppingListHub(urls, serviceExceptions) {
 
     shoppingListHub.client.serviceException = function (error) {
         console.log("Service error: " + error);
-        switch (error) {
-        case serviceExceptions.ListItemAlreadyExistsException:
-            bootbox.alert("Item has already been added to the shopping list.");
-            break;
-        case serviceExceptions.ShoppingListTitleDuplicateException:
-            bootbox.alert("A shopping list with this name already exists.");
-            break;
-        case serviceExceptions.PermissionNotFoundException:
-            bootbox.alert("You don't have permission to do that.");
-            break;
-        case serviceExceptions.ScriptInjectionException:
-            bootbox.alert("Please ensure there aren't any HTML tags in your input.");
-            break;
-        default:
-            bootbox.alert("A server error occurred.");
-            break;
-        }
+        bootbox.alert("A server error occurred.");
     };
 
     shoppingListHub.client.allListItemsUnpicked = function () {
@@ -54,7 +38,7 @@ function getShoppingListHub(urls, serviceExceptions) {
     shoppingListHub.client.viewAccessRemoved = function () {
         console.log("viewAccessRemoved");
         bootbox.alert("You no longer have permission to view " + shoppingListModel.Title() + ".", function () {
-            window.location.href = urls.index;
+            window.location.href = "/ShoppingLists/Index";
         });
     };
 

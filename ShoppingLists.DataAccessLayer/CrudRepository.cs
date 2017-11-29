@@ -1,4 +1,4 @@
-﻿using ShoppingLists.Core.Entities;
+﻿using ShoppingLists.Shared.Entities;
 using System.Data.Entity;
 
 namespace ShoppingLists.DataAccessLayer
@@ -20,20 +20,17 @@ namespace ShoppingLists.DataAccessLayer
         public virtual void Create(TEntity entity)
         {
             _dbContext.Set<TEntity>().Add(entity);
-            //_dbContext.SaveChanges(); // SaveChanges here so that entity.Id gets populated with the new Id.
         }
 
         public virtual void Update(TEntity entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
-            //_dbContext.SaveChanges();
         }
 
         public virtual void Delete(long id)
         {
             var entity = _dbContext.Set<TEntity>().Find(id);
             _dbContext.Set<TEntity>().Remove(entity);
-            //_dbContext.SaveChanges();
         }
     }
 }

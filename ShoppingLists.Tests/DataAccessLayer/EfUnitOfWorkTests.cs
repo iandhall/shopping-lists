@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShoppingLists.DataAccessLayer;
-using ShoppingLists.Core.Entities;
+using ShoppingLists.Shared.Entities;
 using Dapper;
 using System.Transactions;
 
@@ -14,7 +14,7 @@ namespace ShoppingLists.Tests.DataAccessLayer
     [TestClass]
     public class UnitOfWorkTests
     {
-        private EfUnitOfWork uow;
+        private UnitOfWork uow;
         private ShoppingList testShoppingList;
         private static EfUnitOfWorkTestData td;
 
@@ -49,7 +49,7 @@ namespace ShoppingLists.Tests.DataAccessLayer
         private void SimulateFailureWhileUpdatingData()
         {
             using (var dbContext = new ShoppingListsDbContext())
-            using (uow = new EfUnitOfWork(dbContext))
+            using (uow = new UnitOfWork(dbContext))
             {
                 testShoppingList = dbContext.ShoppingLists.Find(td.shoppingListRollbackId);
                 testShoppingList.Title = "Test UOW - This change should get rolled back!";
@@ -69,7 +69,7 @@ namespace ShoppingLists.Tests.DataAccessLayer
             const string titleChange = "Test UOW - Complete test - This change should stick!";
 
             using (var dbContext = new ShoppingListsDbContext())
-            using (uow = new EfUnitOfWork(dbContext))
+            using (uow = new UnitOfWork(dbContext))
             { 
                 testShoppingList = dbContext.ShoppingLists.Find(td.shoppingListCompleteId);
                 testShoppingList.Title = titleChange;

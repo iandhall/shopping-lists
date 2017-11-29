@@ -1,6 +1,6 @@
 ﻿using System.Web;
 using Microsoft.AspNet.Identity;
-using ShoppingLists.Core;
+using ShoppingLists.Shared;
 
 namespace ShoppingLists.Web
 {

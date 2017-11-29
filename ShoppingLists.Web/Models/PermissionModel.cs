@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ShoppingLists.Core;
-using ShoppingLists.Core.Entities;
+using ShoppingLists.Shared;
+using ShoppingLists.Shared.Entities;
 
 namespace ShoppingLists.Web.Models
 {
@@ -26,7 +26,7 @@ namespace ShoppingLists.Web.Models
         }
 
         // Create a PermissionModel setting Selected to true if a corresponding EntityPermission exitst otherwise false (called when editing an existing shared user's permissions).
-        public PermissionModel(PermissionType permissionType, IEnumerable<ShoppingListPermission> entityPermissionToSelect)
+        public PermissionModel(PermissionType permissionType, IEnumerable<Permission> entityPermissionToSelect)
         {
             PermissionTypeId = permissionType.Id;
             Description = permissionType.Description;

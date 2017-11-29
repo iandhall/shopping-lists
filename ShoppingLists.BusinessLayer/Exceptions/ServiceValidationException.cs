@@ -1,14 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace ShoppingLists.BusinessLayer.Exceptions
 {
-    public abstract class ServiceValidationException : ApplicationException
+    public abstract class ServiceException : ApplicationException
     {
-        public ServiceValidationException(string message, params object[] args) : base(string.Format(message, args))
+        protected string UserMessage;
+
+        public ServiceException(string message, params object[] args) : base(string.Format(message, args)) { }
+
+        public ServiceException(string userMessage, string message, params object[] args) : base(string.Format(message, args))
         {
+            UserMessage = userMessage;
         }
     }
 }

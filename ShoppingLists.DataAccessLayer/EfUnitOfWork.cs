@@ -1,4 +1,4 @@
-﻿using ShoppingLists.Core;
+﻿using ShoppingLists.Shared;
 
 namespace ShoppingLists.DataAccessLayer
 {

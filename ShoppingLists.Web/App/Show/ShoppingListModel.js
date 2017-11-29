@@ -1,7 +1,7 @@
 ﻿/*global ListItemModel, ListItemEditModel */
 "use strict";
 
-function ShoppingListModel(jsShoppingListModel, hub, urls, permissions) {
+function ShoppingListModel(jsShoppingListModel, hub, permissions) {
 
     var listItemMapping, tools, listItemEditModel;
 
@@ -30,14 +30,14 @@ function ShoppingListModel(jsShoppingListModel, hub, urls, permissions) {
     };
 
     this.backToMyLists = function () {
-        window.location.href = urls.index;
+        window.location.href = "/ShoppingLists/Index";
     };
 
     this.shareList = function () {
         if (!this.checkPermissionAlert(permissions.Share)) {
             return false; // Prevents the link from firing.
         }
-        window.location.href = urls.share + this.Id();
+        window.location.href = "/ShoppingLists/Share/" + this.Id();
     };
 
     this.changeListTitle = function () {

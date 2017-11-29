@@ -61,7 +61,7 @@
     <Compile Include="NumericStringComparer.cs" />
     <Compile Include="PermissionTypeService.cs" />
     <Compile Include="ListItemService.cs" />
-    <Compile Include="ShoppingListPermissionHelper.cs" />
+    <Compile Include="PermissionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\ServiceValidationException.cs" />
@@ -69,9 +69,9 @@
     <Compile Include="ShoppingListService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShoppingLists.Core\ShoppingLists.Core.csproj">
+    <ProjectReference Include="..\ShoppingLists.Shared\ShoppingLists.Shared.csproj">
       <Project>{35a2a628-2a06-4eb3-9099-e42435b176e3}</Project>
-      <Name>ShoppingLists.Core</Name>
+      <Name>ShoppingLists.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShoppingLists.DataAccessLayer\ShoppingLists.DataAccessLayer.csproj">
       <Project>{67bea5b3-f1f3-48c6-817c-9ba85a869175}</Project>
@@ -82,7 +82,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

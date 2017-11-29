@@ -1,7 +1,7 @@
 ﻿/*global post, PermissionModel */
 "use strict";
 
-function UserPermissionsEditModel(sharingModel, urls, reportServiceErrorFunction) {
+function UserPermissionsEditModel(sharingModel) {
 
     var committing = false, permissionModelMapping;
 
@@ -20,31 +20,33 @@ function UserPermissionsEditModel(sharingModel, urls, reportServiceErrorFunction
         if (shouldDefaultPermissions === undefined) {
             shouldDefaultPermissions = false;
         }
-        post(urls.getPermissionsForUser, { shoppingListId: sharingModel.Id(), permissionsUserId: userModel.Id(), shouldGetDefaultPermissions: shouldDefaultPermissions }, this, function (permissionModels) {
-            this.permissionModels().length = 0; // Clear all array elements from last time.
-            ko.utils.arrayForEach(permissionModels, function (permissionModel) { // Populate array with new permissions from the server.
-                this.permissionModels.push(ko.mapping.fromJS(permissionModel, permissionModelMapping));
-            }.bind(this));
-            this.formTitle("Allow " + userModel.UserName() + " to...");
-            this.userModel = userModel;
-            $("#UserPermissionsEditForm").modal({ backdrop: "static" });
-        }, reportServiceErrorFunction);
+        ajax.get("/api/shopping-lists/" + sharingModel.Id() + "/permissions/" + userModel.Id() + "/" + shouldDefaultPermissions.toString(), this)
+            .done(function (permissionModels) {
+                this.permissionModels().length = 0; // Clear all array elements from last time.
+                ko.utils.arrayForEach(permissionModels, function (permissionModel) { // Populate array with new permissions from the server.
+                    this.permissionModels.push(ko.mapping.fromJS(permissionModel, permissionModelMapping));
+                }.bind(this));
+                this.formTitle("Allow " + userModel.UserName() + " to...");
+                this.userModel = userModel;
+                $("#UserPermissionsEditForm").modal({ backdrop: "static" });
+            }).fail(utils.onAjaxFailure);
     };
 
     this.commit = function () {
-        var postData;
+        var data;
         if (committing) {
             return; // Prevent commit from being triggered twice when the return key is pressed twice quickly.
         }
         committing = true;
         $("#UserPermissionsEditForm").modal("hide");
-        postData = { shoppingListId: sharingModel.Id(), permissionsUserId: this.userModel.Id(), selectedPermissionIds: [] };
+        data = { selectedPermissionIds: [] };
         ko.utils.arrayForEach(this.permissionModels(), function (permissionModel) { // Populate plain JS array of permission IDs to post to the server.
             if (permissionModel.Selected()) {
-                postData.selectedPermissionIds.push(permissionModel.PermissionTypeId());
+                data.selectedPermissionIds.push(permissionModel.PermissionTypeId());
             }
         });
-        post(urls.setPermissionsForUser, postData, this, undefined, reportServiceErrorFunction);
+        ajax.put("/api/shopping-lists/" + sharingModel.Id() + "/permissions/" + this.userModel.Id(), data, this)
+            .fail(utils.onAjaxFailure);
     };
 
     ko.applyBindings(this, $("#UserPermissionsEditForm").get(0));

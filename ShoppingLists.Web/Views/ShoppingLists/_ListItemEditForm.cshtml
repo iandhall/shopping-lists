@@ -11,7 +11,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon">Description</span>
-                        <input type="text" class="form-control" data-bind="value: description, valueUpdate: 'afterkeydown', css: { 'input-validation-error': descriptionErrorOn }" />@* valueUpdate: 'afterkeydown' fixes problem where observables weren't updating in IE. *@
+                        <input id="ListItemEditForm-description" type="text" class="form-control" data-bind="value: description, valueUpdate: 'afterkeydown', css: { 'input-validation-error': descriptionErrorOn }" />@* valueUpdate: 'afterkeydown' fixes problem where observables weren't updating in IE. *@
                     </div>
                     <div class="input-group" data-bind="visible: descriptionErrorOn">
                         <span class="field-validation-error" data-bind="validationMessage: description"></span>

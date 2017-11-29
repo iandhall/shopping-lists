@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ShoppingLists.Core.Entities;
+using ShoppingLists.Shared.Entities;
 
 namespace ShoppingLists.DataAccessLayer
 {

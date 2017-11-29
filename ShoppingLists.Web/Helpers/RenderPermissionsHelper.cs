@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Linq;
-using ShoppingLists.Core;
+using ShoppingLists.Shared;
 using System.Web.Mvc;
 
 namespace ShoppingLists.Web.Helpers

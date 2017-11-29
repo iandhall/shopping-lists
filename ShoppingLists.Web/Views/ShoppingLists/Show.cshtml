@@ -46,13 +46,13 @@
                 @* Pick list item tool. *@
                 <label class="btn btn-lg btn-default" title="Pick item." data-bind="click: function () { setTool('pickItem'); }">
                     <input type="radio" name="ListItemTools" value="pickItem" checked="checked" />
-                    <span class="glyphicon glyphicon-check"></span>
+                    <span class="glyphicon glyphicon-star"></span>
                 </label>
 
                 @* Unpick list item tool. *@
                 <label class="btn btn-lg btn-default" title="Unpick item." data-bind="click: function () { setTool('unpickItem'); }">
                     <input type="radio" name="ListItemTools" value="unpickItem" />
-                    <span class="glyphicon glyphicon-unchecked"></span>
+                    <span class="glyphicon glyphicon-star-empty"></span>
                 </label>
 
                 @* Edit list item tool. *@
@@ -109,20 +109,13 @@
 
         (function () {
             $(function () {
-                @Html.RenderServiceExceptionsJs()
-
                 @Html.RenderPermissionsJs()
 
-                var urls = {
-                    index: "@Url.Action("Index")",
-                    share: "@Url.Action("Share")/"
-                };
-
                 // SignalR client side hub.
-                var hub = getShoppingListHub(urls, serviceExceptions);
+                var hub = getShoppingListHub();
 
                 // Create the main shopping list model.
-                var shoppingListModel = new ShoppingListModel(@Html.Raw(Json.Encode(Model)), hub, urls, permissions);
+                var shoppingListModel = new ShoppingListModel(@Html.Raw(Json.Encode(Model)), hub, permissions);
 
                 // Start the hub connection.
                 hub.start(shoppingListModel);

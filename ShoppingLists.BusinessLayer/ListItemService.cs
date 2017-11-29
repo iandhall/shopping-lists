@@ -1,5 +1,5 @@
-﻿using ShoppingLists.Core.Entities;
-using ShoppingLists.Core;
+﻿using ShoppingLists.Shared.Entities;
+using ShoppingLists.Shared;
 using ShoppingLists.BusinessLayer.Exceptions;
 using ShoppingLists.DataAccessLayer;
 
@@ -10,9 +10,9 @@ namespace ShoppingLists.BusinessLayer
         private IUnitOfWork _unitOfWork;
         private IUserContext _userContext;
         private ListItemRepository _listItemRepository;
-        private ShoppingListPermissionHelper _permissionsHelper;
+        private PermissionService _permissionsHelper;
 
-        public ListItemService(IUnitOfWork unitOfWork, IUserContext userContext, ListItemRepository repository, ShoppingListPermissionHelper permissionsHelper)
+        public ListItemService(IUnitOfWork unitOfWork, IUserContext userContext, ListItemRepository repository, PermissionService permissionsHelper)
         {
             _unitOfWork = unitOfWork;
             _userContext = userContext;

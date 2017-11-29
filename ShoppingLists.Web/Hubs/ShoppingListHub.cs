@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNet.SignalR;
 using ShoppingLists.BusinessLayer;
-using ShoppingLists.Core;
+using ShoppingLists.Shared;
 using System.Threading.Tasks;
 using ShoppingLists.Web.Models;
 using NLog;

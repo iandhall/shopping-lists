@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ShoppingLists.Core.Entities;
+using ShoppingLists.Shared.Entities;
 
 namespace ShoppingLists.BusinessLayer.Exceptions
 {
-    public class ShareWithYourselfException : ServiceValidationException
+    public class ShareWithYourselfException : ServiceException
     {
         public ShareWithYourselfException(string userId) : base(
             "Can't share ShoppingList with list creator {0}.",
