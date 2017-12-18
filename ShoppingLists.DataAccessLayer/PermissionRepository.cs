@@ -6,11 +6,11 @@ using ShoppingLists.Shared.Entities;
 
 namespace ShoppingLists.DataAccessLayer
 {
-    public class PermissionRepository : CrudRepository<Permission>
+    public class PermissionRepository
     {
         private ShoppingListsDbContext _dbContext;
 
-        public PermissionRepository(ShoppingListsDbContext dbContext) : base(dbContext)
+        public PermissionRepository(ShoppingListsDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -18,6 +18,11 @@ namespace ShoppingLists.DataAccessLayer
         public Permission Get(Permissions permission, string userId, long shoppingListId)
         {
             return _dbContext.Permissions.FirstOrDefault(slp => slp.PermissionTypeId == permission && slp.UserId == userId && slp.ShoppingListId == shoppingListId);
+        }
+        
+        public virtual void Create(Permission permission)
+        {
+            _dbContext.Permissions.Add(permission);
         }
 
         public void DeleteAllForUserAndShoppingList(long shoppingListId, string userId)

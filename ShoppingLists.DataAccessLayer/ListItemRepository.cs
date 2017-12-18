@@ -6,13 +6,34 @@ using ShoppingLists.Shared.Entities;
 
 namespace ShoppingLists.DataAccessLayer
 {
-    public class ListItemRepository : CrudRepository<ListItem>
+    public class ListItemRepository
     {
         private ShoppingListsDbContext _dbContext;
 
-        public ListItemRepository(ShoppingListsDbContext dbContext) : base(dbContext)
+        public ListItemRepository(ShoppingListsDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public virtual ListItem Get(long id)
+        {
+            return _dbContext.ListItems.Find(id);
+        }
+
+        public virtual void Create(ListItem listItem)
+        {
+            _dbContext.ListItems.Add(listItem);
+        }
+
+        public virtual void Update(ListItem listItem)
+        {
+            _dbContext.Entry(listItem).State = EntityState.Modified;
+        }
+
+        public virtual void Delete(long id)
+        {
+            var entity = _dbContext.ListItems.Find(id);
+            _dbContext.ListItems.Remove(entity);
         }
 
         public ListItem FindByDescription(string description, long shoppingListId)

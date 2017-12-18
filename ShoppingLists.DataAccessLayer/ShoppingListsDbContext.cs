@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Common;
 using System.Data.Entity;
-using System.Data.Entity.SqlServer;
 using System.Data.Entity.Infrastructure.Pluralization;
 using System.Diagnostics;
 using System.Linq;
@@ -23,11 +23,21 @@ namespace ShoppingLists.DataAccessLayer
 
         public ShoppingListsDbContext(IUserContext userContext)
         {
+            Init(userContext);
+        }
+
+        public ShoppingListsDbContext(DbConnection connection, IUserContext userContext) : base(connection, true)
+        {
+            Init(userContext);
+        }
+
+        private void Init(IUserContext userContext)
+        {
             _userContext = userContext;
             Database.Log = (s) => Trace.Write(s);
             Configuration.LazyLoadingEnabled = false;
             _pluralizationService = new EnglishPluralizationService();
-            var dependency = typeof(SqlFunctions); // Intentional: Create a reference to System.Data.Entity.SqlServer so that the DLL gets published to bin.
+            var dependency = typeof(System.Data.Entity.SqlServer.SqlFunctions); // Create a reference to System.Data.Entity.SqlServer so that the DLL gets published to bin.
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -54,11 +64,11 @@ namespace ShoppingLists.DataAccessLayer
         }
 
         private void ConfigureDerivedEntity<TEntity>(DbModelBuilder modelBuilder) where TEntity : TimestampedEntity
-        {       
+        {
             modelBuilder.Entity<TEntity>().HasKey(e => e.Id);
             modelBuilder.Entity<TEntity>().Property(e => e.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<TEntity>().HasRequired(e => e.Creator).WithMany().HasForeignKey(e => e.CreatorId);
-            modelBuilder.Entity<TEntity>().HasRequired(e => e.Amender).WithMany().HasForeignKey(e => e.AmenderId);
+            modelBuilder.Entity<TEntity>().HasOptional(e => e.Amender).WithMany().HasForeignKey(e => e.AmenderId);
             modelBuilder.Entity<TEntity>().Map(m =>
             {
                 m.MapInheritedProperties();

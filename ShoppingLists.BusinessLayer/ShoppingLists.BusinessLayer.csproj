@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ShoppingLists.BusinessLayer</RootNamespace>
     <AssemblyName>ShoppingLists.BusinessLayer</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -58,7 +58,7 @@
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Exceptions\PermissionNotFoundException.cs" />
     <Compile Include="Exceptions\NotRelatedException.cs" />
-    <Compile Include="NumericStringComparer.cs" />
+    <Compile Include="StringComparisonTools.cs" />
     <Compile Include="PermissionTypeService.cs" />
     <Compile Include="ListItemService.cs" />
     <Compile Include="PermissionService.cs" />

@@ -1,6 +1,8 @@
-﻿namespace ShoppingLists.Shared
+﻿using System;
+
+namespace ShoppingLists.Shared
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         void SaveChanges();
     }

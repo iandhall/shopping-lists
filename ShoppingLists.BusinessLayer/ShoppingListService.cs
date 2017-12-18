@@ -28,12 +28,12 @@ namespace ShoppingLists.BusinessLayer
 
         public ShoppingList Get(long id, bool includeListItems = false)
         {
-            _permissionHelper.Check(_userContext.UserId, Permissions.View, id); // Don't allow if this user does not have view access.
             var shoppingList = _shoppingListRepository.Get(id, includeListItems);
             if (shoppingList == null)
             {
                 throw new EntityNotFoundException(typeof(ShoppingList), id);
             }
+            _permissionHelper.Check(_userContext.UserId, Permissions.View, id); // Don't allow if this user does not have view access.
             return shoppingList;
         }
 
@@ -67,7 +67,7 @@ namespace ShoppingLists.BusinessLayer
             int lastNum = _shoppingListRepository.FindAllForUser(_userContext.UserId)
                 .Where(sl => sl.Title.StartsWith(defaultTitle))
                 .Select(sl => sl.Title.Split('#').Last())
-                .OrderByDescending(n => n, new NumericStringComparer())
+                .OrderByDescending(n => StringComparisonTools.PadNumbers(n))
                 .Where(n => int.TryParse(n, out dummy))
                 .Select(n => int.Parse(n))
                 .FirstOrDefault();

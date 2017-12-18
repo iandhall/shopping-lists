@@ -7,11 +7,11 @@ using ShoppingLists.Shared.Entities;
 
 namespace ShoppingLists.DataAccessLayer
 {
-    public class ShoppingListRepository : CrudRepository<ShoppingList>
+    public class ShoppingListRepository
     {
         private ShoppingListsDbContext _dbContext;
 
-        public ShoppingListRepository(ShoppingListsDbContext dbContext) : base(dbContext)
+        public ShoppingListRepository(ShoppingListsDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -19,15 +19,34 @@ namespace ShoppingLists.DataAccessLayer
         public ShoppingList Get(long id, bool includeListItems = false, bool includeCreator = false)
         {
             ShoppingList shoppingList = _dbContext.ShoppingLists.Find(id);
-            if (includeListItems)
+            if (shoppingList != null)
             {
-                _dbContext.Entry(shoppingList).Collection(sl => sl.ListItems).Load();
-            }
-            if (includeCreator)
-            {
-                _dbContext.Entry(shoppingList).Reference(sl => sl.Creator).Load();
+                if (includeListItems)
+                {
+                    _dbContext.Entry(shoppingList).Collection(sl => sl.ListItems).Load();
+                }
+                if (includeCreator)
+                {
+                    _dbContext.Entry(shoppingList).Reference(sl => sl.Creator).Load();
+                }
             }
             return shoppingList;
+        }
+
+        public virtual void Create(ShoppingList shoppingList)
+        {
+            _dbContext.ShoppingLists.Add(shoppingList);
+        }
+        
+        public virtual void Update(ShoppingList shoppingList)
+        {
+            _dbContext.Entry(shoppingList).State = EntityState.Modified;
+        }
+
+        public virtual void Delete(long id)
+        {
+            var shoppingList = _dbContext.ShoppingLists.Find(id);
+            _dbContext.ShoppingLists.Remove(shoppingList);
         }
 
         public IEnumerable<ShoppingList> FindAllForUser(string userId)
