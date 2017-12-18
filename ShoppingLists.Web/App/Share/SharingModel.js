@@ -34,7 +34,7 @@ function SharingModel(jsSharingModel) {
     };
 
     this.backToList = function () {
-        window.location.href = "/ShoppingLists/Show" + this.Id();
+        window.location.href = "/ShoppingLists/Show/" + this.Id();
     };
 
     this.backToMyLists = function () {
