@@ -76,7 +76,7 @@ namespace ShoppingLists.Web.Api
             }
             catch (ShareWithYourselfException e)
             {
-                return Request.CreateResponse(HttpStatusCode.Conflict, new { userMessage = string.Format("Can't share your list with yourself, {0}.", username) });
+                return Request.CreateResponse(HttpStatusCode.Conflict, new { userMessage = string.Format("You can't share your list with yourself, {0}.", username) });
             }
             catch
             {

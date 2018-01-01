@@ -44,5 +44,5 @@ function ShoppingListsIndexModel(jsShoppingListsIndexModel) {
         }.bind(this));
     };
 
-    ko.applyBindings(this);
+    ko.applyBindings(this, $("#IndexModelRoot").get(0));
 }

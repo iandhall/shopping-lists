@@ -9,7 +9,7 @@ namespace ShoppingLists.BusinessLayer.Exceptions
     public class ShareWithYourselfException : ServiceException
     {
         public ShareWithYourselfException(string userId) : base(
-            "Can't share ShoppingList with list creator {0}.",
+            "Can't share ShoppingList with list yourself {0}.",
             userId
         ) { }
     }

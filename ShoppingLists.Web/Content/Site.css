@@ -1,6 +1,8 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
+    font-size: 1.5em;
+    background-color: #FFF7DA;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -41,7 +43,86 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
-/* App styles */
 input[type="checkbox"] {
     margin-left: initial !important;
+}
+
+.navbar {
+    background-color: #F0960F;
+    border: none !important;
+}
+
+.navbar a {
+    color: white !important;
+}
+
+.navbar-brand {
+    font-family: 'Alegreya Sans', sans-serif;
+    font-style: italic;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.navbar-toggle {
+    border-color: white !important;
+    border-width: 2px;
+}
+
+.navbar-toggle:hover {
+    background-color: #A9C110 !important;
+}
+
+.navbar-toggle:focus {
+    background-color: #F0960F !important;
+    color: blue !important;
+}
+
+.navbar-collapse {
+    border-color: #93a907 !important;
+    border-top: none;
+    border-bottom: 1px solid;
+}
+
+.navbar-collapse.collapsing,
+.navbar-collapse.collapse.in {
+    background-color: #A9C110 !important;
+}
+
+button {
+    font-family: sans-serif;
+}
+
+.btn-primary {
+  background-color: #1C9BAC;
+  border-color: #18808E;
+}
+
+.btn-primary:focus,
+.btn-primary.focus,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary:hover {
+  background-color: #1E8795 !important;
+  border-color: #18808E;
+}
+
+.item-toolbar label.btn {
+    padding: 7px 8px 3px 8px !important;
+}
+
+.item-toolbar button.btn {
+    padding: 7px 9px 4px 9px !important;
+}
+
+.item-toolbar span.glyphicon {
+    font-size: 24px !important;
+}
+
+.title-dropdown {
+    font-weight: bold;
+}
+
+/* Prevent this spacers from being removed on wider screens */ 
+.visible-xs {
+    display: block !important;
 }

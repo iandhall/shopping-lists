@@ -16,26 +16,29 @@
         </div>
 
         <p></p>
-        <div class="btn-group">
-            @* List title and options button. *@
-            <button type="button" class="btn btn-default btn-lg dropdown-toggle" title="Shopping list options." data-toggle="dropdown">
-                <span style="font-size: smaller" data-bind="text: Title"></span>
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="#" data-bind="click: shareList, style: getEnabledStyle(permissions.Share)">Share...</a></li>
-                <li><a href="#" data-bind="click: changeListTitle, style: getEnabledStyle(permissions.Edit)">Change title</a></li>
-                <li><a href="#" data-bind="click: addListItem, style: getEnabledStyle(permissions.AddListItems)">Add item</a></li>
-                <li><a href="#" data-bind="click: unpickAllListItems, style: getEnabledStyle(permissions.PickOrUnpickListItems)">Unpick all items</a></li>
-            </ul>
+
+        <div>
+            <div class="btn-group">
+                @* List title and options button. *@
+                <button type="button" class="btn btn-lg btn-default dropdown-toggle title-dropdown" title="Shopping list options..." data-toggle="dropdown">
+                    <span style="font-size: smaller" data-bind="text: Title"></span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#" data-bind="click: shareList, style: getEnabledStyle(permissions.Share)">Share...</a></li>
+                    <li><a href="#" data-bind="click: changeListTitle, style: getEnabledStyle(permissions.Edit)">Change title</a></li>
+                    <li><a href="#" data-bind="click: addListItem, style: getEnabledStyle(permissions.AddListItems)">Add item</a></li>
+                    <li><a href="#" data-bind="click: unpickAllListItems, style: getEnabledStyle(permissions.PickOrUnpickListItems)">Unpick all items</a></li>
+                </ul>
+            </div>
         </div>
 
         <div class="visible-xs" style="margin-top: 1em"></div>
 
-        <div class="btn-group">
+        <div class="btn-group item-toolbar">
             @* Add list item button. *@
             <div class="btn-group">
-                <button type="button" class="btn btn-default btn-lg" title="Add new list item." data-bind="click: addListItem, enable: checkPermission(permissions.AddListItems)">
+                <button type="button" class="btn btn-default btn-lg" title="Add new list item" data-bind="click: addListItem, enable: checkPermission(permissions.AddListItems)">
                     <span class="glyphicon glyphicon-plus-sign"></span>
                 </button>
             </div>
@@ -44,25 +47,25 @@
             <div class="btn-group" data-toggle="buttons">
 
                 @* Pick list item tool. *@
-                <label class="btn btn-lg btn-default" title="Pick item." data-bind="click: function () { setTool('pickItem'); }">
+                <label class="btn btn-lg btn-default" title="Pick item" data-bind="click: function () { setTool('pickItem'); }">
                     <input type="radio" name="ListItemTools" value="pickItem" checked="checked" />
-                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-check"></span>
                 </label>
 
                 @* Unpick list item tool. *@
-                <label class="btn btn-lg btn-default" title="Unpick item." data-bind="click: function () { setTool('unpickItem'); }">
+                <label class="btn btn-lg btn-default" title="Unpick item" data-bind="click: function () { setTool('unpickItem'); }">
                     <input type="radio" name="ListItemTools" value="unpickItem" />
-                    <span class="glyphicon glyphicon-star-empty"></span>
+                    <span class="glyphicon glyphicon-unchecked"></span>
                 </label>
 
                 @* Edit list item tool. *@
-                <label class="btn btn-lg btn-default" title="Edit item details." data-bind="click: function () { setTool('editItem'); }">
+                <label class="btn btn-lg btn-default" title="Edit item details" data-bind="click: function () { setTool('editItem'); }">
                     <input type="radio" name="ListItemTools" value="editItem" />
                     <span class="glyphicon glyphicon-edit"></span>
                 </label>
 
                 @* Remove list item tool. *@
-                <label class="btn btn-lg btn-default" title="Remove item from list." data-bind="click: function () { setTool('removeItem'); }">
+                <label class="btn btn-lg btn-default" title="Remove item from list" data-bind="click: function () { setTool('removeItem'); }">
                     <input type="radio" name="ListItemTools" value="removeItem" />
                     <span class="glyphicon glyphicon-minus-sign"></span>
                 </label>
@@ -88,12 +91,6 @@
             <span class="" data-bind="text: $data"></span>
         </span>
     </div>
-
-    @* Back to 'My lists' button. *@
-    <hr />
-    <div class="btn-group">
-        <button type="button" class="btn btn-primary" title="Back to My Lists." data-bind="click: backToMyLists">Back to My Lists</button>
-    </div>
 </div>
 
 @Html.Partial("_ListItemEditForm")
@@ -111,13 +108,8 @@
             $(function () {
                 @Html.RenderPermissionsJs()
 
-                // SignalR client side hub.
                 var hub = getShoppingListHub();
-
-                // Create the main shopping list model.
                 var shoppingListModel = new ShoppingListModel(@Html.Raw(Json.Encode(Model)), hub, permissions);
-
-                // Start the hub connection.
                 hub.start(shoppingListModel);
             });
         }());
