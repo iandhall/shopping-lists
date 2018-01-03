@@ -1,7 +1,7 @@
 Shopping Lists
 ==============
 
-Create online shopping lists which can be shared by multiple users. Users can work together to collect items from a single list. The application shows which items have already picked and which items are still outstanding. Updates to list item picked/unpicked statuses are pushed from the server to the browser to give the app a "real-time" feel.
+Create online shopping lists which can be shared by multiple users. Users can work together to collect items from a single list. The application shows which items have been picked and which items are still outstanding. Updates to list item picked/unpicked statuses are pushed from the server to the browser to give the app a "real-time" feel.
 
 ![alt tag](https://raw.github.com/iandhall/shopping-lists/master/ShoppingLists.Web/Content/Images/shoppinglist2.png)
 
@@ -11,7 +11,7 @@ Real-time updates when a user picks, unpicks, adds or removes items.
 
 Permissions management: User can state which actions other users can perform on the shared shopping list.
 
-Real-time display of the other users that are viewing the shared shopping list.
+Shows which other users that are viewing the shared shopping list.
 
 Requirements
 ------------
