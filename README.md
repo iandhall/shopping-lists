@@ -1,11 +1,7 @@
 Shopping Lists
 ==============
 
-A real-time shopping lists web application.
-
-Share a shopping list with friends then go shopping. Work together while collecting items from the list. This application lets you know in real-time which items you or your friends have already picked (placed in your real world basket or cart) and which items are still outstanding.
-
-Designed for use on mobile devices.
+Create online shopping lists which can be shared by multiple users. Users can work together to collect items from a single list. The application shows which items have already picked and which items are still outstanding. Updates to list item picked/unpicked statuses are pushed from the server to the browser to give the app a "real-time" feel.
 
 ![alt tag](https://raw.github.com/iandhall/shopping-lists/master/ShoppingLists.Web/Content/Images/shoppinglist2.png)
 
@@ -25,13 +21,13 @@ __Client:__
 
 __Server:__
 
-* .NET Framework 4.5.1
+* .NET Framework 4.5.2
 * IIS or IIS Express (WebSockets support recommended).
-* SQL Server 2012 Express LocalDB.
+* SQL Server 2012+ Express LocalDB.
 
 __Dev Environment:__
 
-* Visual Studio 2013.
+* Visual Studio 2013+
 
 Starting the Application
 ------------------------
@@ -46,6 +42,8 @@ Starting the Application
 Technologies Used
 -----------------
 ASP.NET MVC 5
+
+Web API 2
 
 SignalR
 
@@ -63,30 +61,30 @@ Visual Studio Testing Tools
 
 Moq
 
-Dapper.NET (Used in unit tests)
+Effort (Used in integration tests)
 
 Architectural Features
 ----------------------
 Layered design separating the concerns of data access, business rules and UI presentation:
 
-* Data Access Layer - Accesses the database. Provides Repository classes for the Business layer to use.
+* Data Access Layer - Provides Repository classes for the Business layer to use. Repositories serve as an abstraction of IQueryable LINQ. Only IEnumerable gets exposed to the Business Layer.
 
-* Business Layer - Applies business transactional rules. Unconcerned with how the data gets persisted. Provides Service classes for the Web UI to use.
+* Business Layer - Business logic in service classes which are used by the Web API and UI. Not concerned with how the data gets persisted. 
 
-* Web UI - Only concerned with web presentational logic. Converts entities to view models.
+* Web UI and API - Only concerned with web presentational logic. Converts entities to view models.
+
+Custom attributes for validating anti-forgery token in AJAX post requests.
 
 MVVM: JSON view models. Knockout.js. AJAX and SignalR.
 
-Bootstrap modal popup forms.
+Custom user account persistence (wired up own UserService class to Identity to make it work with the layered architecture).
 
-Responsive display adjusts to small screens.
+Dependency Injection used throughout.
 
-Custom user account persistence.
+Client:
 
-Knockout form validation.
+* Bootstrap modal popup forms.
 
-Service error reporting on the client.
+* Responsive display adjusts to small screens.
 
-Transactions and database connections handled by UnitOfWork.
-
-Attributes used to apply UnitOfWork to hub methods and controller actions.
+* Knockout form validation.
