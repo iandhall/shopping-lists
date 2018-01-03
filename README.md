@@ -7,7 +7,7 @@ Share a shopping list with friends then go shopping. Work together while collect
 
 Designed for use on mobile devices.
 
-![alt tag](https://raw.github.com/iandhall/shopping-lists/master/ShoppingLists.Web/Content/Images/shoppinglist.jpg)
+![alt tag](https://raw.github.com/iandhall/shopping-lists/master/ShoppingLists.Web/Content/Images/shoppinglist2.png)
 
 Features
 --------
