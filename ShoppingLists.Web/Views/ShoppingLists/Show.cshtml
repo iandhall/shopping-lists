@@ -33,7 +33,7 @@
             </div>
         </div>
 
-        <div class="visible-xs" style="margin-top: 1em"></div>
+        <div class="v-spacer"></div>
 
         <div class="btn-group item-toolbar">
             @* Add list item button. *@
@@ -111,6 +111,11 @@
                 var hub = getShoppingListHub();
                 var shoppingListModel = new ShoppingListModel(@Html.Raw(Json.Encode(Model)), hub, permissions);
                 hub.start(shoppingListModel);
+
+                // Disconnect SignalR on unload
+                $(window).on("beforeunload", function () {
+                    $.connection.hub.stop();
+                });
             });
         }());
     </script>
