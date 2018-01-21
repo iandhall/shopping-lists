@@ -13,6 +13,7 @@ using ShoppingLists.Web.Models;
 namespace ShoppingLists.Web.Api
 {
     [RoutePrefix("api/shopping-lists")]
+    [Authorize]
     [ApiValidateAntiForgeryHeader]
     public class ShoppingListsController : ApiController
     {

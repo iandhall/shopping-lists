@@ -11,6 +11,7 @@ using ShoppingLists.BusinessLayer.Exceptions;
 
 namespace ShoppingLists.Web.Hubs
 {
+    [Authorize]
     public class ShoppingListHub : Hub
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();

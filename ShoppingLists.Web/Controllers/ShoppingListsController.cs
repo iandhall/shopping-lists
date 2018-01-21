@@ -6,6 +6,7 @@ using ShoppingLists.Web.Models;
 
 namespace ShoppingLists.Web.Controllers
 {
+    [Authorize]
     public class ShoppingListsController : Controller
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
