@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using ShoppingLists.Shared;
 using ShoppingLists.Shared.Entities;
+using ShoppingLists.Shared.RepositoryInterfaces;
 
 namespace ShoppingLists.DataAccessLayer
 {
-    public class ShoppingListRepository
+    public class ShoppingListRepository : IShoppingListRepository
     {
         private ShoppingListsDbContext _dbContext;
 

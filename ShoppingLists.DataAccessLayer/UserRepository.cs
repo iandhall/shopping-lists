@@ -5,10 +5,11 @@ using System.Linq;
 using ShoppingLists.Shared;
 using ShoppingLists.Shared.Entities;
 using System.Data.Entity;
+using ShoppingLists.Shared.RepositoryInterfaces;
 
 namespace ShoppingLists.DataAccessLayer
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private ShoppingListsDbContext dbContext;
 

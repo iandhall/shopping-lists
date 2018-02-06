@@ -1,28 +1,29 @@
 ﻿using ShoppingLists.Shared.Entities;
 using ShoppingLists.Shared;
 using ShoppingLists.BusinessLayer.Exceptions;
-using ShoppingLists.DataAccessLayer;
+using ShoppingLists.Shared.RepositoryInterfaces;
+using ShoppingLists.Shared.ServiceInterfaces;
 
 namespace ShoppingLists.BusinessLayer
 {
-    public class ListItemService
+    public class ListItemService : IListItemService
     {
         private IUnitOfWork _unitOfWork;
         private IUserContext _userContext;
-        private ListItemRepository _listItemRepository;
-        private PermissionService _permissionsHelper;
+        private IListItemRepository _listItemRepository;
+        private IPermissionService _permissionService;
 
-        public ListItemService(IUnitOfWork unitOfWork, IUserContext userContext, ListItemRepository repository, PermissionService permissionsHelper)
+        public ListItemService(IUnitOfWork unitOfWork, IUserContext userContext, IListItemRepository repository, IPermissionService permissionService)
         {
             _unitOfWork = unitOfWork;
             _userContext = userContext;
             _listItemRepository = repository;
-            _permissionsHelper = permissionsHelper;
+            _permissionService = permissionService;
         }
 
         public ListItem Create(string description, int quantity, long shoppingListId)
         {
-            _permissionsHelper.Check(_userContext.UserId, Permissions.AddListItems, shoppingListId); // Don't allow if user does not have permission to add ListItems.
+            _permissionService.Check(_userContext.UserId, Permissions.AddListItems, shoppingListId); // Don't allow if user does not have permission to add ListItems.
             if (string.IsNullOrWhiteSpace(description))
             {
                 throw new EmptyStringException("description");
@@ -49,7 +50,7 @@ namespace ShoppingLists.BusinessLayer
 
         public ListItem Pick(long listItemId, long shoppingListId)
         {
-            _permissionsHelper.Check(_userContext.UserId, Permissions.PickOrUnpickListItems, shoppingListId); // Don't allow if user does not have permission to pick/unpick ListItems.
+            _permissionService.Check(_userContext.UserId, Permissions.PickOrUnpickListItems, shoppingListId); // Don't allow if user does not have permission to pick/unpick ListItems.
             var listItem = _listItemRepository.Get(listItemId);
             if (listItem == null)
             {
@@ -71,7 +72,7 @@ namespace ShoppingLists.BusinessLayer
 
         public ListItem Unpick(long listItemId, long shoppingListId)
         {
-            _permissionsHelper.Check(_userContext.UserId, Permissions.PickOrUnpickListItems, shoppingListId); // Don't allow if user does not have permission to pick/unpick ListItems.
+            _permissionService.Check(_userContext.UserId, Permissions.PickOrUnpickListItems, shoppingListId); // Don't allow if user does not have permission to pick/unpick ListItems.
             var listItem = _listItemRepository.Get(listItemId);
             if (listItem.ShoppingListId != shoppingListId)
             {
@@ -89,7 +90,7 @@ namespace ShoppingLists.BusinessLayer
 
         public ListItem Update(string description, int quantity, long listItemId, long shoppingListId)
         {
-            _permissionsHelper.Check(_userContext.UserId, Permissions.EditListItems, shoppingListId); // Don't allow if user does not have permission to change ListItems descriptions.
+            _permissionService.Check(_userContext.UserId, Permissions.EditListItems, shoppingListId); // Don't allow if user does not have permission to change ListItems descriptions.
             if (string.IsNullOrWhiteSpace(description))
             {
                 throw new EmptyStringException("description");
@@ -121,7 +122,7 @@ namespace ShoppingLists.BusinessLayer
 
         public void Delete(long listItemId, long shoppingListId)
         {
-            _permissionsHelper.Check(_userContext.UserId, Permissions.RemoveListItems, shoppingListId); // Don't allow if user does not have permission to remove ListItems.
+            _permissionService.Check(_userContext.UserId, Permissions.RemoveListItems, shoppingListId); // Don't allow if user does not have permission to remove ListItems.
             var listItem = _listItemRepository.Get(listItemId);
             if (listItem == null)
             {

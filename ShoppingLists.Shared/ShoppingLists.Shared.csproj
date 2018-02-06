@@ -60,6 +60,16 @@
     <Compile Include="Entities\PermissionType.cs" />
     <Compile Include="Entities\ShoppingList.cs" />
     <Compile Include="Entities\Permission.cs" />
+    <Compile Include="RepositoryInterfaces\IListItemRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IPermissionRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IPermissionTypeRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IShoppingListRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IUserRepository.cs" />
+    <Compile Include="ServiceInterfaces\IListItemService.cs" />
+    <Compile Include="ServiceInterfaces\IPermissionService.cs" />
+    <Compile Include="ServiceInterfaces\IPermissionTypeService.cs" />
+    <Compile Include="ServiceInterfaces\IShoppingListService.cs" />
+    <Compile Include="ServiceInterfaces\IUserService.cs" />
     <Compile Include="Statuses.cs" />
     <Compile Include="Entities\TimestampedEntity.cs" />
     <Compile Include="Entities\User.cs" />

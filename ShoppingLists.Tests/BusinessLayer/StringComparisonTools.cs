@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShoppingLists.BusinessLayer;
@@ -10,7 +9,7 @@ namespace ShoppingLists.Tests.BusinessLayer
     public class StringComparisonToolsTests
     {
         [TestMethod]
-        public void ShouldAllowAlphaNumericStringsToBeSorted()
+        public void PadNumbers_ShouldAllowAlphaNumericStringsToBeSorted_WhenUsedAsTheKeySelectorInALinqOrderBy()
         {
             var strings = new List<string>()
             {

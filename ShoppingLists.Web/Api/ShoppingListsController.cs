@@ -8,6 +8,7 @@ using NLog;
 using ShoppingLists.BusinessLayer;
 using ShoppingLists.BusinessLayer.Exceptions;
 using ShoppingLists.Shared;
+using ShoppingLists.Shared.ServiceInterfaces;
 using ShoppingLists.Web.Models;
 
 namespace ShoppingLists.Web.Api
@@ -19,11 +20,11 @@ namespace ShoppingLists.Web.Api
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private IUserContext _userContext;
-        private ShoppingListService _shoppingListService;
-        private UserService _userService;
-        private PermissionTypeService _permissionTypeService;
+        private IShoppingListService _shoppingListService;
+        private IUserService _userService;
+        private IPermissionTypeService _permissionTypeService;
 
-        public ShoppingListsController(IUserContext userContext, ShoppingListService shoppingListService, UserService userService, PermissionTypeService permissionTypeService)
+        public ShoppingListsController(IUserContext userContext, IShoppingListService shoppingListService, IUserService userService, IPermissionTypeService permissionTypeService)
         {
             _userContext = userContext;
             _shoppingListService = shoppingListService;

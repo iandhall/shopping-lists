@@ -2,6 +2,7 @@
 using ShoppingLists.DataAccessLayer;
 using ShoppingLists.BusinessLayer;
 using System.Reflection;
+using ShoppingLists.Shared.ServiceInterfaces;
 
 [assembly: CompositionRootType(typeof(BusinessCompositionRoot))]
 
@@ -12,11 +13,11 @@ namespace ShoppingLists.BusinessLayer
     {
         public void Compose(IServiceRegistry serviceRegistry)
         {
-            serviceRegistry.Register<PermissionService>(new PerScopeLifetime());
-            serviceRegistry.Register<ShoppingListService>(new PerScopeLifetime());
-            serviceRegistry.Register<ListItemService>(new PerScopeLifetime());
-            serviceRegistry.Register<UserService>(new PerScopeLifetime());
-            serviceRegistry.Register<PermissionTypeService>(new PerScopeLifetime());
+            serviceRegistry.Register<IPermissionService, PermissionService>(new PerScopeLifetime());
+            serviceRegistry.Register<IShoppingListService, ShoppingListService>(new PerScopeLifetime());
+            serviceRegistry.Register<IListItemService, ListItemService>(new PerScopeLifetime());
+            serviceRegistry.Register<IUserService, UserService>(new PerScopeLifetime());
+            serviceRegistry.Register<IPermissionTypeService, PermissionTypeService>(new PerScopeLifetime());
 
             serviceRegistry.RegisterAssembly(Assembly.GetAssembly(typeof(DataAccessCompositionRoot))); // LightInject needs to be told to scan ShoppingLists.DataAccessLayer for a comp. root.
         }

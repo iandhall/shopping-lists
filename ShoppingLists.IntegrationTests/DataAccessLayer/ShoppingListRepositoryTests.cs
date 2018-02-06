@@ -6,7 +6,7 @@ using ShoppingLists.DataAccessLayer;
 using ShoppingLists.Shared;
 using ShoppingLists.Shared.Entities;
 
-namespace ShoppingLists.Tests.DataAccessLayer
+namespace ShoppingLists.IntegrationTests.DataAccessLayer
 {
     [TestClass]
     public class ShoppingListRepositoryTests
@@ -26,7 +26,7 @@ namespace ShoppingLists.Tests.DataAccessLayer
         }
 
         [TestMethod]
-        public void ShouldRetriveAShoppingListAndPopulateListItemsWhenIncludeListItemsParameterIsTrue()
+        public void Get_ShouldRetriveAShoppingListAndPopulateListItemsWhenIncludeListItemsParameterIsTrue()
         {
             var testDataKeys = CreateTestData();
 
@@ -40,28 +40,28 @@ namespace ShoppingLists.Tests.DataAccessLayer
         }
 
         [TestMethod]
-        public void ShouldRetriveAShoppingListWithoutPopulatingListItemsWhenIncludeListItemsParameterIsNotSpecified()
+        public void Get_ShouldRetriveAShoppingListWithoutPopulatingListItemsWhenIncludeListItemsParameterIsNotSpecified()
         {
             //Assert.IsNull(shoppingList.ListItems);
             //Effort always applies DbSet.Includes
         }
 
         [TestMethod]
-        public void ShouldRetriveAShoppingListAndPopulateCreatorWhenIncludeCreatorParameterIsTrue()
+        public void Get_ShouldRetriveAShoppingListAndPopulateCreatorWhenIncludeCreatorParameterIsTrue()
         {
             //Assert.IsNotNull(shoppingList.Creator);
             //Effort always applies DbSet.Includes
         }
 
         [TestMethod]
-        public void ShouldRetriveAShoppingListWithoutPopulatingCreatorWhenIncludeCreatorParameterIsNotSpecified()
+        public void Get_ShouldRetriveAShoppingListWithoutPopulatingCreatorWhenIncludeCreatorParameterIsNotSpecified()
         {
             //Assert.IsNull(shoppingList.Creator);
             //Effort always applies DbSet.Includes
         }
 
         [TestMethod]
-        public void ShouldFindAllShoppingListsForTheGivenCreator()
+        public void FindAllForUser_ShouldFindAllShoppingListsForTheGivenCreator()
         {
             var testDataKeys = CreateTestData();
 
@@ -76,7 +76,7 @@ namespace ShoppingLists.Tests.DataAccessLayer
         }
 
         [TestMethod]
-        public void ShouldFindAShoppingListForTheGivenTitleAndCreator()
+        public void FindAllForUser_ShouldFindAShoppingListForTheGivenTitleAndCreator()
         {
             var testDataKeys = CreateTestData();
 

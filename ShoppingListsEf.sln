@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingLists.Web", "ShoppingLists.Web\ShoppingLists.Web.csproj", "{D0016C77-DA4D-4285-9F9F-AB403BD42567}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingLists.DataAccessLayer", "ShoppingLists.DataAccessLayer\ShoppingLists.DataAccessLayer.csproj", "{67BEA5B3-F1F3-48C6-817C-9BA85A869175}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingLists.Tests", "ShoppingLists.Tests\ShoppingLists.Tests.csproj", "{D44E6C38-1FAB-4D37-B67D-82E61C70C162}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingLists.IntegrationTests", "ShoppingLists.IntegrationTests\ShoppingLists.IntegrationTests.csproj", "{D44E6C38-1FAB-4D37-B67D-82E61C70C162}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingLists.BusinessLayer", "ShoppingLists.BusinessLayer\ShoppingLists.BusinessLayer.csproj", "{ABB0372D-ED7D-42A1-8E94-AFC6430032D1}"
 EndProject
@@ -21,6 +21,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingLists.Shared", "ShoppingLists.Shared\ShoppingLists.Shared.csproj", "{35A2A628-2A06-4EB3-9099-E42435B176E3}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ShoppingLists.Db", "ShoppingLists.Db\ShoppingLists.Db.sqlproj", "{4938B178-E424-4D2D-9DE4-A8488D0DFB93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingLists.Tests", "ShoppingLists.Tests\ShoppingLists.Tests.csproj", "{55A1E7ED-CB1B-4213-B1D8-6CDFF3366940}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +54,10 @@ Global
 		{4938B178-E424-4D2D-9DE4-A8488D0DFB93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4938B178-E424-4D2D-9DE4-A8488D0DFB93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4938B178-E424-4D2D-9DE4-A8488D0DFB93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55A1E7ED-CB1B-4213-B1D8-6CDFF3366940}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55A1E7ED-CB1B-4213-B1D8-6CDFF3366940}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55A1E7ED-CB1B-4213-B1D8-6CDFF3366940}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55A1E7ED-CB1B-4213-B1D8-6CDFF3366940}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

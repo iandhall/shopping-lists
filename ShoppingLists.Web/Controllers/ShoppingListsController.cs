@@ -2,6 +2,7 @@
 using NLog;
 using ShoppingLists.BusinessLayer;
 using ShoppingLists.Shared;
+using ShoppingLists.Shared.ServiceInterfaces;
 using ShoppingLists.Web.Models;
 
 namespace ShoppingLists.Web.Controllers
@@ -11,10 +12,10 @@ namespace ShoppingLists.Web.Controllers
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private IUserContext _userContext;
-        private ShoppingListService _shoppingListService;
-        private UserService _userService;
+        private IShoppingListService _shoppingListService;
+        private IUserService _userService;
 
-        public ShoppingListsController(IUserContext userContext, ShoppingListService shoppingListService, UserService userService)
+        public ShoppingListsController(IUserContext userContext, IShoppingListService shoppingListService, IUserService userService)
         {
             _userContext = userContext;
             _shoppingListService = shoppingListService;

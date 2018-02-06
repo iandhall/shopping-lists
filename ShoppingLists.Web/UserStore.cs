@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using ShoppingLists.BusinessLayer;
+using ShoppingLists.Shared.ServiceInterfaces;
 using ShoppingLists.Web.Models;
 
 namespace ShoppingLists.Web
 {
     public class UserStore : IUserStore<AspNetUser>, IUserPasswordStore<AspNetUser>, IUserSecurityStampStore<AspNetUser>
     {
-        private UserService service;
+        private IUserService service;
 
-        public UserStore(UserService service)
+        public UserStore(IUserService service)
         {
             this.service = service;
         }

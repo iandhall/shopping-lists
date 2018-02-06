@@ -7,7 +7,7 @@ using ShoppingLists.DataAccessLayer;
 using ShoppingLists.Shared;
 using ShoppingLists.Shared.Entities;
 
-namespace ShoppingLists.Tests.DataAccessLayer
+namespace ShoppingLists.IntegrationTests.DataAccessLayer
 {
     [TestClass]
     public class PermissionRepositoryTests
@@ -27,7 +27,7 @@ namespace ShoppingLists.Tests.DataAccessLayer
         }
 
         [TestMethod]
-        public void ShouldRetriveAPermissionForTheSpecifiedPermissionIdUserAndShoppingList()
+        public void Get_ShouldRetriveAPermissionForTheSpecifiedPermissionIdUserAndShoppingList()
         {
             var testDataKeys = CreateTestData();
 
@@ -43,7 +43,7 @@ namespace ShoppingLists.Tests.DataAccessLayer
         }
 
         [TestMethod]
-        public void ShouldRetieveAllPermissionsForAGivenUserAndShoppingList()
+        public void FindAllForUserAndShoppingList_ShouldRetieveAllPermissionsForAGivenUserAndShoppingList()
         {
             var testDataKeys = CreateTestData();
 
@@ -57,7 +57,7 @@ namespace ShoppingLists.Tests.DataAccessLayer
         }
 
         [TestMethod]
-        public void ShouldDeleteAllPermissionsForTheGivenUserAndShoppingList()
+        public void DeleteAllForUserAndShoppingList_ShouldDeleteAllPermissionsForTheGivenUserAndShoppingList()
         {
             var testDataKeys = CreateTestData();
 

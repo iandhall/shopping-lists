@@ -4,8 +4,6 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using ShoppingLists.Web.Models;
-using ShoppingLists.Web.Filters;
-using ShoppingLists.Shared;
 
 namespace ShoppingLists.Web.Controllers
 {

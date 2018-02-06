@@ -6,7 +6,7 @@ using ShoppingLists.Shared;
 using ShoppingLists.Shared.Entities;
 using System.Collections.Generic;
 
-namespace ShoppingLists.Tests
+namespace ShoppingLists.IntegrationTests
 {
     public class TestUtils
     {

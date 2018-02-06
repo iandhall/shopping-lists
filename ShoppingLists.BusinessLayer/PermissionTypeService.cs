@@ -2,15 +2,16 @@
 using System.Linq;
 using ShoppingLists.Shared.Entities;
 using ShoppingLists.BusinessLayer.Exceptions;
-using ShoppingLists.DataAccessLayer;
+using ShoppingLists.Shared.RepositoryInterfaces;
+using ShoppingLists.Shared.ServiceInterfaces;
 
 namespace ShoppingLists.BusinessLayer
 {
-    public class PermissionTypeService
+    public class PermissionTypeService : IPermissionTypeService
     {
-        private PermissionTypeRepository _permissionTypeRepository;
+        private IPermissionTypeRepository _permissionTypeRepository;
 
-        public PermissionTypeService(PermissionTypeRepository repository)
+        public PermissionTypeService(IPermissionTypeRepository repository)
         {
             this._permissionTypeRepository = repository;
         }

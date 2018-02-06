@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using ShoppingLists.Shared;
 using ShoppingLists.Shared.Entities;
-using ShoppingLists.DataAccessLayer;
+using ShoppingLists.Shared.RepositoryInterfaces;
+using ShoppingLists.Shared.ServiceInterfaces;
 
 namespace ShoppingLists.BusinessLayer
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private IUnitOfWork _unitOfWork;
-        private UserRepository _userRepository;
-        private PermissionService _permissionHelper;
+        private IUserRepository _userRepository;
+        private IPermissionService _permissionService;
 
-        public UserService(IUnitOfWork unitOfWork, UserRepository userRepository, PermissionService permissionHelper)
+        public UserService(IUnitOfWork unitOfWork, IUserRepository userRepository, IPermissionService permissionService)
         {
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
-            _permissionHelper = permissionHelper;
+            _permissionService = permissionService;
         }
 
         public User Get(string id, bool includePermissions = false, long? shoppingListId = null)
@@ -58,7 +59,7 @@ namespace ShoppingLists.BusinessLayer
 
         public void SetPermissions(string userId, long shoppingListId, IEnumerable<long> permissionIds)
         {
-            _permissionHelper.SetAllForUser(userId, shoppingListId, permissionIds);
+            _permissionService.SetAllForUser(userId, shoppingListId, permissionIds);
             _unitOfWork.SaveChanges();
         }
     }

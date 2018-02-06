@@ -1,13 +1,12 @@
 ﻿using System;
-using Microsoft.AspNet.SignalR;
-using ShoppingLists.BusinessLayer;
-using ShoppingLists.Shared;
 using System.Threading.Tasks;
-using ShoppingLists.Web.Models;
-using NLog;
-using LightInject;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.SignalR;
+using NLog;
 using ShoppingLists.BusinessLayer.Exceptions;
+using ShoppingLists.Shared;
+using ShoppingLists.Shared.ServiceInterfaces;
+using ShoppingLists.Web.Models;
 
 namespace ShoppingLists.Web.Hubs
 {
@@ -16,11 +15,11 @@ namespace ShoppingLists.Web.Hubs
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private IUserContext _userContext;
-        private ShoppingListService _shoppingListService;
-        private ListItemService _listItemService;
-        private UserService _userService;
+        private IShoppingListService _shoppingListService;
+        private IListItemService _listItemService;
+        private IUserService _userService;
 
-        public ShoppingListHub(IUserContext userContext, ShoppingListService shoppingListService, ListItemService listItemService, UserService userService)
+        public ShoppingListHub(IUserContext userContext, IShoppingListService shoppingListService, IListItemService listItemService, IUserService userService)
         {
             _userContext = userContext;
             _shoppingListService = shoppingListService;
