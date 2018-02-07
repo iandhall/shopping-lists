@@ -26,49 +26,8 @@ namespace ShoppingLists.IntegrationTests.BusinessLayer
             _connection.Dispose();
         }
 
-        //[TestMethod, ExpectedException(typeof(EntityNotFoundException))]
-        //public void Get_ShouldThrowEntityNotFoundExceptionIfTheGivenEntityDoesntExist()
-        //{
-        //    var userContext = new MockUserContext(TestUtils.NewId());
-        //    using (var dbContext = TestUtils.CreateDbContext(_connection, userContext))
-        //    using (IUnitOfWork unitOfWork = new EfUnitOfWork(dbContext))
-        //    {
-        //        var shoppingListService = CreateShoppingListService(userContext, dbContext, unitOfWork);
-        //        var shoppingList = shoppingListService.Get(9999);
-        //    }
-        //}
-
-        [TestMethod]
-        public void Create_ShouldCreateAShoppingListAndAssignNextUniqueTitle()
-        {
-            var userContext = new MockUserContext(TestUtils.NewId());
-
-            using (var dbContext = TestUtils.CreateDbContext(_connection, userContext))
-            {
-                dbContext.ShoppingLists.AddRange(new List<ShoppingList>
-                {
-                    new ShoppingList { Title = "Shopping List #A" },
-                    new ShoppingList { Title = "Shopping List #1" },
-                    new ShoppingList { Title = "Shopping List #0" },
-                    new ShoppingList { Title = "Shopping List #10" },
-                    new ShoppingList { Title = "Shopping List #3" },
-                    new ShoppingList { Title = "Shopping List #2" },
-                    new ShoppingList { Title = "Shopping List #Z" }
-                });
-                dbContext.SaveChanges();
-            }
-
-            using (var dbContext = TestUtils.CreateDbContext(_connection, userContext))
-            using (IUnitOfWork unitOfWork = new EfUnitOfWork(dbContext))
-            {
-                var shoppingListService = CreateShoppingListService(userContext, dbContext, unitOfWork);
-                var shoppingList = shoppingListService.Create();
-                Assert.AreEqual("Shopping List #11", shoppingList.Title);
-            }
-        }
-
         [TestMethod, ExpectedException(typeof(PermissionNotFoundException))]
-        public void Get_ShouldThrowPermissionNotFoundExceptionIfTheShoppingListHasNoAssociatedPermissions()
+        public void Get_ShouldThrowPermissionNotFoundException_IfTheShoppingListHasNoAssociatedPermissions()
         {
             var userContext = new MockUserContext(TestUtils.NewId());
             long shoppingListId;

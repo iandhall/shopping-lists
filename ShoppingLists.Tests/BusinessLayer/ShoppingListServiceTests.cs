@@ -16,7 +16,7 @@ namespace ShoppingLists.Tests.BusinessLayer
     public class ShoppingListServiceTests
     {
         [TestMethod, ExpectedException(typeof(EntityNotFoundException))]
-        public void Get_ShouldThrowEntityNotytiFoundExceptionIfTheGivenEntityDoesntExist()
+        public void Get_ShouldThrowEntityNotFoundException_IfTheGivenEntityDoesntExist()
         {
             var userContext = new MockUserContext(NewId());
             var shoppingListRepositoryMock = new Mock<IShoppingListRepository>();
@@ -28,7 +28,7 @@ namespace ShoppingLists.Tests.BusinessLayer
         }
 
         [TestMethod]
-        public void Create_ShouldSetTheTitleToTheNextAvailableDefaultTitle()
+        public void Create_ShouldSetTheTitleToTheNextAvailableDefaultTitle_WhenCalled()
         {
             var userContext = new MockUserContext(NewId());
             var shoppingListRepositoryMock = new Mock<IShoppingListRepository>();
@@ -37,16 +37,20 @@ namespace ShoppingLists.Tests.BusinessLayer
             {
                 new ShoppingList { Title = "Shopping List #1" },
                 // "Shopping List #2 is missing from list
-                new ShoppingList { Title = "Shopping List #3" }
+                new ShoppingList { Title = "Shopping List #3" },
+                new ShoppingList { Title = "Shopping List #5" },
+                new ShoppingList { Title = "Shopping List #6" },
+                new ShoppingList { Title = "Shopping List #10" },
+                new ShoppingList { Title = "Shopping List #20" }
             });
             var shoppingListService = CreateShoppingListService(userContext, shoppingListRepositoryMock.Object);
 
             var shoppingList = shoppingListService.Create();
-            Assert.AreEqual("Shopping List #4", shoppingList.Title);
+            Assert.AreEqual("Shopping List #21", shoppingList.Title);
         }
 
         [TestMethod, ExpectedException(typeof(EmptyStringException))]
-        public void Update_ShouldFailIfTitleIsNull()
+        public void Update_ShouldFail_IfTitleIsNull()
         {
             var userContext = new MockUserContext(NewId());
             var shoppingListRepositoryMock = new Mock<IShoppingListRepository>();
@@ -56,7 +60,7 @@ namespace ShoppingLists.Tests.BusinessLayer
         }
 
         [TestMethod, ExpectedException(typeof(ShoppingListTitleDuplicateException))]
-        public void Update_ShouldFailIfTitleIsADuplicate()
+        public void Update_ShouldFail_IfTitleIsADuplicate()
         {
             var title = "Existing Shopping List";
             var userContext = new MockUserContext(NewId());
@@ -69,7 +73,7 @@ namespace ShoppingLists.Tests.BusinessLayer
         }
         
         [TestMethod, ExpectedException(typeof(EntityNotFoundException))]
-        public void Update_ShouldFailIfShoppingListNotFound()
+        public void Update_ShouldFail_WhenShoppingListNotFound()
         {
             var userContext = new MockUserContext(NewId());
             var shoppingListRepositoryMock = new Mock<IShoppingListRepository>();

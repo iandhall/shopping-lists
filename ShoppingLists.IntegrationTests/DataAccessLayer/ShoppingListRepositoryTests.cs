@@ -26,7 +26,7 @@ namespace ShoppingLists.IntegrationTests.DataAccessLayer
         }
 
         [TestMethod]
-        public void Get_ShouldRetriveAShoppingListAndPopulateListItemsWhenIncludeListItemsParameterIsTrue()
+        public void Get_ShouldRetriveAShoppingListAndPopulateListItems_WhenIncludeListItemsParameterIsTrue()
         {
             var testDataKeys = CreateTestData();
 
@@ -40,28 +40,28 @@ namespace ShoppingLists.IntegrationTests.DataAccessLayer
         }
 
         [TestMethod]
-        public void Get_ShouldRetriveAShoppingListWithoutPopulatingListItemsWhenIncludeListItemsParameterIsNotSpecified()
+        public void Get_ShouldRetriveAShoppingListWithoutPopulatingListItems_WhenIncludeListItemsParameterIsNotSpecified()
         {
             //Assert.IsNull(shoppingList.ListItems);
             //Effort always applies DbSet.Includes
         }
 
         [TestMethod]
-        public void Get_ShouldRetriveAShoppingListAndPopulateCreatorWhenIncludeCreatorParameterIsTrue()
+        public void Get_ShouldRetriveAShoppingListAndPopulateCreator_WhenIncludeCreatorParameterIsTrue()
         {
             //Assert.IsNotNull(shoppingList.Creator);
             //Effort always applies DbSet.Includes
         }
 
         [TestMethod]
-        public void Get_ShouldRetriveAShoppingListWithoutPopulatingCreatorWhenIncludeCreatorParameterIsNotSpecified()
+        public void Get_ShouldRetriveAShoppingListWithoutPopulatingCreator_WhenIncludeCreatorParameterIsNotSpecified()
         {
             //Assert.IsNull(shoppingList.Creator);
             //Effort always applies DbSet.Includes
         }
 
         [TestMethod]
-        public void FindAllForUser_ShouldFindAllShoppingListsForTheGivenCreator()
+        public void FindAllForUser_ShouldFindAllShoppingLists_ForTheGivenCreator()
         {
             var testDataKeys = CreateTestData();
 
@@ -76,7 +76,7 @@ namespace ShoppingLists.IntegrationTests.DataAccessLayer
         }
 
         [TestMethod]
-        public void FindAllForUser_ShouldFindAShoppingListForTheGivenTitleAndCreator()
+        public void FindAllForUser_ShouldFindAShoppingList_ForTheGivenTitleAndCreator()
         {
             var testDataKeys = CreateTestData();
 
