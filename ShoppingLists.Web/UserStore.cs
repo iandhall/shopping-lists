@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using ShoppingLists.BusinessLayer;
 using ShoppingLists.Shared.ServiceInterfaces;
 using ShoppingLists.Web.Models;
 
